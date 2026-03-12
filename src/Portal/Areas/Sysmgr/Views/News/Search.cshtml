@@ -1,0 +1,101 @@
+﻿@{
+    Layout = "~/Areas/Sysmgr/Views/Shared/_Layout.cshtml";
+}
+
+<!--主要內容-->
+@using (Html.BeginForm("SearchList", "News", FormMethod.Get))
+{       
+    <article class="contentArea" id="content">
+        <h1>資訊管理 <span>/ 搜尋 &amp; 修改</span>
+            <span class="tip">
+                <section class="tipBox">
+                    <span>&nbsp;</span>
+                    <ul>
+                        <li>填入您要搜尋的資訊。</li>
+                        <li>關鍵字搜尋為模糊比對，搜尋欄位為: 文章主題 / 摘要 / 文章內文 / 圖文編輯單位。</li>
+                    </ul>
+                </section>
+            </span>
+        </h1>
+
+        <section class="detailGroup">
+            <h3>條件設定</h3>
+            <ul>
+                <li>
+                    <p class="title">建立時間 : </p>
+                    <p class="info">
+                        <input type="text" id="datanotime_1" name="StartDate" class="datebox" style="width: 170px" />
+                        <label for="end">~ </label>
+                        <input type="text" id="datanotime_2" name="EndDate" class="datebox" style="width: 170px" />
+                    </p>
+                </li>
+                <li>
+                    <p class="title">發佈時間 : </p>
+                    <p class="info">
+                        <input type="text" id="startpubdate" name="PubStartDate" class="datebox" style="width: 170px" />
+                        <label for="end">~ </label>
+                        <input type="text" id="endpubdate" name="PubEndDate" class="datebox" style="width: 170px" />
+                    </p>
+                </li>
+                <li>
+                    <p class="title">關鍵字 : </p>
+                    <p class="info">
+                        <input name="KeyWord" type="text">
+                        <mark class="mark">(搜尋文章主題/摘要/文章內容欄位及編輯單位)</mark>
+                    </p>
+                </li>
+                <li>
+                    <p class="title">上線狀態 : </p>
+                    <select name="Status">
+                        <option value="">請選擇</option>
+                        <option value="1">上線中</option>
+                        <option value="0">下線中</option>
+                    </select>
+                </li>
+                @*<li>
+                    <p class="title">顯示於首頁 : </p>
+                    <select name="ShowIndex">
+                        <option value="">請選擇</option>
+                        <option value="1">是</option>
+                        <option value="0">否</option>
+                    </select>
+                </li>*@
+                <li>
+                    <p class="title">選擇類別 : </p>
+                    <select name="CataID">
+                        <option value="">請選擇</option>
+                        @foreach (var item in ViewBag.CataList)
+                        {
+                            <option value="@item.ID">@item.Title @if (item.Status == 0)
+                                                                 { <text>(下線)</text> }</option>
+                        }
+                    </select>
+                </li>
+                <li>
+                    <p class="title">建立人員 : </p>
+                    <select name="CreateUser">
+                        <option value="">請選擇</option>
+                        @foreach (var item in ViewBag.Users)
+                        {
+                            <option value="@item.ID">@item.Name</option>
+                        }
+                    </select>
+                </li>
+            </ul>
+        </section>
+
+        <!--功能操作-->
+        <section class="openArea">
+            <span class="open" title="開啟執行列">開啟執行列</span>
+        </section>
+        <section class="functionArea">
+            <span class="close" title="關閉執行列">關閉執行列</span>
+            <span class="close" title="關閉執行列" id="closeShort"></span>
+
+            <div>
+                <input name="按鈕" type="button" value="x 回上一頁" class="btnBack">
+                <input name="送出" type="submit" value="A 開始搜尋" class="btnSearch">
+            </div>
+        </section>
+    </article>
+}

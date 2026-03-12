@@ -1,0 +1,87 @@
+﻿@model Academy.Models.AdLink
+
+@{
+    Layout = "~/Areas/Sysmgr/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts {
+    <script>
+        $(function () {
+            // binds form submission and fields to the validation engine
+            $.validationEngine.defaults.scroll = false;
+            $("#formcontent").validationEngine();
+
+        });
+    </script>
+}
+
+<!--主要內容-->
+<article class="contentArea" id="content">
+    @using (Html.BeginForm("Add", "AdLink", FormMethod.Post, new { id = "formcontent", enctype = "multipart/form-data" }))
+    {       
+        <h1>首頁管理<span>/ 新增廣告圖</span>
+            <span class="tip">
+                <section class="tipBox">
+                    <span>&nbsp;</span>
+                    <ul>
+                        <li>填入您要新增的資訊。 *為必填欄位。</li>
+                    </ul>
+                </section>
+            </span>
+        </h1>
+        @Html.ValidationSummary(true)
+        <section class="detailGroup">
+            <h3>基本資料</h3>
+            <ul>
+                <li>
+                    <p class="title">主題 :</p>
+                    @Html.TextBoxFor(model => model.Title, new { @class = "validate[maxSize[100]] long", maxlength = "101" })
+                    <mark class="mark">(最多請輸入 100中英文字元)</mark>
+                </li>
+                <li>
+                    <p class="title">副標 :</p>
+                    @Html.TextBoxFor(model => model.SubTitle, new { @class = "validate[maxSize[200]] long", maxlength = "201" })
+                    <mark class="mark">(最多請輸入 200中英文字元)</mark>
+                </li>
+                <li>
+                    <p class="title">連結設定 :</p>
+                    @Html.TextBoxFor(model => model.LinkURL, new { @class = "long", maxlength = "101" })
+                    <mark class="mark">(請輸入包含http:// 之完整URL)</mark>
+                </li>
+                <li>
+                    <p class="title">開啟視窗<span class="mark"> *</span> :</p>
+                    @Html.RadioButtonFor(model => model.OpenType, 1, new { @id = "OpenTypeYes", @class = "validate[required] radio", @checked = "checked" })
+                    <span for="OpenTypeYes" title="">新視窗</span>
+                    @Html.RadioButtonFor(model => model.OpenType, 0, new { @id = "OpenTypeNo", value = 0, @class = "validate[required] radio" })
+                    <span for="OpenTypeNo" title="">本視窗</span>
+                </li>
+                <li>
+                    <p class="title">顯示狀態<span class="mark"> *</span> : </p>
+                    @Html.RadioButtonFor(model => model.Status, 1, new { @id = "StatusYes", @class = "validate[required] radio", @checked = "checked" })
+                    <span class="icon-on" for="StatusYes" title="是"></span>
+                    @Html.RadioButtonFor(model => model.Status, 0, new { @id = "StatusNo", value = 0, @class = "validate[required] radio" })
+                    <span class="icon-off" for="StatusNo" title="否"></span>
+                </li>
+                <li>
+                    <p class="title">廣告圖上傳<span class="mark"> *</span> :</p>
+                    <input type="file" name="file" class="validate[required] limmainAdLink">
+                    <mark class="mark">(寬235px * 高103px)</mark>
+                </li>
+            </ul>
+        </section>
+
+        <!--功能操作-->
+        <section class="openArea">
+            <span class="open" title="開啟執行列">開啟執行列</span>
+        </section>
+        <section class="functionArea">
+            <span class="close" title="關閉執行列">關閉執行列</span>
+            <span class="close" title="關閉執行列" id="closeShort"></span>
+
+            <div>
+                <input name="按鈕" type="button" class="btnBack" value="x 回上一頁">
+                <input name="送出" type="submit" class="btnAdd" value="B 確定新增">
+            </div>
+        </section>
+    }
+</article>

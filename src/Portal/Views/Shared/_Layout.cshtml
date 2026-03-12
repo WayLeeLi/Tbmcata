@@ -1,0 +1,176 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <!-- meta [start]-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <!--標題為動態資料-->
+    <title>@ViewBag.Title</title>
+    <meta name="keywords" content="台灣生技醫療照護輔具協會，台灣生技醫療協會，台灣生技醫療照護協會，台灣生技輔具協會，TBMCA，tbmca" />
+    <meta name="description" content="本協會於民國109年經內政部同意，正式更名為「台灣生技醫療照護輔具協會」，成為推展我國醫療輔具產業之獨立社團法人組織。產業含蓋範圍更由原先的電動代步車產業延伸至更廣義的醫療輔具產業，目前會員包括產業界與研發機構近100家公司陸續增加中，並積極招募擴大協會規模。在此，誠摯地邀請與我們有共同理念的產官學研單位依同來關懷並參與這波勢不可擋的潮流，讓協會能集結更多能量，為台灣高齡者與醫療輔具相關產業盡一份心力。" />
+    <meta name="Robots" content="all">
+    <meta http-equiv="content-language" content="zh-TW">
+    <link href="~/Scripts/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/Content/combine-zh-tw.css?v=20201023" type="text/css">
+    <link rel="stylesheet" href="/Content/usercss.css?v=20201023">
+    <link rel="stylesheet" href="/Content/tmcata.css?v=20201023">
+    <link rel="stylesheet" href="/Content/styles.css?v=20201023">
+    @RenderSection("styles", required: false)
+
+    <script src="/js/jquery-1.11.0.min.js"></script>
+    <script src="~/js/m_20201001.js"></script>
+
+    @RenderSection("scripts", required: false)
+</head>
+<body>
+    <div class="wrap">
+        <div class="minner">
+            <!--[header共用區塊-需獨立拆出來][--Start--]-->
+            <div id="Dyn_head">
+                <div class="header">
+                    <div class="minner">
+                        <div class="selfhead">
+                            <script src="~/js/userjs.js?v=20201023"></script>
+                            <div class="top">
+                                <div class="container">
+                                    <div class="msearch">
+                                        <form class="formBS" role="search" name="SearchMoForm" method="get" action="/home/search">
+                                            <div class="input-group">
+                                                <input id="sch_key" name="keyWord" type="text" class="form-control" placeholder="Search" value="@Request["keyWord"]">
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div>
+                                        <div class="mnavbar mn-collapse">
+                                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-toggle">
+                                                <span class="glyphicons show_lines">Menu</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <nav class="navbar navbar-static-top marginBottom-0" role="navigation">
+                                        <div class="navbar-header">
+                                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
+                                                <span class="sr-only">Toggle navigation</span>
+                                                <span class="icon-bar"></span>
+                                                <span class="icon-bar"></span>
+                                                <span class="icon-bar"></span>
+                                            </button>
+                                            <a class="navbar-brand" href="/"><img style="width:auto;height:100px;" src="/images/web/logo.png" alt=""></a>
+                                        </div>
+                                        <script defer="defer">
+                                            $(function () {
+                                                $(".navbar-header .navbar-toggle").on("click", function () {
+                                                    $(this).toggleClass("open");
+                                                    if ($(this).hasClass("open")) {
+                                                        $("#navbar-collapse-1").slideDown();
+                                                    } else {
+                                                        $("#navbar-collapse-1").slideUp();
+                                                    }
+                                                });
+                                                $('.dropdown-toggle').click(function () {
+                                                    if ($(this).next().is(":visible")) {
+                                                        $(this).removeClass('actived')
+                                                    } else {
+                                                        $(this).addClass('actived')
+                                                    }
+                                                    $(this).next().toggle();
+                                                });
+                                            });
+                                        </script>
+                                        <div class="collapse navbar-collapse" id="navbar-collapse-1">
+                                            <ul class="nav navbar-nav menu_bar">
+                                                <!-- 關於協會 -->
+                                                <li class="dropdown">
+                                                    <a class="dropdown-toggle" data-toggle="dropdown"><span>ABOUT US</span><span>關於協會</span></a>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a href="/about/info">協會簡介</a></li>
+                                                        <li><a href="/about/chairman">理事長的話</a></li>
+                                                        <li><a href="/about/member">組織成員</a></li>
+                                                        <!--<li><a href="/about/constitution">協會章程</a></li>-->
+                                                        <li><a href="/about/calendar">年度行事曆</a></li>
+                                                    </ul>
+                                                </li>
+                                                <!-- 最新消息 -->
+                                                <li class="dropdown">
+                                                    <a class="dropdown-toggle" data-toggle="dropdown"><span>NEWS</span><span>最新消息</span></a>
+                                                    <ul class="dropdown-menu dropodown2">
+                                                        <li><a href="/news/index">協會動態</a></li>
+                                                        <li><a href="/news/indexIndustry">產業訊息</a></li>
+                                                        <li><a href="/news/indexNotice">相關公告</a></li>
+                                                        <li class="dropdown third">
+                                                            <a class="dropdown-toggle" data-toggle="dropdown">影音專區</a>
+                                                            <ul class="dropdown-menu third-menu-down">
+                                                                <li><a href="/news/indexVideo">影音區</a></li>
+                                                                <li><a href="/news/indexPhoto">相片區</a></li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <!-- 會員專區 -->
+                                                <li class="dropdown">
+                                                    <a class="dropdown-toggle" data-toggle="dropdown"><span>MEMBERS</span><span>會員名錄</span></a>
+                                                    <ul class="dropdown-menu dropodown3">
+                                                        <li><a href="/member/index">會員專區</a></li>
+                                                        <li><a href="/member/join">申請入會</a></li>
+                                                    </ul>
+                                                </li>
+                                                <!-- 相關連結 -->
+                                                <li><a href="/About/Link"><span>CONNECTION</span><span>相關連結</span></a></li>
+                                                <!-- 聯絡我們 -->
+                                                <li><a href="/About/Contact"><span>CONTACT US</span><span>聯絡我們</span></a></li>
+                                                <!-- 檔案下載 -->
+                                                <li><a href="/About/Download"><span>DOWNLOAD</span><span>檔案下載</span></a></li>
+                                            </ul>
+                                        </div>
+                                    </nav>
+                                </div>
+                            </div>
+                            <!-- top 鍵 -->
+                            <div class="gototop" style="display: none; opacity: 1;">
+                                <a href="javascript:;"><img class="img-responsive" src="/images/web/top.png" alt=""></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--[header共用區塊-需獨立拆出來][--End--]-->
+            <!--[main共用區塊-需獨立拆出來][--Start--]-->
+            @RenderBody()
+            <!--[main共用區塊-需獨立拆出來][--End--]-->
+            <!--[footer共用區塊-需獨立拆出來][--Start--]-->
+            <div class="footer">
+                <div class="minner">
+                    <div id="Dyn_footer">
+                        <div class="go-pcurl"><a href="/">返回PC版網頁</a></div>
+
+                        <div class="copyright">
+                            <div class="footer-">
+                                <div class="container">
+                                    <div class="footer-logo">
+                                        <img src="/images/web/logo.png" alt="" class="img-resposive center-block">
+                                    </div>
+                                    <div class="footer-content">
+                                        <h1 class="footer-title">台灣生技醫療照護輔具協會</h1>
+                                        <h1 class="footer-title-en">Taiwan Bio-medical Care Association</h1>
+                                        <div class="footer-info">
+                                            <p>．電話：+886-02-8227-3639</p>
+                                            <p>．傳真：+886-02-8227-3638</p>
+                                            <p>．地址：23552新北市中和區中正路716號2樓之1</p>
+                                            <p class="text-indent">2F.-1, No.716, Jhongjheng Rd., Jhonghe Dist., New Taipei City 23552, Taiwan</p>
+                                            <p>．E-MAIL: tbmca@fmh.com.tw <span class="fb"><a href="/"><img src="/images/web/fb.png" alt=""></a></span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- generated at Thu Oct 01 2020 10:56:37 -->
+                    </div>
+
+                </div>
+            </div>
+            <!--[footer共用區塊-需獨立拆出來][--End--]-->
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,169 @@
+﻿@model Academy.Models.Member
+
+    @{
+        Layout = "~/Areas/Sysmgr/Views/Shared/_Layout.cshtml";
+    }
+
+    @section Scripts {
+        <script>
+            $(function () {
+                // binds form submission and fields to the validation engine
+                $.validationEngine.defaults.scroll = false;
+                $("#formcontent").validationEngine();
+
+            });
+        </script>
+    }
+
+    <!--主要內容-->
+    <article class="contentArea" id="content">
+        @using (Html.BeginForm("Edit", "Member", FormMethod.Post, new { id = "formcontent", enctype = "multipart/form-data" }))
+        {
+            <h1>
+                會員名錄<span>/ 編輯會員</span>
+                <span class="tip">
+                    <section class="tipBox">
+                        <span>&nbsp;</span>
+                        <ul>
+                            <li>填入您要新增的內容。 *為必填欄位。</li>
+                        </ul>
+                    </section>
+                </span>
+            </h1>
+            @Html.ValidationSummary(true)
+            @Html.HiddenFor(model => model.ID)
+            <section class="detailGroup">
+                <h3>基本資料</h3>
+                <ul>
+                    <li>
+                        <p class="title">公司名稱<span class="mark"> *</span> :</p>
+                        @Html.TextBoxFor(model => model.Name, new { @class = "validate[required,maxSize[30]] text-input long", maxlength = "31" })
+                        <mark class="mark">(最多請輸入 30中英文字元)</mark>
+                    </li>
+                    <li>
+                        <p class="title">會員編號<span class="mark"> *</span> :</p>
+                        @Html.TextBoxFor(model => model.Code, new { @class = "validate[required,maxSize[10]] text-input long", maxlength = "10" })
+                        <mark class="mark">(最多請輸入 10中英文字元)</mark>
+                    </li>
+                    <li>
+                        <p class="title">通訊地址<span class="mark"> *</span> :</p>
+                        @Html.TextBoxFor(model => model.Addr, new { @class = "validate[required,maxSize[100]] text-input long", maxlength = "101" })
+                        <mark class="mark">(最多請輸入 100中英文字元)</mark>
+                    </li>
+                    <li>
+                        <p class="title">負責人<span class="mark"> *</span> :</p>
+                        @Html.TextBoxFor(model => model.Master, new { @class = "validate[required,maxSize[30]] text-input long", maxlength = "31" })
+                        <mark class="mark">(最多請輸入 30中英文字元)</mark>
+                    </li>
+                    <li>
+                        <p class="title">電話<span class="mark"> *</span> :</p>
+                        @Html.TextBoxFor(model => model.Tel, new { @class = "validate[required,maxSize[30]] text-input long", maxlength = "31" })
+                        <mark class="mark">(最多請輸入 30中英文字元)</mark>
+                    </li>
+                    <li>
+                        <p class="title">傳真 :</p>
+                        @Html.TextBoxFor(model => model.Fax, new { @class = "validate[maxSize[30]] text-input long", maxlength = "31" })
+                        <mark class="mark">(最多請輸入 30中英文字元)</mark>
+                    </li>
+                    <li>
+                        <p class="title">公司E-Mail<span class="mark"> *</span> :</p>
+                        @Html.TextBoxFor(model => model.EMail, new { @class = "validate[required,maxSize[50]] text-input long", maxlength = "50" })
+                        <mark class="mark">(最多請輸入 30中英文字元)</mark>
+                    </li>
+                    <li>
+                        <p class="title">統編 :</p>
+                        @Html.TextBoxFor(model => model.UCode, new { @class = "validate[maxSize[30]] text-input long", maxlength = "31" })
+                        <mark class="mark">(最多請輸入 30中英文字元)</mark>
+                    </li>
+                    <li>
+                        <p class="title">網頁 :</p>
+                        @Html.TextBoxFor(model => model.WebUrl, new { @class = "validate[maxSize[100]] text-input long", maxlength = "100" })
+                        <mark class="mark">(最多請輸入 100中英文字元)</mark>
+                    </li>
+                    <li>
+                        <p class="title">Facebook :</p>
+                        @Html.TextBoxFor(model => model.Facebook, new { @class = "validate[maxSize[30]] text-input long", maxlength = "30" })
+                        <mark class="mark">(最多請輸入 30中英文字元)</mark>
+                    </li>
+                    <li>
+                        <p class="title">公司屬性 :</p>
+                        @Html.TextBoxFor(model => model.Attrs, new { @class = "validate[maxSize[100]] text-input long", maxlength = "100" })
+                        <mark class="mark">(最多請輸入 100中英文字元)</mark>
+                    </li>
+                    <li>
+                        <p class="title">銷售市場 :</p>
+                        @Html.TextBoxFor(model => model.SaleArea, new { @class = "validate[maxSize[100]] text-input long", maxlength = "100" })
+                        <mark class="mark">(最多請輸入 100中英文字元)</mark>
+                    </li>
+                    <li>
+                        <p class="title">主要產品 :</p>
+                        @Html.TextBoxFor(model => model.Product, new { @class = "validate[maxSize[300]] text-input long", maxlength = "300" })
+                        <mark class="mark">(最多請輸入 300中英文字元)</mark>
+                    </li>
+                    <li>
+                        <p class="title">顯示狀態<span class="mark"> *</span> : </p>
+                        @Html.RadioButtonFor(model => model.Status, 1, new { @id = "StatusYes", @class = "validate[required] radio", @checked = "checked" })
+                        <span class="icon-on" for="StatusYes" title="是"></span>
+                        @Html.RadioButtonFor(model => model.Status, 0, new { @id = "StatusNo", value = 0, @class = "validate[required] radio" })
+                        <span class="icon-off" for="StatusNo" title="否"></span>
+                    </li>
+                    <li>
+                        <p class="title">公司簡介 : <mark class="mark">(最多1000個中英文字元)</mark></p>
+                        <br>
+                        @Html.TextAreaFor(model => model.Info, new { @class = "validate[maxSize[1000]] text-input long", @cols = "80", @rows = "10" })
+                    </li>
+                    <li>
+                        <p class="title">代表圖上傳<span class="mark"> </span> :</p>
+                        @if (Model.ImagePath != null && Model.ImagePath != "")
+                        {
+                            <div id="hasImg">
+                                目前圖片 :<br>
+                                <img src="@Model.ImagePath" width="400"><br>
+                                <a href="javascript:$('#hasImg').remove()">刪除目前圖片</a>
+                                <input type="hidden" value="1" name="delimg" />
+                            </div>
+                        }
+                        <p class="title">重新上傳 :</p>
+                        <input type="file" name="file" class="limarticlimg">
+                        <mark class="mark">(寬500 * 高320px)</mark>
+                    </li>
+                </ul>
+            </section>
+            if (Model != null)
+            {
+                <section class="detailGroup">
+                    <h3>更新記錄</h3>
+                    <ul>
+                        @if (Model.LUser != null)
+                        {
+                            <li>
+                                <p class="title">修改資訊 : </p>
+                                <p class="info">@Model.LDate.Value.ToString("yyyy-MM-dd HH:mm:ss") | @Academy.Common.GetData.GetUserNameByID(Model.LUser)</p>
+                            </li>
+                        }
+                        @if (Model.CUser != null)
+                        {
+                            <li>
+                                <p class="title">建立資訊 : </p>
+                                <p class="info">@Model.CDate.Value.ToString("yyyy-MM-dd HH:mm:ss") | @Academy.Common.GetData.GetUserNameByID(Model.CUser)</p>
+                            </li>
+                        }
+                    </ul>
+                </section>
+            }
+
+            <!--功能操作-->
+            <section class="openArea">
+                <span class="open" title="開啟執行列">開啟執行列</span>
+            </section>
+            <section class="functionArea">
+                <span class="close" title="關閉執行列">關閉執行列</span>
+                <span class="close" title="關閉執行列" id="closeShort"></span>
+
+                <div>
+                    <input name="按鈕" type="button" class="btnBack" value="x 回上一頁">
+                    <input name="送出" type="submit" class="btnAdd" value="B 確定修改">
+                </div>
+            </section>
+        }
+    </article>

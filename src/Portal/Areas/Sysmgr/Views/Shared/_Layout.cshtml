@@ -1,0 +1,217 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <!--mata資訊-->
+    <meta charset="utf-8">
+    <meta name="author" content="www.twevcoinclub.com" />
+    <meta name="viewport" content="width=device-width initial-scale=1.0 maximum-scale=1.0 user-scalable=yes" />
+    <title>台灣生技醫療照護輔具協會 網站管理系統</title>
+    <!--[if lt IE 9]>
+    <script src="~/Scripts/html5.js"></script>
+    <![endif]-->
+    <!--CSS設定呼叫區塊 Start ; 請拆出為共用呼叫檔-->
+    <!--[responsive-tables] (lib)-->
+    <link rel="stylesheet" href="~/Scripts/admin/responsiveTables/responsive-tables.css">
+    <!--jquery-UI-->
+    <link rel="stylesheet" href="~/Scripts/admin/jquery-ui/jquery-ui.css">
+    <!--jquery-UI timepicker-->
+    <link rel="stylesheet" href="~/Scripts/admin/jquery-ui/jquery-ui-timepicker-addon.css">
+    <!-- form check-->
+    <link rel="stylesheet" href="~/Scripts/admin/validation/validationEngine.jquery.css">
+
+    <link href="~/Content/admin/styles.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/admin/reset.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/admin/share.css" rel="stylesheet" type="text/css" />
+    @RenderSection("styles", required: false)
+
+    <!--JS呼叫区块 Start ; 请拆出为共用呼叫档-->
+    <!-- Source [jquery] (lib)-->
+    <script type="text/javascript" src="~/Scripts/admin/jquery-2.1.0.min.js"></script>
+    <!-- Source [layer] (lib)-->
+    <script type="text/javascript" src="~/Scripts/layer/layer.js"></script>
+    <!-- Source [jquery.form] (lib)-->
+    <script type="text/javascript" src="~/Scripts/jquery.form.js"></script>
+    <!-- Source [treeview] (lib)-->
+    <script type="text/javascript" src="~/Scripts/admin/jquery.treeview.js"></script>
+    <script type="text/javascript" src="~/Scripts/admin/jquery.cookie.js"></script>
+    <!--[responsive-tables] (lib)-->
+    <script type="text/javascript" src="~/Scripts/admin/responsiveTables/responsive-tables.js"></script>
+    <!--jquery-UI-->
+    <script type="text/javascript" src="~/Scripts/admin/jquery-ui/jquery-ui.js"></script>
+    <!--jquery-UI timepicker-->
+    <script type="text/javascript" src="~/Scripts/admin/jquery-ui/jquery-ui-timepicker-addon.js"></script>
+    <!-- form check-->
+    <script type="text/javascript" src="~/Scripts/admin/validation/languages/jquery.validationEngine-zh_TW.js"></script>
+    <script type="text/javascript" src="~/Scripts/admin/validation/jquery.validationEngine.js" charset="utf-8"></script>
+    <!-- Code-->
+    <script type="text/javascript" src="~/Scripts/admin/share.js?v=201909"></script>
+
+    <script type="text/javascript">
+        window.custom_location = window.location.href + "?menu=@Session["menu"]&sub=@Session["sub"]";
+        $(function () {
+            var errors = $(".validation-summary-errors");
+            if (errors.length > 0) {
+                errors.delay(3000).slideUp();
+            }
+        });
+    </script>
+
+    @RenderSection("scripts", required: false)
+</head>
+
+<body>
+    <div id="page">
+        <!--確定刪除視窗 Start-->
+        <div id="delete-confirm" title="提示視窗" class="hidden">
+            <span class="ui-icon ui-icon-alert"></span>您確定要刪除該資料嗎？<br />
+            <p><mark class="mark"></mark></p>
+        </div>
+        <!--確定刪除視窗 End-->
+        <!--確定刪ALL除視窗 Start-->
+        <div id="deleteall-confirm" title="提示視窗" class="hidden">
+            <span class="ui-icon ui-icon-alert"></span>您確定要刪除符合本次搜尋之資料？<br />
+        </div>
+        <!--確定刪ALL除視窗 End-->
+        <!--複製類型視窗 Start-->
+        <div id="copy-confirm" title="提示視窗" class="hidden">
+            <span class="ui-icon ui-icon-alert"></span>您確定要複製該內容？<br />
+            <p><mark class="mark">內容</mark></p>
+        </div>
+        <!--警告視窗 For圖片判斷 Start , 請拆出為呼叫檔-->
+        <a href="#" class="errorBox"></a>
+        <div id="error-confirm" title="提示視窗" class="hidden">
+            <span class="ui-icon ui-icon-alert"></span><span>上傳的圖檔不符合規定</span><br>
+            <br>
+            <p>
+                目前圖檔:
+                <mark class="mark"></mark>
+            </p>
+            <p>
+                ---------------------------------------------------------------<br>
+                <span class="uploadNote"></span>
+            </p>
+        </div>
+        <!--複製類型視窗 End-->
+        <!--上方選單區塊-->
+        <!--上方選單區塊請拆出可單獨維護檔-->
+        <header id="header" class="header">
+            @*<a id="sideMenu" href="#menu">
+                <img src="../../images/admin/logo.png" alt="台灣生技醫療照護輔具協會 網站管理系統" title="台灣生技醫療照護輔具協會 網站管理系統">
+            </a>*@
+            <h2>&nbsp; 台灣生技醫療照護輔具協會網站後台管理系統</h2>
+            <!--上方選單 電腦版-->
+            <ul class="topMenu">
+                <p>Welcome!</p>
+                <li class="icon-user">
+                    <a href="/Sysmgr/Account/MyInfo">
+                        @if (ViewBag.LoginUser != null)
+                        {
+                            var userName = ((Academy.Models.User)ViewBag.LoginUser).Name;
+                            @userName
+                        }
+                    </a>
+                </li>
+                @if (ViewBag.LoginUser != null && (((Academy.Models.User)ViewBag.LoginUser).IsSuper == 1))
+                {
+                    <li class="icon-setting"><a href="/Sysmgr/Account">帳號管理</a></li>
+                }
+                <li class="icon-home-2"><a href="/Sysmgr/Main">首頁</a></li>
+                <li class="icon-power"><a href="/Sysmgr/Account/Logout">登出</a> </li>
+            </ul>
+        </header>
+        <!--上方選單 手機版時-->
+        <ul class="topMenu_phone">
+            <li class="icon-user"><a href="/Sysmgr/Account/MyInfo">&nbsp;</a></li>
+            @if (ViewBag.LoginUser != null && (ViewBag.LoginUser.IsSuper == 1))
+            {
+                <li class="icon-setting"><a href="/Sysmgr/Account">&nbsp;</a></li>
+            }
+            <li class="icon-home-2"><a href="/Sysmgr/Main">&nbsp;</a></li>
+            <li class="icon-power"><a href="/Sysmgr/Account/Logout">&nbsp;</a> </li>
+        </ul>
+        <!--上方選單區塊 結束-->
+        <!--內容-->
+        @RenderBody()
+
+        <!--側邊選單-->
+        <!--側邊選單區塊請拆出可單獨維護檔 並請判斷開起之頁面所在位置, 第一層打開時的 li class套用為: class="open" 第二層顯示所在位置 li class為:  class="select"-->
+        <nav class="sideMenu" id="menu">
+            <ul class="list">
+                @if (ViewBag.LoginUser != null && (((Academy.Models.User)ViewBag.LoginUser).IsSuper == 1 || ((Academy.Models.User)ViewBag.LoginUser).Auths.Contains("100")))
+                {
+                    <li class="mainLink">
+                        <span class="icon-home-1">首頁管理</span>
+                        <ul>
+                            <li><a href="/Sysmgr/Banner?menu=1&amp;sub=1">輪播圖管理</a></li>
+                            <li><a href="/Sysmgr/AdLink?menu=1&amp;sub=2">底部交換廣告</a></li>
+                        </ul>
+                    </li>
+                }
+                @if (ViewBag.LoginUser != null && (((Academy.Models.User)ViewBag.LoginUser).IsSuper == 1 || ((Academy.Models.User)ViewBag.LoginUser).Auths.Contains("200")))
+                {
+                    <li class="mainLink">
+                        <span class="icon-files">關於協會</span>
+                        <ul>
+                            <li><a href="/Sysmgr/about/info?menu=2&amp;sub=1">協會簡介</a></li>
+                            <li><a href="/Sysmgr/about/chairman?menu=2&amp;sub=2">理事長的話</a></li>
+                            <li><a href="/Sysmgr/about/member?menu=2&amp;sub=3">組織成員</a></li>
+                            <li><a href="/Sysmgr/about/constitution?menu=2&amp;sub=4">協會章程</a></li>
+                            <li><a href="/Sysmgr/about/calendar?menu=2&amp;sub=5">年度行事曆</a></li>
+                        </ul>
+                    </li>
+                }
+                @if (ViewBag.LoginUser != null && (((Academy.Models.User)ViewBag.LoginUser).IsSuper == 1 || ((Academy.Models.User)ViewBag.LoginUser).Auths.Contains("300")))
+                {
+                    <li class="mainLink">
+                        <span class="icon-newspaper">資訊管理</span>
+                        <ul>
+                            <li><a href="/Sysmgr/News?menu=3&amp;sub=1">內容管理</a></li>
+                            <li><a href="/Sysmgr/NewsCata?menu=3&amp;sub=2">類別管理</a></li>
+                            <li><a href="/Sysmgr/News/Search?menu=3&amp;sub=3">搜尋及編輯</a></li>
+                        </ul>
+                    </li>
+                }
+                @if (ViewBag.LoginUser != null && (((Academy.Models.User)ViewBag.LoginUser).IsSuper == 1 || ((Academy.Models.User)ViewBag.LoginUser).Auths.Contains("400")))
+                {
+                    <li class="mainLink">
+                        <span class="icon-mail-1">會員名錄</span>
+                        <ul>
+                            <li><a href="/Sysmgr/Member?menu=4&amp;sub=1">會員專區</a></li>
+                            <li><a href="/Sysmgr/Member/JoinIn?menu=4&amp;sub=2">申請入會</a></li>
+                        </ul>
+                    </li>
+                }
+                @if (ViewBag.LoginUser != null && (((Academy.Models.User)ViewBag.LoginUser).IsSuper == 1 || ((Academy.Models.User)ViewBag.LoginUser).Auths.Contains("500")))
+                {
+                    <li class="mainLink">
+                        <span class="icon-mail-1">業務諮詢</span>
+                        <ul>
+                            <li><a href="/Sysmgr/Message?menu=5&amp;sub=1">諮詢內容</a></li>
+                            <li><a href="/Sysmgr/Setting/Mail?menu=5&amp;sub=2">系統信件設定</a></li>
+                        </ul>
+                    </li>
+                }
+                @if (ViewBag.LoginUser != null && (((Academy.Models.User)ViewBag.LoginUser).IsSuper == 1 || ((Academy.Models.User)ViewBag.LoginUser).Auths.Contains("600")))
+                {
+                    <li class="mainLink">
+                        <span class="icon-files">其他訊息</span>
+                        <ul>
+                            <li><a href="/Sysmgr/Setting/Link?menu=6&amp;sub=1">相關連結</a></li>
+                            <li><a href="/Sysmgr/Setting/Contact?menu=6&amp;sub=2">聯絡我們</a></li>
+                            <li><a href="/Sysmgr/Setting/Download?menu=6&amp;sub=3">檔案下載</a></li>
+                        </ul>
+                    </li>
+                }
+            </ul>
+            <!--版權列-->
+            <div class="inside_footer">
+                <footer class="footer">&copy; @DateTime.Now.Year 台灣生技醫療照護輔具協會</footer>
+            </div>
+        </nav>
+        <!--側邊選單結束-->
+    </div>
+</body>
+</html>
+
+
+

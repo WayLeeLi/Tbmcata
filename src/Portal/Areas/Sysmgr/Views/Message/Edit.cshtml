@@ -1,0 +1,62 @@
+﻿@model Academy.Models.Message
+
+@{
+    Layout = "~/Areas/Sysmgr/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts {
+    <script>
+        $(function () {
+            // binds form submission and fields to the validation engine
+            $.validationEngine.defaults.scroll = false;
+            $("#formcontent").validationEngine();
+
+        });
+    </script>
+    <!--CK 套件-->
+    <script type="text/javascript" src="~/Scripts/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript" src="~/Scripts/ckfinder/ckfinder.js"></script>
+}
+
+<!--主要內容-->
+<article class="contentArea" id="content">
+    @using (Html.BeginForm("Edit", "Message", FormMethod.Post, new { id = "formcontent", enctype = "multipart/form-data" }))
+    {
+        <h1>業務咨詢<span>/ 回覆咨詢</span><span class="tip">
+            <section class="tipBox">
+                <span>&nbsp;</span>
+                <ul>
+                    <li>填入您要編輯的資訊。 *為必填欄位。</li>
+                    <li>回覆內容時，會自動給用戶發送一封郵件。</li>
+                </ul>
+            </section>
+        </span>
+        </h1>
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.ID)
+        <section class="detailGroup">
+            <h3>基本資料</h3>
+            <ul>
+                <li>
+                    <p class="title">回覆內容 : <mark class="mark">(*最多1000個中英文字元)</mark></p>
+                    <br>
+                    @Html.TextAreaFor(model => model.ReplyContent, new { @class = "validate[maxSize[1000]] text-input", @cols = "80", @rows = "10" })
+                </li>
+            </ul>
+        </section>
+
+        <!--功能操作-->
+        <section class="openArea">
+            <span class="open" title="開啟執行列">開啟執行列</span>
+        </section>
+        <section class="functionArea">
+            <span class="close" title="關閉執行列">關閉執行列</span>
+            <span class="close" title="關閉執行列" id="closeShort"></span>
+
+            <div>
+                <input name="按鈕" type="button" class="btnBack" value="x 回上一頁">
+                <input name="送出" type="submit" class="btnAdd" value="B 確定回覆">
+            </div>
+        </section>
+    }
+</article>

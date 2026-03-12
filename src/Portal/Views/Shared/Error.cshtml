@@ -1,0 +1,27 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+
+@{
+    ViewBag.Title = "404錯誤";
+}
+
+@section Styles {
+    <style>
+        body {
+            background: #edf6fa;
+        }
+        .error {
+            width:400px;
+            margin:20% auto;
+        }
+    </style>
+}
+
+@section Scripts {
+}
+
+<div class="error">
+    <h2>您訪問的頁面不存在！</h2>
+    <p>看到這個提示，請按返回首頁!</p>
+    <div class="reindex"><a href="/">返回首頁</a></div>
+
+</div>

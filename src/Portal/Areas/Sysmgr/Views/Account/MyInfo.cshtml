@@ -1,0 +1,142 @@
+﻿@model Academy.Models.User
+
+@{
+    Layout = "~/Areas/Sysmgr/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts {
+    <script>
+        $(function () {
+            // binds form submission and fields to the validation engine
+            $.validationEngine.defaults.scroll = false;
+            $("#formcontent").validationEngine();
+        });
+    </script>
+}
+<!--主要內容-->
+<article class="contentArea" id="content">
+    @using (Html.BeginForm("EditPwd", "Account", FormMethod.Post, new { id = "formcontent" }))
+    {
+        <h1>我的帳號 <span>/ 帳號設定</span>
+            <span class="tip">
+                <section class="tipBox">
+                    <span>&nbsp;</span>
+                    <ul>
+                        <li>填入您的密碼資訊。 *為必填欄位。</li>
+                    </ul>
+                </section>
+            </span>
+        </h1>
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.ID)
+        <section class="detailGroup">
+            <h3>填寫資料</h3>
+            <ul>
+                <li>
+                    <p class="title">我的姓名 : </p>
+                    @Model.Name ( @Model.Email )
+                </li>
+                <li>
+                    <p class="title">我的帳號 : </p>
+                    @Model.Account ( 上次登入: @Model.LoginDate )
+                </li>
+                <li>
+                    <p class="title">目前權限 : </p>
+                    <br>
+                    @if (Model.IsSuper == 1)
+                    {
+                        <strong>ADMIN</strong>
+                    }
+                    else
+                    {
+                        if (Model.Auths.Contains("100"))
+                        {
+                        <strong>首頁管理 /</strong>
+                        }
+                        if (Model.Auths.Contains("200"))
+                        {
+                        <strong>最新資訊管理 /</strong>
+                        }
+                        if (Model.Auths.Contains("300"))
+                        {
+                        <strong>課程管理 /</strong>
+                        }
+                        if (Model.Auths.Contains("400"))
+                        {
+                        <strong>師資管理 /</strong>
+                        }
+                        if (Model.Auths.Contains("500"))
+                        {
+                        <strong>上課地點管理 /</strong>
+                        }
+                        if (Model.Auths.Contains("600"))
+                        {
+                        <strong>文章分享管理 /</strong>
+                        }
+                        if (Model.Auths.Contains("700"))
+                        {
+                        <strong>生活影音管理 /</strong>
+                        }
+                        if (Model.Auths.Contains("800"))
+                        {
+                        <strong>課程相簿管理 /</strong>
+                        }
+                        if (Model.Auths.Contains("900"))
+                        {
+                        <strong>聯絡表單設定 /</strong>
+                        }
+                    }
+                    <!--非ADMIN時, 則為: 編輯委員管理 / ... / -->
+                </li>
+                <li>
+                    <p class="title">請輸入舊密碼<span class="mark"> *</span> : </p>
+                    <input type="password" name="OldPwd" class="validate[custom[onlyLetterNumber],required,minSize[6],maxSize[20]] text-input" maxlength="21">
+                    <!--若是舊密碼錯誤, 則顯示此段錯誤訊息 span-->
+                    <span class="mark">您輸入的舊密碼錯誤!</span>
+                </li>
+                <li>
+                    <p class="title">請輸入新密碼<span class="mark"> *</span> : </p>
+                    <input type="password" name="NewPwd" class="validate[custom[onlyLetterNumber],required,minSize[6],maxSize[20]] text-input" maxlength="21" id="pwd">
+                </li>
+                <li>
+                    <p class="title">再確認新密碼<span class="mark"> *</span> : </p>
+                    <input type="password" name="ReNewPwd" class="validate[condRequired[pwd],equals[pwd]] minSize[6],maxSize[20]] text-input">
+                </li>
+            </ul>
+        </section>
+
+        <section class="detailGroup">
+            <h3>更新記錄</h3>
+            <ul>
+                @if (Model.LUser != null)
+                {
+                    <li>
+                        <p class="title">修改資訊 : </p>
+                        <p class="info">@Model.LDate.Value.ToString("yyyy-MM-dd HH:mm:ss") | @Academy.Common.GetData.GetUserNameByID(Model.LUser)</p>
+                    </li>
+                }
+                @if (Model.CUser != null)
+                {
+                    <li>
+                        <p class="title">建立資訊 : </p>
+                        <p class="info">@Model.CDate.Value.ToString("yyyy-MM-dd HH:mm:ss") | @Academy.Common.GetData.GetUserNameByID(Model.CUser)</p>
+                    </li>
+                }
+            </ul>
+        </section>
+
+        <!--功能操作-->
+        <section class="openArea">
+            <span class="open" title="開啟執行列">開啟執行列</span>
+        </section>
+        <section class="functionArea">
+            <span class="close" title="關閉執行列">關閉執行列</span>
+            <span class="close" title="關閉執行列" id="closeShort"></span>
+
+            <div>
+                <input name="按鈕" type="button" class="btnBack" value="x 回上一頁">
+                <input name="送出" type="submit" class="btnAdd" value="B 確定修改">
+            </div>
+        </section>       
+    }
+</article>

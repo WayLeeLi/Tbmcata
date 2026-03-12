@@ -1,0 +1,289 @@
+﻿@model Academy.Models.Member
+
+@{
+    ViewBag.Title = Model.Name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Styles {
+}
+@section Scripts {
+}
+<div class="main">
+    <div class="minner">
+        <div class="row col1 row_0">
+            <div class="mrow">
+                <div class="col col_02">
+                    <div class="mcol">
+                        <div id="Dyn_2_2" class="M19465">
+                            <div class="module module-detail">
+                                <div class="module-inner">
+                                    <section class="mb">
+                                        <div class="mcont">
+                                            <div class="mpgdetail">
+                                                <div class="container-inner page member">
+                                                    <h1 class="content-title">
+                                                        @Model.Name
+                                                    </h1>
+                                                    <div class="table-responsive">
+                                                        <table class="table table-hover">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <th class="thead" colspan="4">公司基本資料</th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="title">公司名稱</td>
+                                                                    <td>@Model.Name</td>
+                                                                    <td class="title">會員編號</td>
+                                                                    <td>@Model.Code</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="title">通訊地址</td>
+                                                                    <td>@Model.Addr</td>
+                                                                    <td class="title">負責人</td>
+                                                                    <td>@Model.Master</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="title">電話</td>
+                                                                    <td>@Model.Tel</td>
+                                                                    <td class="title">傳真</td>
+                                                                    <td>@Model.Fax</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="title">公司E-Mail</td>
+                                                                    <td>@Model.EMail</td>
+                                                                    <td class="title">統編</td>
+                                                                    <td>@Model.UCode</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="title">網頁</td>
+                                                                    <td><a href="@Model.WebUrl" target="_blank">@Model.WebUrl</a></td>
+                                                                    <td class="title">Facebook</td>
+                                                                    <td>@Model.Facebook</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="title">公司簡介</td>
+                                                                    <td colspan="3">@Model.Info</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="title">公司屬性</td>
+                                                                    <td colspan="3">@Model.Attrs</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="title">銷售市場</td>
+                                                                    <td colspan="3">@Model.SaleArea</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="title">主要產品</td>
+                                                                    <td colspan="3">@Model.Product</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <div class="text-center" style="margin:30px auto;">
+                                                        <a class="center-block btn btn-scuess" href="">與我們聯繫</a>
+                                                    </div>
+                                                    <div class="module module-form md_style1">
+                                                        <header class="mt">
+                                                            <h3>輔具協會網站詢問單-@Model.Name</h3>
+                                                        </header>
+                                                        <section class="mb">
+                                                            <section class="form-section" id="_Form_Section_926">
+                                                                <form class="formBS" role="form" method="post" id="msgForm">
+                                                                    <input type="hidden" class="form-control" name="MemberID" value="@Model.ID">
+                                                                    <div class="row form-group required">
+                                                                        <label class="control-label col-sm-3">公司名稱: </label>
+                                                                        <div class="col-sm-9">
+                                                                            <input type="text" class="form-control" name="CompanyName" value="">
+                                                                        </div>
+                                                                    </div><div class="row form-group required">
+                                                                        <label class="control-label col-sm-3">姓名: </label>
+                                                                        <div class="col-sm-9">
+                                                                            <input type="text" class="form-control" name="UserName" value="">
+                                                                        </div>
+                                                                    </div><div class="row form-group required">
+                                                                        <label class="control-label col-sm-3">電話: </label>
+                                                                        <div class="col-sm-9">
+                                                                            <input type="text" class="form-control" name="Tel" value="">
+                                                                        </div>
+                                                                    </div><div class="row form-group required">
+                                                                        <label class="control-label col-sm-3">傳真: </label>
+                                                                        <div class="col-sm-9">
+                                                                            <input type="text" class="form-control" name="Fax" value="">
+                                                                        </div>
+                                                                    </div><div class="row form-group required">
+                                                                        <label class="control-label col-sm-3">E-mail: </label>
+                                                                        <div class="col-sm-9">
+                                                                            <input type="text" class="form-control" name="Mail" value="">
+                                                                        </div>
+                                                                    </div><div class="row form-group required">
+                                                                        <label class="control-label col-sm-3">地址: </label>
+                                                                        <div class="col-sm-9">
+                                                                            <input type="text" class="form-control" name="Addr" value="">
+                                                                        </div>
+                                                                    </div><div class="row form-group required">
+                                                                        <label class="control-label col-sm-3">主旨: </label>
+                                                                        <div class="col-sm-9">
+                                                                            <input type="text" class="form-control" name="Title" value="">
+                                                                        </div>
+                                                                    </div><div class="row form-group required">
+                                                                        <label class="control-label col-sm-3">訊息內容: </label>
+                                                                        <div class="col-sm-9">
+                                                                            <textarea class="form-control" cols="20" rows="4" name="Content"></textarea>
+                                                                        </div>
+                                                                    </div>
+                                                                </form>
+                                                                <footer class="desc"></footer>
+                                                                <div class="form-btn">
+                                                                    <button class="btn btn-s" id="btnSendMsg">提交</button>
+                                                                </div>
+                                                                <script>
+                                                                    $(function () {
+                                                                        $("#btnSendMsg").click(function () {
+                                                                            var CompanyName = $.trim($("input[name='CompanyName']").val());
+                                                                            if (CompanyName.length == 0) {
+                                                                                alert("請輸入公司名稱！");
+                                                                                $("input[name='CompanyName']").focus();
+                                                                                return;
+                                                                            }
+                                                                            var UserName = $.trim($("input[name='UserName']").val());
+                                                                            if (UserName.length == 0) {
+                                                                                alert("請輸入姓名！");
+                                                                                $("input[name='UserName']").focus();
+                                                                                return;
+                                                                            }
+                                                                            var Tel = $.trim($("input[name='Tel']").val());
+                                                                            if (Tel.length == 0) {
+                                                                                alert("請輸入電話！");
+                                                                                $("input[name='Tel']").focus();
+                                                                                return;
+                                                                            }
+                                                                            var Fax = $.trim($("input[name='Fax']").val());
+                                                                            if (Fax.length == 0) {
+                                                                                alert("請輸入傳真！");
+                                                                                $("input[name='Fax']").focus();
+                                                                                return;
+                                                                            }
+                                                                            var Mail = $.trim($("input[name='Mail']").val());
+                                                                            if (Mail.length == 0) {
+                                                                                alert("請輸入E-mail！");
+                                                                                $("input[name='Mail']").focus();
+                                                                                return;
+                                                                            } else {
+                                                                                if (Mail.split("@Html.Raw("@")").length == 1 || Mail.split(".").length == 1) {
+                                                                                    alert("郵箱地址必須包含@和.");
+                                                                                    $("input[name='Mail']").focus();
+                                                                                    return;
+                                                                                }
+                                                                            }
+                                                                            var Addr = $.trim($("input[name='Addr']").val());
+                                                                            if (Addr.length == 0) {
+                                                                                alert("請輸入地址！");
+                                                                                $("input[name='Addr']").focus();
+                                                                                return;
+                                                                            }
+                                                                            var Title = $.trim($("input[name='Title']").val());
+                                                                            if (Title.length == 0) {
+                                                                                alert("請輸入主旨！");
+                                                                                $("input[name='Title']").focus();
+                                                                                return;
+                                                                            }
+                                                                            var Content = $.trim($("textarea[name='Content']").val());
+                                                                            if (Content.length == 0) {
+                                                                                alert("請輸入諮詢內容！");
+                                                                                $("textarea[name='Content']").focus();
+                                                                                return;
+                                                                            }
+                                                                            $.ajax({
+                                                                                cache: false,
+                                                                                url: '/Home/PostMemberMsg',
+                                                                                type: "POST",
+                                                                                data: $("#msgForm").serialize(),
+                                                                                dataType: "json",
+                                                                                success: function (msg) {
+                                                                                    alert(msg.msg);
+                                                                                    $("input[name='CompanyName']").val("");
+                                                                                    $("input[name='UserName']").val("");
+                                                                                    $("input[name='Tel']").val("");
+                                                                                    $("input[name='Fax']").val("");
+                                                                                    $("input[name='Mail']").val("");
+                                                                                    $("input[name='Addr']").val("");
+                                                                                    $("input[name='Title']").val("");
+                                                                                    $("textarea[name='Content']").val("").text("");
+                                                                                },
+                                                                                timeout: 30000,
+                                                                                error: function (xhr, textStatus) {
+                                                                                    alert("發送失敗，請重試！");
+                                                                                }
+                                                                            });
+                                                                        });
+                                                                        })
+                                                                </script>
+                                                            </section>
+                                                        </section>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--Dyn_2_9新增的產品專區推播-->
+                                            <div id="Dyn_2_9" class="M19478">
+                                                <div class="module module-um md_style1">
+                                                    <header class="mt mthide">
+                                                    </header>
+                                                    <section class="mb">
+                                                        <div class="minner">
+                                                            <div class="home-gallery">
+                                                                <div class="container-inner">
+                                                                    <h1 class="index-title"><span class="en">Member Products</span><span class="ch">會員產品專區</span></h1>
+                                                                    <div class="gallery-area member-products">
+                                                                        @foreach (var item in ViewBag.ProductList)
+                                                                        {
+                                                                            <div class="gallery-box">
+                                                                                <a target="_blank" href="/Member/ProductDetail?id=@item.ID">
+                                                                                    <div class="gallery-pic">
+                                                                                        <img src="@item.ImagePath" alt="@item.Title"style="height:214px;" class="img-responsive center-block">
+                                                                                        <p class="readmore"><span>readmore</span></p>
+                                                                                    </div>
+                                                                                    <p class="gallery-text" style="height:50px; line-height:25px;overflow:hidden;">@item.Title</p>
+                                                                                </a>
+                                                                            </div>
+                                                                        }
+                                                                    </div>
+                                                                    @*<p class="more"><a href="#">點我看更多</a></p>*@
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </section>
+                                                </div>
+                                            </div>
+                                            <!--Dyn_2_10新增的產品詳情，請復制調用就可以-->
+                                            <div id="Dyn_2_10" class="M19465" style="display:none;">
+                                                <div class="module module-detail">
+                                                    <div class="module-inner">
+                                                        <section class="mb">
+                                                            <div class="mcont">
+                                                                <div class="mpgdetail">
+                                                                    <div class="container-inner page">
+                                                                        <h1 class="content-title">
+                                                                            展覽會之台灣區總代理
+                                                                        </h1>
+                                                                        <div class="row content-body">
+                                                                            <p>經參酌國際管理方式，國內血氧機已依用途分類管理，食藥署對於未宣稱醫療用途，為一般民眾日常生活運動用或健康管理之血氧機，非以醫療器材管理，亦未限制是類非屬醫療器材之產品利用網路公開販售，可做為民眾健康管理參考。</p>
+                                                                            <p><img alt="" src="/upload/content/userimages/217940(1).jpg" style="width: 1108px; height: 1477px;"><img alt="" src="/upload/content/userimages/217941(1).jpg" style="width: 1477px; height: 1108px;"></p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </section>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

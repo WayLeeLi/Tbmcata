@@ -1,0 +1,23 @@
+﻿@{
+    Layout = "~/Areas/Sysmgr/Views/Shared/_Layout.cshtml";
+}
+
+<!--首頁內容-->
+<article class="contentArea" id="content">
+    <section class="systemGroup">
+        <h3>&nbsp;</h3>
+        <h3>&nbsp;</h3>
+        <h3>&nbsp;</h3>
+        <h3>
+            Welcome to the Secure Access Web Management System,
+            @if (ViewBag.LoginUser != null)
+            {
+                var userName = ((Academy.Models.User)ViewBag.LoginUser).Name;
+                @userName
+            }.
+        </h3>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>請選擇左方功能進行操作</p>
+    </section>
+</article>

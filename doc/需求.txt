@@ -1,0 +1,10 @@
+http://www.tbmcata.org/
+
+13:55 FMH Ray  ﻯ http://www.tbmcata.org/admin/main.php
+13:55 FMH Ray  ﻯ 帳號：tmcata
+密碼：tmcata123
+
+将上述网站用.net重写，前台变为蓝色风格，其他不变
+另外配个后台管理，资料要迁移好
+
+修改logo及英文名 Taiwan Bio-medical Care Industry Association

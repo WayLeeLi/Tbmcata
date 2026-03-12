@@ -1,0 +1,240 @@
+﻿@using PagedList
+@using PagedList.Mvc
+@model IEnumerable<Academy.Models.User>
+
+@{
+    Layout = "~/Areas/Sysmgr/Views/Shared/_Layout.cshtml";
+}
+@section Scripts {
+    <script>
+        $(function () {
+            //刪除確認視窗
+            $(".icon-trash-bin").click(function () {
+                var itemId = $(this).data("id");
+                var itemName = $(this).data("title");
+                $("#delete-confirm").dialog({
+                    position: { my: 'cneter', at: 'cneter' },
+                    resizable: true,
+                    height: 220,
+                    modal: true,
+                    open: function () {
+                        $(this).find(".mark").html("ID" + itemId + ": " + itemName);
+                    },
+                    buttons: {
+                        "確認刪除": function () {
+                            $(this).dialog("close");
+                            //這裡放置按下刪除時要進行的動作
+                            $.ajax({
+                                type: "POST",
+                                dataType: "json",
+                                url: "/Sysmgr/Account/Delete",
+                                data: { id: itemId },
+                                error: function (request) {
+                                },
+                                success: function (data) {
+                                    alert("刪除成功！");
+                                    setTimeout(function () {
+                                        location.href = location.href;
+                                    }, 1000);
+                                }
+                            });
+                        },
+                        "取消": function () {
+                            $(this).dialog("close");
+                        }
+                    }
+                });
+            });
+
+            //複製確認視窗
+            $(".btnSort").click(function () {
+                var data = [];
+                $(".sort").each(function () {
+                    var item = {};
+                    item.ID = $(this).data("id");
+                    item.Sort = $(this).val();
+                    data.push(item);
+                });
+                if (data.length == 0) {
+                    return;
+                }
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    url: "/Sysmgr/Account/Sort",
+                    data: { data: JSON.stringify(data) },
+                    error: function (request) {
+                    },
+                    success: function (data) {
+                        location.href = location.href;
+                    }
+                });
+            });
+
+            //複製確認視窗
+            $(".btnDelete").click(function () {
+                var data = [];
+                $("input[name='checkbox']:checked").each(function () {
+                    var item = {};
+                    item.ID = $(this).data("id");
+                    item.Sort = $(this).parent().parent().find(".sort").val();
+                    data.push(item);
+                });
+                if (data.length == 0) {
+                    return;
+                }
+                $("#delete-confirm").dialog({
+                    position: { my: 'cneter', at: 'cneter' },
+                    resizable: true,
+                    height: 220,
+                    modal: true,
+                    open: function () {
+                        $(this).find(".mark").html("");
+                    },
+                    buttons: {
+                        "確認刪除": function () {
+                            $(this).dialog("close");
+                            //這裡放置按下刪除時要進行的動作
+                            $.ajax({
+                                type: "POST",
+                                dataType: "json",
+                                url: "/Sysmgr/Account/Deletes",
+                                data: { data: JSON.stringify(data) },
+                                error: function (request) {
+                                },
+                                success: function (data) {
+                                    alert("刪除成功！");
+                                    setTimeout(function () {
+                                        location.href = location.href;
+                                    }, 1000);
+                                }
+                            });
+                        },
+                        "取消": function () {
+                            $(this).dialog("close");
+                        }
+                    }
+                });
+            });
+
+            $("#checkboxAll").click(function () {
+                if ($(this).is(":checked")) {
+                    $("input[name='checkbox']").attr("checked", "checked");
+                } else {
+                    $("input[name='checkbox']").attr("checked", false);
+                }
+            });
+
+        });
+    </script>
+}
+<!--主要內容-->
+<article class="contentArea" id="content">
+    <section class="btnArea">
+        <a href="/Sysmgr/Account/Add" class="add">新增帳號</a>
+    </section>
+    <h1>
+        管理員帳號 <span>/ 帳號列表</span>
+        <span class="tip">
+            <section class="tipBox">
+                <span>&nbsp;</span>
+                <ul>
+                    <li>下列是最新建立之帳號列表，您可點選每條內容後面的 &#8220;編輯&#8221; 及 &#8220;刪除&#8221; 圖示進行您需要的動作。</li>
+                    <li>列表排序依照 建立時間 由新往下排列至舊。</li>
+                </ul>
+            </section>
+        </span>
+    </h1>
+
+    <section class="tableArea">
+        <table border="0" class="responsive" cellpadding="0" cellspacing="0">
+            <thead>
+                <tr class="titlebar">
+                    <td class="no num">ID</td>
+                    <td>帳 &nbsp; &nbsp;號</td>
+                    <td>使用者姓名</td>
+                    <td class="alignLeft">權 &nbsp; &nbsp;限</td>
+                    <td class="time minWidth">
+                        @if (Request["ordery"] == "timeasc")
+                        {
+                            <a href='/Sysmgr/Account/Index?ordery=timedesc' class="sortUp">建立時間</a>
+                        }
+                        else
+                        {
+                            <a href='/Sysmgr/Account/Index?ordery=timeasc' class="sortDown">建立時間</a>
+                        }
+                    </td>
+                    <td class="time Width">
+                        @if (Request["ordery"] == "timeasc")
+                        {
+                            <a href='/Sysmgr/Account/Index?ordery=ltimedesc' class="sortUp">最後一次登入</a>
+                        }
+                        else
+                        {
+                            <a href='/Sysmgr/Account/Index?ordery=ltimeasc' class="sortDown">最後一次登入</a>
+                        }
+                    </td>
+                    <td class="functionTd2">功能</td>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Count() == 0)
+                {
+                    <tr>
+                        <td colspan="7" align="center">暫無資料！</td>
+                    </tr>
+                }
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="num">@item.ID</td>
+                        <td>@item.Account</td>
+                        <td>@item.Name</td>
+                        <td class="alignLeft">
+                            @if (item.IsSuper == 1)
+                            {
+                                <strong>ADMIN</strong>
+                            }
+                            else if (item.Auths != null)
+                            {
+                                if (item.Auths.Contains("100"))
+                                {
+                                    <strong>首頁管理 /</strong>
+                                }
+                                if (item.Auths.Contains("200"))
+                                {
+                                    <strong>資訊管理 /</strong>
+                                }
+                                if (item.Auths.Contains("900"))
+                                {
+                                    <strong>業務諮詢 /</strong>
+                                }
+                            }
+                        </td>
+                        <td class="num">@item.CDate.Value.ToString("yyyy-MM-dd")</td>
+                        <td class="num">@item.LoginDate</td>
+                        <td>
+                            <p class="function">
+                                <a href="/Sysmgr/Account/Edit?id=@item.ID&ret=@HttpUtility.UrlEncode(Request.Url.ToString())" class="icon-edit" title="編輯"></a>
+                                <a href="javascript:;" data-id="@item.ID" data-title="@item.Name" class="icon-trash-bin" title="刪除"></a>
+                            </p>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </section>
+    @{
+        var data = Model as IPagedList<Academy.Models.User>;
+    }
+    <section class="numberArea">
+        <p>
+            共 :
+            @data.PageCount 頁  /  總共 : @data.TotalItemCount 筆記錄
+        </p>
+        <ul>
+            @Html.PagedListPager(data, page => Url.Action("Index", new { page = page }), new PagedListRenderOptions() { LinkToFirstPageFormat = "首頁", LinkToNextPageFormat = "下一頁", LinkToPreviousPageFormat = "上一頁", LinkToLastPageFormat = "末頁", DisplayItemSliceAndTotal = true, ItemSliceAndTotalFormat = "共有{2}條", MaximumPageNumbersToDisplay = 5 })
+        </ul>
+    </section>
+
+</article>

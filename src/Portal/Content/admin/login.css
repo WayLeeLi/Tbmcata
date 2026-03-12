@@ -1,0 +1,222 @@
+﻿@charset "UTF-8";
+
+body {
+    height: 100%;
+    font-family: "微軟正黑體", Arial, Helvetica, sans-serif;
+    background: #cabc98 url(../../images/admin/login_bg.jpg) repeat-x top center;
+    font-size: 0.845em;
+    line-height: 1.5em;
+    overflow-y: hidden;
+}
+
+a {
+    color: #015b91;
+    text-decoration: underline;
+}
+
+    a:visited {
+        color: #015b91;
+        text-decoration: underline;
+    }
+
+    a:hover {
+        color: #900;
+    }
+
+h1 {
+    margin: 0 auto;
+    height: 40px;
+    background: url(../../images/admin/login_mark.png) no-repeat top center;
+    color: #FFF;
+    font-size: 1.2em;
+    padding-top: 80px;
+    text-align: center;
+    font-weight: normal;
+}
+
+.loginbox {
+    position: absolute;
+    left: 50%;
+    top: -45%;
+    width: 300px;
+    height: 400px;
+    margin-top: -200px;
+    /*高度除以2*/
+    margin-left: -150px;
+    /*寬度除以2*/
+    border-radius: 20px;
+}
+
+.loginboxShadow {
+    position: absolute;
+    left: 50%;
+    bottom: -10%;
+    width: 300px;
+    height: 30px;
+    margin-bottom: -15px;
+    /*高度除以2*/
+    margin-left: -150px;
+    /*寬度除以2*/
+    background: url(../../images/admin/loginbox_shadow.png) no-repeat top center;
+}
+
+.line {
+    width: 255px;
+    height: 5px;
+    border-bottom: 1px solid #535353;
+    box-shadow: 0px 1px 0px 0px #bfbfbf;
+    margin: 30px 0px 10px 0px;
+}
+
+.shadowBox {
+    position: fixed;
+    width: 300px;
+    height: 300px;
+    z-index: 0;
+}
+
+.box1 {
+    top: 0px;
+    left: 0px;
+    background: url(../../images/admin/login_shadow1.png) no-repeat top left;
+}
+
+.box2 {
+    top: 0px;
+    right: 0px;
+    background: url(../../images/admin/login_shadow2.png) no-repeat top left;
+}
+
+.box3 {
+    bottom: 0px;
+    left: 0px;
+    background: url(../../images/admin/login_shadow3.png) no-repeat top left;
+}
+
+.box4 {
+    bottom: 0px;
+    right: 0px;
+    background: url(../../images/admin/login_shadow4.png) no-repeat top left;
+}
+
+.loginbox form {
+    position: relative;
+    width: 100%;
+}
+
+/*From style*/
+form .shadowbg {
+    position: absolute;
+    z-index: 0;
+    width: 100%;
+    height: 280px;
+    background: #333;
+    filter: alpha(opacity=25);
+    opacity: 0.25;
+    border-radius: 20px;
+    border: 1px solid #000;
+}
+
+form .formArea {
+    position: absolute;
+    z-index: 2;
+    width: 100%;
+    height: 280px;
+    padding: 20px;
+}
+
+    form .formArea p {
+        margin: 5px 0px 5px 0px;
+        padding-left: 10px;
+    }
+
+    form .formArea div.error {
+        position: absolute;
+        top: 15px;
+        margin: 0px 0px 10px 10px;
+        padding-left: 5px;
+        color: #faf27a;
+    }
+
+        form .formArea div.error ul {
+            float: right;
+        }
+
+    form .formArea div.icon-warning:before {
+        position: relative;
+        top: 2px;
+        margin-right: 5px;
+    }
+
+    form .formArea p.icon-user, form .formArea p.icon-key {
+        margin-top: 30px;
+    }
+
+        form .formArea p.icon-user:before, form .formArea p.icon-key:before {
+            position: relative;
+            top: 3px;
+            color: #FFF;
+            font-size: 18px;
+            margin-right: 10px;
+        }
+
+    form .formArea p.icon-key {
+        margin-top: 0;
+    }
+
+    form .formArea p.remember {
+        padding-left: 0px;
+        color: #ccc;
+    }
+
+    form .formArea input[type="text"], form .formArea input[type="password"] {
+        font-family: "微軟正黑體", Arial, Helvetica, sans-serif;
+        width: 205px;
+        border: 1px solid #5c5c5c;
+        border-radius: 5px;
+        color: #FFF;
+        background: #555;
+        font-size: 1em;
+        line-height: 1.5em;
+        padding: 5px;
+        filter: alpha(opacity=80);
+        opacity: 0.8;
+    }
+
+    form .formArea input[type="submit"] {
+        font-family: "微軟正黑體", Arial, Helvetica, sans-serif;
+        color: #FFF;
+        text-align: center;
+        font-weight: bold;
+        font-size: 1em;
+        margin: 20px auto 0px 70px;
+        border: 0px;
+        width: 121px;
+        height: 40px;
+        background: url(../../images/admin/login_btn.png) no-repeat top left;
+        text-shadow: 0px 1px 3px #333;
+        filter: alpha(opacity=80);
+        opacity: 0.8;
+    }
+
+        form .formArea input[type="submit"]:hover {
+            filter: alpha(opacity=100);
+            opacity: 1;
+            cursor: pointer;
+        }
+
+        form .formArea input[type="submit"]:focus {
+            outline: none;
+        }
+
+.footer {
+    opacity: 0;
+    position: absolute;
+    z-index: 2;
+    top: 45%;
+    width: 100%;
+    font-size: 0.938em;
+    margin-top: 240px;
+    text-align: center;
+    color: #666;
+}

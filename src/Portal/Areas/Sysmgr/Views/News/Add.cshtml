@@ -1,0 +1,156 @@
+﻿@model Academy.Models.News
+
+@{
+    Layout = "~/Areas/Sysmgr/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts {
+    <script>
+        $(function () {
+            // binds form submission and fields to the validation engine
+            $.validationEngine.defaults.scroll = false;
+            $("#formcontent").validationEngine();
+
+        });
+    </script>
+    <!--CK 套件-->
+    <script type="text/javascript" src="~/Scripts/ckeditor/ckeditor.js?v=20190902"></script>
+    <script type="text/javascript" src="~/Scripts/ckfinder/ckfinder.js"></script>
+}
+
+<!--主要內容-->
+<article class="contentArea" id="content">
+    @using (Html.BeginForm("Add", "News", FormMethod.Post, new { id = "formcontent", enctype = "multipart/form-data" }))
+    {       
+        <h1>資訊管理<span>/ 新增文章</span><span class="tip">
+            <section class="tipBox">
+                <span>&nbsp;</span>
+                <ul>
+                    <li>填入您要新增的資訊。 *為必填欄位。</li>
+                    <li>上傳檔案之檔名: 請勿包含中文 / 空白 / 特殊符號(例如: &amp;^%#!)('&gt;&lt;)，避免瀏覽器無法支援造成破圖或程式執行錯誤情形。</li>
+                    <li>上傳檔案之圖檔: 高度請留空白，僅設定寬度即可，避免其他裝置瀏覽時造成圖片變形。</li>
+                    <li>前後台訊息列表頁均以 發佈時間 做為排序，最新往下排列至最舊。</li>
+                </ul>
+            </section>
+        </span>
+        </h1>
+        @Html.ValidationSummary(true)
+        <section class="detailGroup">
+            <h3>基本資料</h3>
+            <ul>
+                <li>
+                    <p class="title">選擇類別<span class="mark"> *</span> : </p>
+                    <select name="CataID" class="validate[required]">
+                        <option value="">請選擇</option>
+                        @foreach (var item in ViewBag.CataList)
+                        {
+                            if (Model != null && Model.CataID == item.ID)
+                            {
+                            <option selected="selected" value="@item.ID">@item.Title @if (item.Status == 0)
+                                                                                     { <text>(下線)</text> }</option>
+                            }
+                            else
+                            {
+                            <option value="@item.ID">@item.Title @if (item.Status == 0)
+                                                                 { <text>(下線)</text> }</option>
+                            }
+                        }
+                    </select>
+                </li>
+                <li>
+                    <p class="title">文章主題<span class="mark"> *</span> :</p>
+                    @Html.TextBoxFor(model => model.Title, new { @class = "validate[required,maxSize[100]] text-input long", maxlength = "101" })
+                </li>
+                @*<li>
+                    <p class="title">圖/編輯單位 :</p>
+                    @Html.TextBoxFor(model => model.Dept1, new { @class = "text-input", maxlength = "51" })
+                </li>
+                <li>
+                    <p class="title">文/編輯單位 :</p>
+                    @Html.TextBoxFor(model => model.Dept2, new { @class = "text-input", maxlength = "51" })
+                </li>*@
+                @*<li>
+                    <p class="title">顯示於首頁<span class="mark"> *</span> : </p>
+                    @Html.RadioButtonFor(model => model.IsShowIndex, 1, new { @id = "IsShowIndexYes", @class = "validate[required] radio", @checked = "checked" })
+                    <span class="icon-on" for="IsShowIndexYes" title="是"></span>
+                    @Html.RadioButtonFor(model => model.IsShowIndex, 0, new { @id = "IsShowIndexNo", value = 0, @class = "validate[required] radio" })
+                    <span class="icon-off" for="IsShowIndexNo" title="否"></span>
+                </li>*@
+                <li>
+                    <p class="title">上線狀態<span class="mark"> *</span> : </p>
+                    @Html.RadioButtonFor(model => model.Status, 1, new { @id = "StatusYes", @class = "validate[required] radio", @checked = "checked" })
+                    <span class="icon-on" for="StatusYes" title="是"></span>
+                    @Html.RadioButtonFor(model => model.Status, 0, new { @id = "StatusNo", value = 0, @class = "validate[required] radio" })
+                    <span class="icon-off" for="StatusNo" title="否"></span>
+                </li>
+                <li>
+                    <p class="title">發佈時間<span class="mark"> *</span> :</p>
+                    <!--預設代入當下時間-->
+                    @Html.TextBoxFor(model => model.PubDate, "{0:yyyy-MM-dd HH:mm:ss}", new { @id = "pubdate", @class = "validate[required] text-input", maxlength = "51" })
+                </li>
+                <li>
+                    <p class="title">跳轉地址 :</p>
+                    @Html.TextBoxFor(model => model.LinkPath, new { maxlength = "1000",style="width:300px" })
+                    <mark class="mark">(默認為空，不跳轉)</mark>
+                </li>
+                @*<li>
+                    <p class="title">影片嵌入 :</p>
+                    @Html.TextBoxFor(model => model.VideoPath, new { maxlength = "1000",style="width:300px" })
+                    <mark class="mark">(請輸入完整Youtube地址)</mark>
+                </li>*@
+                <li>
+                    <p class="title">代表圖上傳<span class="mark"> </span> :</p>
+                    <input type="file" name="file" class="limarticlimg2">
+                    <mark class="mark">(寬300 * 高180px)</mark>
+                </li>
+                <li>
+                    <p class="title">摘要 : <mark class="mark">(最多1000個中英文字元)</mark></p>
+                    <br>
+                    @Html.TextAreaFor(model => model.Note, new { @class = "validate[maxSize[1000]] text-input", @cols = "80", @rows = "10" })
+                </li>
+                <li>
+                    <p class="title">摘要2 : <mark class="mark">(最多1000個中英文字元)</mark></p>
+                    <br>
+                    @Html.TextAreaFor(model => model.Note2, new { @class = "validate[maxSize[1000]] text-input", @cols = "80", @rows = "10" })
+                </li>
+                <li>
+                    <p class="title">內容<span class="mark"> *</span> :<br>
+                    </p>
+                    <span class="mark">
+                        <br>
+                        * 上傳檔案之檔名: 請勿包含中文 / 空白 / 特殊符號(例如: &amp;^%#!)('"&gt;&lt;)，避免瀏覽器無法支援造成破圖或程式執行錯誤情形。<br>
+                        * 上傳檔案之圖檔: 高度請留空白，僅設定寬度即可，避免其他裝置瀏覽時造成圖片變形。<br>
+                        * 上傳檔案之圖檔: 寬度請至少 250px 以上，避免其他裝置瀏覽時造成圖片放大失真。<br>
+                    </span>
+                    <br>
+                    @Html.TextAreaFor(model => model.Content, new { @cols = "10", @rows = "10" })
+                </li>
+            </ul>
+        </section>
+
+        <!--功能操作-->
+        <section class="openArea">
+            <span class="open" title="開啟執行列">開啟執行列</span>
+        </section>
+        <section class="functionArea">
+            <span class="close" title="關閉執行列">關閉執行列</span>
+            <span class="close" title="關閉執行列" id="closeShort"></span>
+
+            <div>
+                <input name="按鈕" type="button" class="btnBack" value="x 回上一頁">
+                <input name="送出" type="submit" class="btnAdd" value="B 確定新增">
+            </div>
+        </section>
+    }
+</article>
+
+<script type="text/javascript">
+    if (typeof CKEDITOR == 'undefined') {
+        document.write('Download CKEditor false.');
+    } else {
+        var editorContent = CKEDITOR.replace('Content');
+        editorContent.config.width = '100%';
+        editorContent.config.height = 400;
+        CKFinder.setupCKEditor(editorContent, '/Scripts/ckfinder/');
+    }
+</script>

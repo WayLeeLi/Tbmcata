@@ -1,0 +1,140 @@
+/* Page number */
+.pagebar {
+}
+
+    .pagebar input {
+        display: none;
+    }
+
+        .pagebar input[type="text"] {
+            display: none;
+        }
+
+    .pagebar span.select {
+        text-decoration: none;
+        display: inline-block;
+        text-align: center;
+        margin: 3px 2px 3px 2px;
+        padding: 8px 18px;
+        line-height: 24px;
+        color: #fff;
+        background-color: #fefefe;
+    }
+
+    .pagebar a[disabled="disabled"] {
+        display: none;
+    }
+
+        .pagebar a[disabled="disabled"]:hover {
+            color: #333;
+            text-decoration: none;
+            background-color: #E9E9E9;
+        }
+
+    .pagebar a {
+        font-size: 0.8em;
+        text-decoration: none;
+        display: inline-block;
+        text-align: center;
+        background-color: #E9E9E9;
+        margin: 3px 2px 3px 2px;
+        padding: 8px 18px;
+        line-height: 24px;
+        color: #333;
+    }
+
+        .pagebar a:hover {
+            color: #fff;
+            text-decoration: none;
+            background-color: #fefefe;
+            border: solid 2px #E9E9E9;
+        }
+
+            .pagebar a:hover span {
+                color: #fff;
+            }
+
+        .pagebar a span {
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            background-color: #E9E9E9;
+            padding: 8px 18px;
+            line-height: 24px;
+            color: #333;
+        }
+
+            .pagebar a span.zjian, .pagebar a span.yjian {
+                margin: 0;
+                padding: 0;
+            }
+
+    .pagebar p {
+        text-align: center;
+        color: #333;
+        font-size: 0.857em;
+        line-height: 2em;
+        margin-bottom: 10px;
+    }
+
+    .pagebar ul {
+        min-width: 660px;
+        text-align: left;
+        font-size: 18px;
+        margin-left: 0px;
+        padding-left: 0;
+    }
+
+        .pagebar ul li {
+            display: inline-block;
+            *float: left;
+            /*ie7*/
+            background: none;
+            padding-left: 0px;
+        }
+
+            .pagebar ul li a {
+                text-decoration: none;
+                display: inline-block;
+                text-align: center;
+                background-color: #0068b7;
+                padding: 4px 8px;
+                line-height: 24px;
+                color: #fff;
+                border-radius: 4px;
+                border: solid 2px #fff;
+            }
+
+                .pagebar ul li a:hover {
+                    color: #0068b7;
+                    text-decoration: none;
+                    background-color: #fefefe;
+                }
+
+                .pagebar ul li a.icon-arrow-left, .pagebar ul li a.icon-arrow-right {
+                    color: #aaa;
+                    padding: 8px 13px;
+                }
+
+                    .pagebar ul li a.icon-arrow-left:before, .pagebar ul li a.icon-arrow-right:before {
+                        position: relative;
+                        top: 2px;
+                        color: #aaa;
+                    }
+
+                    .pagebar ul li a.icon-arrow-left:hover:before, .pagebar ul li a.icon-arrow-right:hover:before {
+                        color: #FFF;
+                    }
+
+            .pagebar ul li.active a {
+                text-decoration: none;
+                cursor: default;
+                color: #fff;
+                text-decoration: none;
+                background-color: #fefefe;
+                font-weight: bold;
+            }
+
+    .pagebar .fa-angle-right {
+        display: none;
+    }

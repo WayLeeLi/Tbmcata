@@ -1,0 +1,199 @@
+﻿@{
+    ViewBag.Title = "台灣生技醫療照護輔具協會";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Styles {
+}
+@section Scripts {
+    <script src="/js/tmcata.js"></script>
+}
+<div class="main">
+    <div class="minner">
+        <div class="row col1 row_0">
+            <div class="mrow">
+                <div class="col col_02">
+                    <div class="mcol">
+                        <div id="Dyn_2_1" class="M19461">
+                            <div class="module module-um md_style1">
+                                <header class="mt mthide">
+                                </header>
+                                <section class="mb">
+                                    <div class="minner">
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                        <div id="Dyn_2_2" class="M19465">
+                            <div class="usermodoutter">
+                                <div class="banner">
+                                    <div class="container">
+                                        <div class="module module-adv ">
+                                            <header class="mt mthide">
+                                            </header>
+                                            <section class="mb">
+                                                <div class="minner">
+                                                    <div class="mads-li mcarousel" id="listAds">
+                                                        @foreach (var item in ViewBag.BannerList)
+                                                        {
+                                                            <figure class="figBS">
+                                                                <a @if (!string.IsNullOrEmpty(item.LinkURL)) { <text> href="@item.LinkURL" </text>  if (item.OpenType == 1) { <text> target="_blank" </text> } }>
+                                                                    <img class="img-responsive" src="@item.Photo" alt="@Html.Raw(item.Title)">
+                                                                </a>
+                                                            </figure>
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </section>
+                                        </div>
+                                        <script type="text/javascript" defer="">
+                                            $(document).ready(function () {
+                                                $('#listAds').owlCarousel({
+                                                    items: 1,
+                                                    loop: true,
+                                                    dots: true,
+                                                    //	autoHeight:true,
+                                                    autoplay: true,
+                                                    autoplayTimeout: 3000,
+                                                    autoplayHoverPause: true
+                                                });
+                                            });</script>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- generated at Sun Oct 11 2020 02:21:28 -->
+                        </div>
+                        <div id="Dyn_2_3" class="M19468">
+                        </div>
+                        <div id="Dyn_2_4" class="M19477">
+                            <div class="module module-um md_style1">
+                                <header class="mt mthide">
+                                </header>
+                                <section class="mb">
+                                    <div class="minner">
+                                        <div class="manufacture-banner container-inner">
+                                            <div class="owl-carousel">
+                                                <!-- 新增廠商-->
+                                                @foreach (var item in ViewBag.MemberList)
+                                                {
+                                                    <div class="item">
+                                                        <div class="manufacture-box">
+                                                            <!-- 左圖 -->
+                                                            <div class="manufacture-pic"><img src="@item.ImagePath" alt="@item.Name" class="img-responsive center-block"></div>
+                                                            <!-- 右字 -->
+                                                            <div class="manufacture-content">
+                                                                <h1 class="manufacture-title">會員廠商</h1>
+                                                                <h2 class="manufacture-title2">@item.Name</h2>
+                                                                <p>@item.Info</p>
+                                                                <p class="more"><a target="_blank" href="/member/detail?id=@item.ID">點我看更多</a></p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                        <div id="Dyn_2_5" class="M19478">
+
+                            <div class="module module-um md_style1">
+                                <header class="mt mthide">
+                                </header>
+
+                                <section class="mb">
+                                    <div class="minner">
+                                        <div class="home-gallery">
+                                            <div class="container-inner">
+                                                <h1 class="index-title"><span class="en">GALLERY</span><span class="ch">活動集錦</span></h1>
+                                                <div class="gallery-area">
+                                                    @foreach (var item in ViewBag.ActiveList)
+                                                    {
+                                                        <div class="gallery-box">
+                                                            <a target="_blank" href="/news/detail?id=@item.ID">
+                                                                <div class="gallery-pic">
+                                                                    <img src="@item.ImagePath" alt="@item.Title" class="img-responsive center-block">
+                                                                    <p class="readmore"><span>readmore</span></p>
+                                                                </div>
+                                                                <p class="gallery-text">@item.Title</p>
+                                                            </a>
+                                                        </div>
+                                                    }
+                                                </div>
+                                                <p class="more"><a href="/news/IndexActive">點我看更多</a></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                        <!--Dyn_2_9新增的產品專區推播-->
+                        <div id="Dyn_2_9" class="M19478">
+
+                            <div class="module module-um md_style1">
+                                <header class="mt mthide">
+                                </header>
+
+                                <section class="mb">
+                                    <div class="minner">
+                                        <div class="home-gallery">
+                                            <div class="container-inner">
+                                                <h1 class="index-title"><span class="en">Member Products</span><span class="ch">會員產品專區</span></h1>
+                                                <div class="gallery-area member-products">
+                                                    @foreach (var item in ViewBag.ProductList)
+                                                    {
+                                                        <div class="gallery-box">
+                                                            <a target="_blank" href="/Member/ProductDetail?id=@item.ID">
+                                                                <div class="gallery-pic">
+                                                                    <img src="@item.ImagePath" alt="@item.Title" class="img-responsive center-block">
+                                                                    <p class="readmore"><span>readmore</span></p>
+                                                                </div>
+                                                                <p class="gallery-text">@item.Title</p>
+                                                            </a>
+                                                        </div>
+                                                    }
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                        <div id="Dyn_2_6" class="M19482">
+                            <div class="module module-um md_style1">
+                                <header class="mt mthide">
+                                </header>
+                                <section class="mb">
+                                    <div class="minner">
+
+                                        <div class="ad-area">
+                                            <div class="container-inner">
+                                                <h1 class="index-title"><span class="en">ADVERTISEMENT</span><span class="ch">廣告區</span></h1>
+                                            </div>
+                                            <div class="ad">
+                                                <div class="container-inner">
+                                                    <div class="owl-carousel">
+                                                        @foreach (var item in ViewBag.AdList)
+                                                        {
+                                                            <div class="item">
+                                                                <a @if (!string.IsNullOrEmpty(item.LinkURL)) { <text> href="@item.LinkURL" </text>  if (item.OpenType == 1) { <text> target="_blank" </text> } }>
+                                                                    <img src="@item.Photo" alt="@Html.Raw(item.Title)" />
+                                                                </a>
+                                                            </div>
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,91 @@
+﻿@model Academy.Models.LoginModel
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <!--mata資訊-->
+    <meta charset="utf-8">
+    <meta name="author" content="www.twevcoinclub.com" />
+    <meta name="viewport" content="width=device-width initial-scale=1.0 maximum-scale=1.0 user-scalable=yes" />
+    <title>台灣生技醫療照護輔具協會 網站管理系統登入</title>
+
+    <!--[if lt IE 9]>
+    <script src="~/Scripts/html5.js"></script>
+    <![endif]-->
+    
+    <link href="~/Content/admin/styles.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/admin/reset.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/admin/share.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/admin/login.css" rel="stylesheet" type="text/css" />
+
+    <!--Source [jquery] (lib)-->
+    <script type="text/javascript" src="~/Scripts/jquery-2.1.0.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".loginbox").animate({ top: "50%" }, 800);
+            $(".loginbox").animate({ top: "45%" }, 200);
+            $(".loginboxShadow").animate({ bottom: "15%" }, 800);
+            $(".loginboxShadow").animate({ bottom: "10%" }, 200);
+            $("footer").delay(800).animate({ opacity: 1 }, 500);
+        });
+    </script>
+
+    <!-- form check-->
+    <link rel="stylesheet" href="~/Scripts/admin/validation/validationEngine.jquery.css" type="text/css" />
+    <!--jquery升級至1.9之舊版元件補強-->
+    <script src="~/Scripts/admin/validation/languages/jquery.validationEngine-zh_TW.js" type="text/javascript" charset="utf-8">
+    </script>
+    <script src="~/Scripts/admin/validation/jquery.validationEngine.js" type="text/javascript" charset="utf-8">
+    </script>
+    <script>
+        $(document).ready(function () {
+            $(".loginbox").animate({ top: "50%" }, 800);
+            $(".loginbox").animate({ top: "45%" }, 200);
+            $(".loginboxShadow").animate({ bottom: "15%" }, 800);
+            $(".loginboxShadow").animate({ bottom: "10%" }, 200);
+            $("footer").delay(800).animate({ opacity: 1 }, 500);
+
+            //Form
+            $.validationEngine.defaults.scroll = false;
+            $('#formcontent').validationEngine();
+        });
+    </script>
+</head>
+
+<body>
+    <div id="page">
+        <div class="shadowBox box1"></div>
+        <div class="shadowBox box2"></div>
+        <div class="shadowBox box3"></div>
+        <div class="shadowBox box4"></div>
+        <div class="loginbox">
+            @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { id = "formcontent" }))
+            {        
+                <h1>台灣生技醫療照護輔具協會</h1>
+                <section class="formArea">
+                    <!--帳號或密碼有誤時，顯示提示文字 START-->
+                    @Html.ValidationSummary(true, "", new { @class = "error icon-warning" })
+                    <!--帳號或密碼有誤時，顯示提示文字 END-->
+                    <p class="icon-user">
+                        @Html.TextBoxFor(model => model.Account, new { placeholder = "請填入您的帳號", @class = "validate[required] text-input" })
+                    </p>
+                    <p class="icon-key">
+                        @Html.PasswordFor(model => model.Password, new { placeholder = "請填入您的密碼", @class = "validate[required] text-input" })
+                    </p>
+                    <div class="line"></div>
+                    <!--<p class="remenber"><input name="" type="checkbox" value="" checked>記住帳號</p>-->
+                    <input name="submit" type="submit" value="登 入">
+                </section>
+                <div class="shadowbg"></div>
+            }
+        </div>
+        <!--版權列-->
+        <footer class="footer">
+            Copyright &copy; @DateTime.Now.Year 台灣生技醫療照護輔具協會.
+        </footer>
+
+        <div class="loginboxShadow"></div>
+    </div>
+</body>
+</html>

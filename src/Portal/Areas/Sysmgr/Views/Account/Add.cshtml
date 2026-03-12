@@ -1,0 +1,156 @@
+﻿@model Academy.Models.User
+
+@{
+    Layout = "~/Areas/Sysmgr/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts {
+    <script>
+        $(function () {
+            // binds form submission and fields to the validation engine
+            $.validationEngine.defaults.scroll = false;
+            $("#formcontent").validationEngine();
+
+            $("#checkboxAll").change(function () {
+                if ($(this).is(":checked")) {
+                    $(".authList input[type='checkbox']").attr("checked", "checked");
+                } else {
+                    $(".authList input[type='checkbox']").removeAttr("checked");
+                }
+            });
+
+        });
+    </script>
+}
+
+<!--主要內容-->
+<article class="contentArea" id="content">
+    @using (Html.BeginForm("Add", "Account", FormMethod.Post, new { id = "formcontent" }))
+    {
+        <h1>管理員帳號 <span>/ 新增帳號</span>
+            <span class="tip">
+                <section class="tipBox">
+                    <span>&nbsp;</span>
+                    <ul>
+                        <li>填入您要新增的資訊。 *為必填欄位。</li>
+                    </ul>
+                </section>
+            </span>
+        </h1>
+        @Html.ValidationSummary(true)
+        <section class="detailGroup">
+            <h3>填寫資料</h3>
+            <ul>
+                <li>
+                    <p class="title">使用者姓名<span class="mark"> *</span> : </p>
+                    @Html.TextBoxFor(model => model.Name, new { placeholder = "請填入使用者姓名", @class = "validate[required,maxSize[30],minSize[3]] text-input", maxlength = "31" })
+                </li>
+                <li>
+                    <p class="title">使用者帳號<span class="mark"> *</span> : </p>
+                    @Html.TextBoxFor(model => model.Account, new { placeholder = "請填入使用者帳號", @class = "validate[required,minSize[3],maxSize[30]] text-input", maxlength = "31" })
+                </li>
+                <li>
+                    <p class="title">使用者密碼<span class="mark"> *</span> : </p>
+                    @Html.PasswordFor(model => model.Password, new { placeholder = "請填入使用者密碼", @class = "validate[custom[onlyLetterNumber],minSize[6],maxSize[20]] text-input", maxlength = "21" })
+                </li>
+
+                <li>
+                    <p class="title">限制可連線之IP : </p>
+                    @Html.TextBoxFor(model => model.IPS, new { placeholder = "請填入限制可連線之IP", @class = "text-input long" })
+                    <mark class="mark">(若有多組IP 請使用分號 &quot; ; &quot;區隔 ; 不限制請留空) </mark>
+                </li>
+
+                <li>
+                    <table border="0" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td valign="top">
+                                <p class="title">權限設定 <span class="mark">*</span> : </p>
+                            </td>
+                        </tr>
+                    </table>
+                    <table border="0" class="responsive" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td>
+                                <label>
+                                    <input type="checkbox" name="IsSuper" value="1" />
+                                    是否AMDIN
+                                </label>
+                                <mark class="mark">(勾選此項權限，不需再勾選下方各功能，將自動開放所有版本及功能的權限)</mark>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>
+                                <input type="checkbox" name="checkboxAll" id="checkboxAll">
+                                全選
+                                </label>
+                                <mark class="mark">(不含管理員設定)</mark>
+                            </td>
+                        </tr>
+                    </table>
+                    <table border="0" class="responsive" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td class="authList">
+                                <strong>權限設定 <span class="title">: </span></strong>
+
+                                <input type="checkbox" name="Auths" id="cb100" value="100">
+                                <label for="cb100">首頁管理</label>
+
+                                <input type="checkbox" name="Auths" id="cb200" value="200">
+                                <label for="cb200">關於協會</label>
+
+                                <input type="checkbox" name="Auths" id="cb300" value="300">
+                                <label for="cb300">資訊管理</label>
+
+                                <input type="checkbox" name="Auths" id="cb400" value="400">
+                                <label for="cb400">會員名錄</label>
+
+                                <input type="checkbox" name="Auths" id="cb500" value="500">
+                                <label for="cb500">業務諮詢</label>
+
+                                <input type="checkbox" name="Auths" id="cb600" value="600">
+                                <label for="cb600">其他訊息</label>
+                            </td>
+                        </tr>
+                    </table>
+                </li>
+            </ul>
+        </section>
+        if (Model != null)
+        {
+        <section class="detailGroup">
+            <h3>更新記錄</h3>
+            <ul>
+                @if (Model.LUser != null)
+                {
+                    <li>
+                        <p class="title">修改資訊 : </p>
+                        <p class="info">@Model.LDate.Value.ToString("yyyy-MM-dd HH:mm:ss") | @Academy.Common.GetData.GetUserNameByID(Model.LUser)</p>
+                    </li>
+                }
+                @if (Model.CUser != null)
+                {
+                    <li>
+                        <p class="title">建立資訊 : </p>
+                        <p class="info">@Model.CDate.Value.ToString("yyyy-MM-dd HH:mm:ss") | @Academy.Common.GetData.GetUserNameByID(Model.CUser)</p>
+                    </li>
+                }
+            </ul>
+        </section>
+                                                       }
+
+        <!--功能操作-->
+        <section class="openArea">
+            <span class="open" title="開啟執行列">開啟執行列</span>
+        </section>
+        <section class="functionArea">
+            <span class="close" title="關閉執行列">關閉執行列</span>
+            <span class="close" title="關閉執行列" id="closeShort"></span>
+
+            <div>
+                <input name="按鈕" type="button" class="btnBack" value="x 回上一頁">
+                <input name="送出" type="submit" class="btnAdd" value="確定新增">
+            </div>
+        </section>
+    }
+</article>

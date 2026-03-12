@@ -1,0 +1,1 @@
+<%@ Page language="c#" Inherits="SCard.ValidateCode" CodeFile="ValidateCode.aspx.cs" %>

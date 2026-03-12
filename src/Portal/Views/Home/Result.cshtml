@@ -1,0 +1,24 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+
+@{
+    ViewBag.Title = "系統操作提示";
+}
+
+@section Scripts {
+    <script type="text/javascript">
+        setTimeout(function () { location.href = "@ViewBag.ReturnUrl" }, parseInt("@ViewBag.Second"));
+    </script>
+}
+
+<div class="result">
+    @if (ViewBag.IsSuccess)
+    {
+        <h2>@ViewBag.ErrMsg</h2>
+    }
+    else
+    {
+        <h2 style="color:#b51c1c">@ViewBag.ErrMsg</h2>
+    }
+    <p>看到這個提示，說明操作已完成，頁面跳轉中...<a style="color:#b51c1c" href="@ViewBag.ReturnUrl">點擊跳轉</a> </p>
+
+</div>

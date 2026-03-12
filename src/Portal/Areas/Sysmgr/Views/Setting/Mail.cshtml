@@ -1,0 +1,104 @@
+﻿@model Academy.Models.MailSet
+
+@{
+    Layout = "~/Areas/Sysmgr/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            // binds form submission and fields to the validation engine
+            $.validationEngine.defaults.scroll = false;
+            $("#formcontent").validationEngine();
+        });
+    </script>
+}
+
+<!--主要內容-->
+<article class="contentArea" id="content">
+    @using (Html.BeginForm("Mail", "Setting", FormMethod.Post, new { id = "formcontent" }))
+    {
+        <h1>
+            系統設定 <span>/ 系統信件設定</span>
+            <span class="tip">
+                <section class="tipBox">
+                    <span>&nbsp;</span>
+                    <ul>
+                        <li>填入您要編輯的資訊。 *為必填欄位。</li>
+                    </ul>
+                </section>
+            </span>
+        </h1>
+        <input type="hidden" name="ID" value="@Model.ID" />
+        @Html.ValidationSummary(true)
+        <section class="detailGroup">
+            <h3>基本設定</h3>
+            <ul>
+                <li>
+                    <p class="title">寄件人郵箱 <span class="mark">*</span> : </p>
+                    @Html.TextBoxFor(model => model.MailAddr, new { placeholder = "請填入寄件人郵箱", @class = "validate[required,custom[email]] text-input long", maxlength = "51" })
+                </li>
+                <li>
+                    <p class="title">寄件人名稱<span class="mark"> *</span> : </p>
+                    @Html.TextBoxFor(model => model.MailName, new { placeholder = "請填入寄件人名稱", @class = "validate[required] text-input long", maxlength = "301" })
+                </li>
+                <li>
+                    <p class="title">郵件密碼<span class="mark"> *</span> : </p>
+                    @Html.TextBoxFor(model => model.Password, new { placeholder = "請填入郵件密碼", @class = "validate[required] text-input long", maxlength = "301" })
+                </li>
+                <li>
+                    <p class="title">SMTP伺服器<span class="mark"> *</span> : </p>
+                    @Html.TextBoxFor(model => model.Smtp, new { placeholder = "請填入SMTP伺服器", @class = "validate[required] text-input long", maxlength = "301" })
+                </li>
+                <li>
+                    <p class="title">SMTP端口<span class="mark">*</span> : </p>
+                    @Html.TextBoxFor(model => model.Port, new { placeholder = "請填入SMTP端口", @class = "validate[required] text-input long", maxlength = "301" })
+                    <mark class="mark">(默認填25) </mark>
+                </li>
+            </ul>
+        </section>
+        <section class="detailGroup">
+            <h3>管理員郵箱</h3>
+            <ul>
+                <li>
+                    <p class="title">管理員郵箱 <span class="mark">*</span> : </p>
+                    @Html.TextBoxFor(model => model.ReviceMailAddr, new { placeholder = "請填入管理員郵箱", @class = "validate[required] text-input long", maxlength = "500" })
+                    <mark class="mark">(用於管理員接收業務咨詢，可填多個，用;隔開) </mark>
+                </li>
+            </ul>
+        </section>
+        <section class="detailGroup">
+            <h3>更新記錄</h3>
+            <ul>
+                @if (Model.LUser != null)
+                {
+                    <li>
+                        <p class="title">修改資訊 : </p>
+                        @Model.LDate.Value.ToString("yyyy-MM-dd HH:mm:ss") | @Academy.Common.GetData.GetUserNameByID(Model.LUser)
+                    </li>
+                }
+                @if (Model.CUser != null)
+                {
+                    <li>
+                        <p class="title">建立資訊 : </p>
+                        @Model.CDate.Value.ToString("yyyy-MM-dd HH:mm:ss") | @Academy.Common.GetData.GetUserNameByID(Model.CUser)
+                    </li>
+                }
+            </ul>
+        </section>
+
+        <!--功能操作-->
+        <section class="openArea">
+            <span class="open" title="開啟執行列">開啟執行列</span>
+        </section>
+        <section class="functionArea">
+            <span class="close" title="關閉執行列">關閉執行列</span>
+            <span class="close" title="關閉執行列" id="closeShort"></span>
+
+            <div>
+                <input name="按鈕" type="button" class="btnBack" value="x 回上一頁">
+                <input name="送出" type="submit" class="btnAdd" value="B 確定修改">
+            </div>
+        </section>
+    }
+</article>

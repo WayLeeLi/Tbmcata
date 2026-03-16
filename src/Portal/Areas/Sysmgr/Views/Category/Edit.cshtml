@@ -46,6 +46,9 @@
             }
         }
     }
+
+    // 獲取 menu 參數（用於側邊欄高亮）
+    var menu = Request["menu"];
 }
 
 @section Scripts {
@@ -85,6 +88,12 @@
         @Html.HiddenFor(model => model.Category.CreateTime)
         @Html.HiddenFor(model => model.Category.Path)
         @Html.HiddenFor(model => model.Category.Level)
+
+        <!-- 隱藏傳遞 menu 參數 -->
+        if (!string.IsNullOrEmpty(menu))
+        {
+            <input type="hidden" name="menu" value="@menu" />
+        }
 
         <h1>
             類別管理<span>/ 編輯類別</span>

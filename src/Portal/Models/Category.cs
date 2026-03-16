@@ -35,6 +35,9 @@ namespace Academy.Models
 
         [Display(Name = "层级")]
         public int Level { get; set; } = 0;
+        public int Status { get; set; } = 1;
+        [Display(Name = "类别")]
+        public int Menu { get; set; } = 0;
 
         // 导航属性
         public virtual Category Parent { get; set; }

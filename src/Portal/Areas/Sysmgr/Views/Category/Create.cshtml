@@ -76,6 +76,9 @@
     {
         defaultSortOrder = Model.Category.SortOrder;
     }
+
+    // 獲取 menu 參數（用於側邊欄高亮）
+    var menu = Request["menu"];
 }
 
 @section Scripts {
@@ -102,12 +105,18 @@
         @Html.AntiForgeryToken()
         @Html.ValidationSummary(true)
 
+        <!-- 隱藏傳遞 menu 參數，用於提交後返回列表頁時保持側邊欄高亮 -->
+        if (!string.IsNullOrEmpty(menu))
+        {
+            <input type="hidden" name="menu" value="@menu" />
+        }
+
         <h1>
             類別管理<span>/ 新增類別</span>
             @if (parentCategory != null)
             {
                 <span style="font-size:14px; color:#666; margin-left:15px; font-weight:normal;">
-                    父級類別：@parentCategory.Name
+                    父級類別：@parentCategory?.Name
                 </span>
             }
             <span class="tip">

@@ -192,6 +192,7 @@
     <Compile Include="Areas\Sysmgr\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Sysmgr\Controllers\AccountController.cs" />
     <Compile Include="Areas\Sysmgr\Controllers\AdLinkController.cs" />
+    <Compile Include="Areas\Sysmgr\Controllers\CategoryController.cs" />
     <Compile Include="Areas\Sysmgr\Controllers\MainController.cs" />
     <Compile Include="Areas\Sysmgr\Controllers\AboutController.cs" />
     <Compile Include="Areas\Sysmgr\Controllers\ProductController.cs" />
@@ -219,6 +220,7 @@
     <Compile Include="Controllers\WebController.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AdLink.cs" />
+    <Compile Include="Models\Category.cs" />
     <Compile Include="Models\DictSet.cs" />
     <Compile Include="Models\MailSet.cs" />
     <Compile Include="Models\MemberMsg.cs" />
@@ -239,6 +241,7 @@
     <Compile Include="Models\Message.cs" />
     <Compile Include="Models\Member.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\CategoryViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Common\ValidateCode.aspx" />
@@ -1308,6 +1311,9 @@
     <Content Include="Areas\Sysmgr\Views\Product\Add.cshtml" />
     <Content Include="Areas\Sysmgr\Views\Product\Edit.cshtml" />
     <Content Include="Areas\Sysmgr\Views\Product\Index.cshtml" />
+    <Content Include="Areas\Sysmgr\Views\Category\Index.cshtml" />
+    <Content Include="Areas\Sysmgr\Views\Category\Create.cshtml" />
+    <Content Include="Areas\Sysmgr\Views\Category\Edit.cshtml" />
     <None Include="Properties\PublishProfiles\NCRS.pubxml" />
     <Content Include="Scripts\fonts\lg.eot" />
     <Content Include="Scripts\fonts\lg.ttf" />

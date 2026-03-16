@@ -166,7 +166,7 @@ namespace Academy.Controllers
             {
                 MailSet model = db.MailSets.FirstOrDefault();
                 //回覆發郵件
-                Common.MailHelper.SendEmail(member.EMail, msg.CompanyName + " 公司通過台灣生技醫療照護輔具協會網站提交了諮詢訊息，請及時回復", content);
+                Common.MailHelper.SendEmail(member.EMail, msg.CompanyName + " 公司通過智匯創新股份有限公司網站提交了諮詢訊息，請及時回復", content);
 
                 return Json(new { success = true, msg = "提交成功，我們會盡快給您回覆！" });
             }

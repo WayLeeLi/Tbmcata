@@ -1,0 +1,261 @@
+﻿@model Academy.ViewModels.CategoryViewModel
+
+@{
+    Layout = "~/Areas/Sysmgr/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "編輯類別";
+
+    // 獲取父類別信息（用於顯示路徑）
+    Academy.Models.Category parentCategory = null;
+    string currentPath = Model.Category.Name;
+
+    if (Model.Category.ParentId.HasValue)
+    {
+        using (var db = new Academy.Models.MyDbContext())
+        {
+            parentCategory = db.Categories.Find(Model.Category.ParentId.Value);
+
+            if (parentCategory != null)
+            {
+                var pathNames = new List<string>();
+                var current = parentCategory;
+                int maxLevel = 5;
+                int count = 0;
+
+                while (current != null && count < maxLevel)
+                {
+                    pathNames.Insert(0, current.Name);
+
+                    if (current.ParentId.HasValue)
+                    {
+                        current = db.Categories.Find(current.ParentId.Value);
+                    }
+                    else
+                    {
+                        current = null;
+                    }
+                    count++;
+                }
+
+                pathNames.Add(Model.Category.Name);
+                currentPath = string.Join(" > ", pathNames);
+
+                if (count >= maxLevel && pathNames.Count > 0)
+                {
+                    currentPath = "..." + currentPath;
+                }
+            }
+        }
+    }
+}
+
+@section Scripts {
+    <script>
+        $(function () {
+            // binds form submission and fields to the validation engine
+            $.validationEngine.defaults.scroll = false;
+            $("#formcontent").validationEngine();
+
+            // 回上一頁
+            $(".btnBack").click(function () {
+                window.history.back();
+            });
+
+            // 檢查是否選擇自己作為父級
+            $("#Category_ParentId").change(function () {
+                var newParentId = $(this).val();
+                var currentId = $("#Category_Id").val();
+
+                if (newParentId == currentId) {
+                    alert("不能選擇自己作為父級類別");
+                    $(this).val('@(Model.Category.ParentId.HasValue ? Model.Category.ParentId.Value.ToString() : "")');
+                }
+            });
+        });
+    </script>
+}
+
+<!--主要內容-->
+<article class="contentArea" id="content">
+    @using (Html.BeginForm("Edit", "Category", FormMethod.Post, new { id = "formcontent" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        @Html.HiddenFor(model => model.Category.Id)
+        @Html.HiddenFor(model => model.Category.CreateTime)
+        @Html.HiddenFor(model => model.Category.Path)
+        @Html.HiddenFor(model => model.Category.Level)
+
+        <h1>
+            類別管理<span>/ 編輯類別</span>
+            <span style="font-size:14px; color:#666; margin-left:15px; font-weight:normal;">
+                ID：@Model.Category.Id
+            </span>
+            <span class="tip">
+                <section class="tipBox">
+                    <span>&nbsp;</span>
+                    <ul>
+                        <li>編輯類別的基本資訊。 *為必填欄位。</li>
+                        <li>變更父級類別會影響該類別及其所有子類別的路徑。</li>
+                        <li>排序數字越小，顯示越靠前。</li>
+                    </ul>
+                </section>
+            </span>
+        </h1>
+
+        <section class="detailGroup">
+            <h3>基本資料</h3>
+            <ul>
+                <li>
+                    <p class="title">類別名稱<span class="mark"> *</span> :</p>
+                    @Html.TextBoxFor(model => model.Category.Name, new
+                    {
+                        @class = "validate[required,maxSize[50]] text-input",
+                        maxlength = "50",
+                        style = "width:400px;"
+                    })
+                    <mark class="mark">(最多請輸入 50 中英文字元)</mark>
+                    @Html.ValidationMessageFor(model => model.Category.Name, "", new { @class = "text-danger" })
+                </li>
+
+                <li>
+                    <p class="title">父級類別 :</p>
+                    @Html.DropDownListFor(
+                        model => model.Category.ParentId,
+                        Model.ParentCategories,
+                        new
+                        {
+                            @class = "validate[optional] text-input",
+                            style = "width:400px; height:32px;"
+                        }
+                    )
+                    <mark class="mark">(選擇父級類別，不選則為頂級類別)</mark>
+                    @Html.ValidationMessageFor(model => model.Category.ParentId, "", new { @class = "text-danger" })
+                </li>
+
+                <li>
+                    <p class="title">排序 :</p>
+                    @Html.TextBoxFor(model => model.Category.SortOrder, new
+                    {
+                        @class = "validate[custom[integer]] text-input",
+                        style = "width:100px;"
+                    })
+                    <mark class="mark">(數字越小越靠前)</mark>
+                    @Html.ValidationMessageFor(model => model.Category.SortOrder, "", new { @class = "text-danger" })
+                </li>
+
+                <li>
+                    <p class="title">顯示狀態<span class="mark"> *</span> :</p>
+                    @{
+                        // 假設 Category 模型有 Status 屬性，如果沒有可以移除這行
+                        bool isActive = true;
+                    }
+                    <label style="margin-right:20px;">
+                        @Html.RadioButton("Category.Status", 1, true, new { @id = "StatusYes", @class = "validate[required] radio" })
+                        <span class="icon-on" title="啟用"></span>
+                    </label>
+                    <label>
+                        @Html.RadioButton("Category.Status", 0, false, new { @id = "StatusNo", @class = "validate[required] radio" })
+                        <span class="icon-off" title="停用"></span>
+                    </label>
+                </li>
+
+                <li>
+                    <p class="title">目前層級 :</p>
+                    <div style="display:inline-block; background:#f5f5f5; padding:8px 15px; border-radius:4px;">
+                        <span>@(Model.Category.Level + 1) 級類別</span>
+                        @if (Model.Category.Level == 0)
+                        {
+                            <span style="color:#999; margin-left:10px;">(頂級類別)</span>
+                        }
+                    </div>
+                </li>
+
+                <li>
+                    <p class="title">建立時間 :</p>
+                    <div style="display:inline-block; background:#f5f5f5; padding:8px 15px; border-radius:4px;">
+                        <span>@Model.Category.CreateTime.ToString("yyyy-MM-dd HH:mm:ss")</span>
+                    </div>
+                </li>
+
+                <li>
+                    <p class="title">完整路徑 :</p>
+                    <div style="display:inline-block; background:#e9ecef; padding:8px 15px; border-radius:4px; font-family:monospace; max-width:600px; word-break:break-all;">
+                        <span>@currentPath</span>
+                    </div>
+                </li>
+            </ul>
+        </section>
+
+        <!--功能操作-->
+        <section class="openArea">
+            <span class="open" title="開啟執行列">開啟執行列</span>
+        </section>
+        <section class="functionArea">
+            <span class="close" title="關閉執行列">關閉執行列</span>
+            <span class="close" title="關閉執行列" id="closeShort"></span>
+
+            <div>
+                <input name="返回" type="button" class="btnBack" value="x 回上一頁">
+                <input name="送出" type="submit" class="btnAdd" value="B 確定更新">
+            </div>
+        </section>
+    }
+</article>
+
+<style>
+    /* 與 NewsCata 頁面一致的樣式 */
+    .detailGroup ul li .title {
+        width: 120px;
+        font-weight: normal;
+        color: #333;
+    }
+
+    .detailGroup ul li input[type="text"],
+    .detailGroup ul li select {
+        border: 1px solid #ddd;
+        padding: 6px 10px;
+        border-radius: 4px;
+    }
+
+        .detailGroup ul li input[type="text"]:focus,
+        .detailGroup ul li select:focus {
+            border-color: #ff6a00;
+            outline: none;
+            box-shadow: 0 0 5px rgba(255, 106, 0, 0.3);
+        }
+
+    .detailGroup ul li .mark {
+        color: #999;
+        font-size: 12px;
+        margin-left: 10px;
+    }
+
+    .detailGroup ul li .text-danger {
+        color: #dc3545;
+        font-size: 12px;
+        margin-left: 10px;
+    }
+
+    .icon-on, .icon-off {
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        cursor: pointer;
+        margin: 0 5px;
+        vertical-align: middle;
+    }
+
+    .icon-on {
+        background: url('/Areas/Sysmgr/Content/images/icon_on.png') no-repeat center;
+    }
+
+    .icon-off {
+        background: url('/Areas/Sysmgr/Content/images/icon_off.png') no-repeat center;
+    }
+
+    input[type="radio"] {
+        vertical-align: middle;
+        margin-right: 2px;
+    }
+</style>

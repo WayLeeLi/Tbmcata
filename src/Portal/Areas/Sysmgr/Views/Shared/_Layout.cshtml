@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="author" content="www.twevcoinclub.com" />
     <meta name="viewport" content="width=device-width initial-scale=1.0 maximum-scale=1.0 user-scalable=yes" />
-    <title>台灣生技醫療照護輔具協會 網站管理系統</title>
+    <title>智匯創新股份有限公司 網站管理系統</title>
     <!--[if lt IE 9]>
     <script src="~/Scripts/html5.js"></script>
     <![endif]-->
@@ -96,9 +96,9 @@
         <!--上方選單區塊請拆出可單獨維護檔-->
         <header id="header" class="header">
             @*<a id="sideMenu" href="#menu">
-                <img src="../../images/admin/logo.png" alt="台灣生技醫療照護輔具協會 網站管理系統" title="台灣生技醫療照護輔具協會 網站管理系統">
+                <img src="../../images/admin/logo.png" alt="智匯創新股份有限公司 網站管理系統" title="智匯創新股份有限公司 網站管理系統">
             </a>*@
-            <h2>&nbsp; 台灣生技醫療照護輔具協會網站後台管理系統</h2>
+            <h2>&nbsp; 智匯創新股份有限公司網站後台管理系統</h2>
             <!--上方選單 電腦版-->
             <ul class="topMenu">
                 <p>Welcome!</p>
@@ -143,30 +143,28 @@
                         <span class="icon-home-1">首頁管理</span>
                         <ul>
                             <li><a href="/Sysmgr/Banner?menu=1&amp;sub=1">輪播圖管理</a></li>
-                            <li><a href="/Sysmgr/AdLink?menu=1&amp;sub=2">底部交換廣告</a></li>
+                            @*<li><a href="/Sysmgr/AdLink?menu=1&amp;sub=2">底部交換廣告</a></li>*@
                         </ul>
                     </li>
                 }
                 @if (ViewBag.LoginUser != null && (((Academy.Models.User)ViewBag.LoginUser).IsSuper == 1 || ((Academy.Models.User)ViewBag.LoginUser).Auths.Contains("200")))
                 {
                     <li class="mainLink">
-                        <span class="icon-files">關於協會</span>
+                        <span class="icon-files">公司簡介</span>
                         <ul>
-                            <li><a href="/Sysmgr/about/info?menu=2&amp;sub=1">協會簡介</a></li>
-                            <li><a href="/Sysmgr/about/chairman?menu=2&amp;sub=2">理事長的話</a></li>
-                            <li><a href="/Sysmgr/about/member?menu=2&amp;sub=3">組織成員</a></li>
-                            <li><a href="/Sysmgr/about/constitution?menu=2&amp;sub=4">協會章程</a></li>
-                            <li><a href="/Sysmgr/about/calendar?menu=2&amp;sub=5">年度行事曆</a></li>
+                            <li><a href="/Sysmgr/about/info?menu=2&amp;sub=1">關於智匯創新</a></li>
+                            <li><a href="/Sysmgr/about/chairman?menu=2&amp;sub=2">公司使命</a></li>
+                            <li><a href="/Sysmgr/about/member?menu=2&amp;sub=3">核心價值</a></li>
                         </ul>
                     </li>
                 }
                 @if (ViewBag.LoginUser != null && (((Academy.Models.User)ViewBag.LoginUser).IsSuper == 1 || ((Academy.Models.User)ViewBag.LoginUser).Auths.Contains("300")))
                 {
                     <li class="mainLink">
-                        <span class="icon-newspaper">資訊管理</span>
+                        <span class="icon-newspaper">設計服務</span>
                         <ul>
                             <li><a href="/Sysmgr/News?menu=3&amp;sub=1">內容管理</a></li>
-                            <li><a href="/Sysmgr/NewsCata?menu=3&amp;sub=2">類別管理</a></li>
+                            <li><a href="/Sysmgr/Category?menu=3&amp;sub=2">類別管理</a></li>
                             <li><a href="/Sysmgr/News/Search?menu=3&amp;sub=3">搜尋及編輯</a></li>
                         </ul>
                     </li>
@@ -174,23 +172,54 @@
                 @if (ViewBag.LoginUser != null && (((Academy.Models.User)ViewBag.LoginUser).IsSuper == 1 || ((Academy.Models.User)ViewBag.LoginUser).Auths.Contains("400")))
                 {
                     <li class="mainLink">
-                        <span class="icon-mail-1">會員名錄</span>
+                        <span class="icon-newspaper">作品集</span>
                         <ul>
-                            <li><a href="/Sysmgr/Member?menu=4&amp;sub=1">會員專區</a></li>
-                            <li><a href="/Sysmgr/Member/JoinIn?menu=4&amp;sub=2">申請入會</a></li>
+                            <li><a href="/Sysmgr/News?menu=4&amp;sub=1">內容管理</a></li>
+                            <li><a href="/Sysmgr/Category?menu=4&amp;sub=2">類別管理</a></li>
+                            <li><a href="/Sysmgr/News/Search?menu=4&amp;sub=3">搜尋及編輯</a></li>
                         </ul>
                     </li>
                 }
                 @if (ViewBag.LoginUser != null && (((Academy.Models.User)ViewBag.LoginUser).IsSuper == 1 || ((Academy.Models.User)ViewBag.LoginUser).Auths.Contains("500")))
                 {
                     <li class="mainLink">
-                        <span class="icon-mail-1">業務諮詢</span>
+                        <span class="icon-newspaper">新聞活動</span>
                         <ul>
-                            <li><a href="/Sysmgr/Message?menu=5&amp;sub=1">諮詢內容</a></li>
-                            <li><a href="/Sysmgr/Setting/Mail?menu=5&amp;sub=2">系統信件設定</a></li>
+                            <li><a href="/Sysmgr/News?menu=5&amp;sub=1">內容管理</a></li>
+                            <li><a href="/Sysmgr/Category?menu=5&amp;sub=2">類別管理</a></li>
+                            <li><a href="/Sysmgr/News/Search?menu=5&amp;sub=3">搜尋及編輯</a></li>
                         </ul>
                     </li>
                 }
+                @*@if (ViewBag.LoginUser != null && (((Academy.Models.User)ViewBag.LoginUser).IsSuper == 1 || ((Academy.Models.User)ViewBag.LoginUser).Auths.Contains("400")))
+        {
+            <li class="mainLink">
+                <span class="icon-mail-1">會員名錄</span>
+                <ul>
+                    <li><a href="/Sysmgr/Member?menu=4&amp;sub=1">會員專區</a></li>
+                    <li><a href="/Sysmgr/Member/JoinIn?menu=4&amp;sub=2">申請入會</a></li>
+                </ul>
+            </li>
+        }*@
+                @if (ViewBag.LoginUser != null && (((Academy.Models.User)ViewBag.LoginUser).IsSuper == 1 || ((Academy.Models.User)ViewBag.LoginUser).Auths.Contains("600")))
+                {
+                    <li class="mainLink">
+                        <span class="icon-files">聯絡我們</span>
+                        <ul>
+                            <li><a href="/Sysmgr/Setting/Contact?menu=6&amp;sub=2">聯絡我們</a></li>
+                        </ul>
+                    </li>
+                }
+                @*@if (ViewBag.LoginUser != null && (((Academy.Models.User)ViewBag.LoginUser).IsSuper == 1 || ((Academy.Models.User)ViewBag.LoginUser).Auths.Contains("500")))
+        {
+            <li class="mainLink">
+                <span class="icon-mail-1">業務諮詢</span>
+                <ul>
+                    <li><a href="/Sysmgr/Message?menu=5&amp;sub=1">諮詢內容</a></li>
+                    <li><a href="/Sysmgr/Setting/Mail?menu=5&amp;sub=2">系統信件設定</a></li>
+                </ul>
+            </li>
+        }*@
                 @if (ViewBag.LoginUser != null && (((Academy.Models.User)ViewBag.LoginUser).IsSuper == 1 || ((Academy.Models.User)ViewBag.LoginUser).Auths.Contains("600")))
                 {
                     <li class="mainLink">
@@ -205,7 +234,7 @@
             </ul>
             <!--版權列-->
             <div class="inside_footer">
-                <footer class="footer">&copy; @DateTime.Now.Year 台灣生技醫療照護輔具協會</footer>
+                <footer class="footer">&copy; @DateTime.Now.Year 智匯創新股份有限公司</footer>
             </div>
         </nav>
         <!--側邊選單結束-->

@@ -13,6 +13,7 @@ namespace Academy.Models
         public DbSet<Banner> Banners { get; set; }
         public DbSet<News> Newss { get; set; }
         public DbSet<NewsCata> NewsCatas { get; set; }
+        public DbSet<Category> Categories { get; set; }
         public DbSet<DictSet> DictSets { get; set; }
         public DbSet<Module> Modules { get; set; }
         public DbSet<User> Users { get; set; }

@@ -26,6 +26,11 @@ namespace Academy.Common
             return db.NewsCatas.Where(p => p.ID == id).Select(a => a.Title).FirstOrDefault();
         }
 
+        public static string GetCategorieName(int? id)
+        {
+            return db.Categories.Where(p => p.Id == id).Select(a => a.Name).FirstOrDefault();
+        }
+
         public static string GetModuleNameByID(int id)
         {
             return db.Modules.Where(p => p.ID == id).Select(a => a.Name).FirstOrDefault();

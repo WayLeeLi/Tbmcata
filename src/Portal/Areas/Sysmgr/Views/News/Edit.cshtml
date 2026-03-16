@@ -42,22 +42,7 @@
             <ul>
                 <li>
                     <p class="title">選擇類別<span class="mark"> *</span> : </p>
-                    <select name="CataID" class="validate[required]">
-                        <option value="">請選擇</option>
-                        @foreach (var item in ViewBag.CataList)
-                        {
-                            if (Model != null && Model.CataID == item.ID)
-                            {
-                            <option selected="selected" value="@item.ID">@item.Title @if (item.Status == 0)
-                                                                                     { <text>(下線)</text> }</option>
-                            }
-                            else
-                            {
-                            <option value="@item.ID">@item.Title @if (item.Status == 0)
-                                                                 { <text>(下線)</text> }</option>
-                            }
-                        }
-                    </select>
+                    @Html.DropDownListFor(model => model.CataID, (IEnumerable<SelectListItem>)ViewBag.CategorySelectList, new { @class = "validate[required]" })
                 </li>
                 <li>
                     <p class="title">文章主題<span class="mark"> *</span> :</p>

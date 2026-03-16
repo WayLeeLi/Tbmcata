@@ -1,15 +1,16 @@
 ﻿using Academy.Controllers;
+using Academy.Models;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using PagedList;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using PagedList;
-using Academy.Models;
-using System.IO;
-using System.Data;
-using Newtonsoft.Json.Linq;
-using Newtonsoft.Json;
+using System.Web.UI.WebControls;
 
 namespace Academy.Areas.Sysmgr.Controllers
 {
@@ -18,9 +19,35 @@ namespace Academy.Areas.Sysmgr.Controllers
         //
         // GET: /Sysmgr/News/
 
-        public ActionResult Index(int page = 1, int cata = 0, string status = "", string ordery = "")
+        public ActionResult Index(int page = 1, int cata = 0, string status = "", string ordery = "", string menu = "")
         {
-            ViewBag.CataList = db.NewsCatas.OrderBy(a => a.Sort).ThenByDescending(a => a.CDate);
+            var resunt = string.IsNullOrEmpty(menu) ? 0 : int.Parse(menu);
+            var categories = db.Categories.Where(s => s.Menu == resunt && s.Status == 1).OrderBy(c => c.Path).ToList();
+            var categoryFilterList = new List<SelectListItem>();
+            categoryFilterList.Add(new SelectListItem { Value = "", Text = "請選擇" });
+
+            foreach (var cat in categories)
+            {
+                string prefix = "";
+                if (cat.Level > 0)
+                {
+                    // 根据层级添加缩进（每级两个空格）
+                    for (int i = 0; i < cat.Level; i++)
+                    {
+                        prefix += "  ";
+                    }
+                    // 添加层级符号
+                    prefix += "└─ ";
+                }
+
+                categoryFilterList.Add(new SelectListItem
+                {
+                    Value = cat.Id.ToString(),
+                    Text = prefix + cat.Name,
+                    Selected = (cata == cat.Id)
+                });
+            }
+            ViewBag.CategoryFilterList = categoryFilterList;
 
             var data = from a in db.Newss select a;
 
@@ -255,9 +282,36 @@ namespace Academy.Areas.Sysmgr.Controllers
             return View(pagedData);
         }
 
-        public ActionResult Add()
+        public ActionResult Add(string menu = "")
         {
-            ViewBag.CataList = db.NewsCatas.OrderBy(a => a.Sort).ThenByDescending(a => a.CDate);
+            var resunt = string.IsNullOrEmpty(menu) ? 0 : int.Parse(menu);
+            var categories = db.Categories.Where(s => s.Menu == resunt && s.Status == 1).OrderBy(c => c.Path).ToList();
+
+            // 构建下拉列表项（带层级缩进）
+            var categoryList = new List<SelectListItem>();
+            categoryList.Add(new SelectListItem { Value = "", Text = "請選擇" });
+
+            foreach (var cat in categories)
+            {
+                string prefix = "";
+                if (cat.Level > 0)
+                {
+                    // 根据层级添加缩进（每级两个空格）
+                    for (int i = 0; i < cat.Level; i++)
+                    {
+                        prefix += "  ";
+                    }
+                    // 添加层级符号
+                    prefix += "└─ ";
+                }
+
+                categoryList.Add(new SelectListItem
+                {
+                    Value = cat.Id.ToString(),
+                    Text = prefix + cat.Name
+                });
+            }
+            ViewBag.CategorySelectList = categoryList;
             News model = new News();
             model.Status = 1;
             model.PubDate = DateTime.Now;
@@ -312,12 +366,39 @@ namespace Academy.Areas.Sysmgr.Controllers
             }
         }
 
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int id, string menu = "")
         {
             News model = db.Newss.Where(p => p.ID == id).FirstOrDefault();
             if (model != null)
             {
-                ViewBag.CataList = db.NewsCatas.OrderBy(a => a.Sort).ThenByDescending(a => a.CDate);
+                var resunt = string.IsNullOrEmpty(menu) ? 0 : int.Parse(menu);
+                var categories = db.Categories.Where(s => s.Menu == resunt && s.Status == 1).OrderBy(c => c.Path).ToList();
+
+                // 构建下拉列表项（带层级缩进）
+                var categoryList = new List<SelectListItem>();
+                categoryList.Add(new SelectListItem { Value = "", Text = "請選擇" });
+
+                foreach (var cat in categories)
+                {
+                    string prefix = "";
+                    if (cat.Level > 0)
+                    {
+                        // 根据层级添加缩进（每级两个空格）
+                        for (int i = 0; i < cat.Level; i++)
+                        {
+                            prefix += "  ";
+                        }
+                        // 添加层级符号
+                        prefix += "└─ ";
+                    }
+
+                    categoryList.Add(new SelectListItem
+                    {
+                        Value = cat.Id.ToString(),
+                        Text = prefix + cat.Name
+                    });
+                }
+                ViewBag.CategorySelectList = categoryList;
                 return View(model);
             }
             else

@@ -4,6 +4,7 @@
 
 @{
     Layout = "~/Areas/Sysmgr/Views/Shared/_Layout.cshtml";
+    var menu = Request["menu"]; // 获取菜单参数
 }
 
 @section Scripts {
@@ -131,34 +132,27 @@
 }
 <!--主要內容-->
 <article id="content" class="contentArea">
-    <section class="btnArea"><a href="/Sysmgr/News/Add" class="add"><span class="icon-plus"></span>新增文章</a></section>
-    <h1>資訊管理 <span>/ 文章列表</span><span class="tip">
-        <section class="tipBox">
-            <span>&nbsp;</span>
-            <ul>
-                <li>下列是目前文章列表。您可點選每條內容後面的  '編輯' 及 '刪除' 圖示進行您需要的動作。</li>
-                <li>前後台'最新消息'均以 發佈時間 做為排序，最新往下排列至最舊，其他類別下內容按發佈時間正序排列。</li>
-            </ul>
-        </section>
-    </span>
+    <section class="btnArea">
+        <a href="/Sysmgr/News/Add?menu=@menu" class="add"><span class="icon-plus"></span>新增文章</a>
+    </section>
+    <h1>
+        資訊管理 <span>/ 文章列表</span><span class="tip">
+            <section class="tipBox">
+                <span>&nbsp;</span>
+                <ul>
+                    <li>下列是目前文章列表。您可點選每條內容後面的  '編輯' 及 '刪除' 圖示進行您需要的動作。</li>
+                    <li>前後台'最新消息'均以 發佈時間 做為排序，最新往下排列至最舊，其他類別下內容按發佈時間正序排列。</li>
+                </ul>
+            </section>
+        </span>
     </h1>
     <section class="selectArea">
         <div class="selectMenu">
             <p>選擇類別 :</p>
             <select name="cata" id="selType">
-                <option value="">請選擇</option>
-                @foreach (var item in ViewBag.CataList)
+                @foreach (var item in ViewBag.CategoryFilterList)
                 {
-                    if (Request["cata"] == item.ID.ToString())
-                    {
-                    <option selected="selected" value="@item.ID">@item.Title @if (item.Status == 0)
-                                                                             { <text>(下線)</text> }</option>
-                    }
-                    else
-                    {
-                    <option value="@item.ID">@item.Title @if (item.Status == 0)
-                                                         { <text>(下線)</text> }</option>
-                    }
+                    <option value="@item.Value" @(item.Selected ? "selected" : "")>@item.Text</option>
                 }
             </select>
         </div>
@@ -184,7 +178,7 @@
                 }
             </select>
         </div>
-        <input type="button" value="送出" onclick="location.href = '/Sysmgr/News/Index?cata=' + $('#selType').val() + '&status=' + $('#selectItem').val()">
+        <input type="button" value="送出" onclick="location.href = '/Sysmgr/News/Index?cata=' + $('#selType').val() + '&status=' + $('#selectItem').val() + '&menu=@menu'">
     </section>
 
     <section class="tableArea">
@@ -194,39 +188,39 @@
                     <td class="no">
                         @if (Request["ordery"] == "idasc")
                         {
-                            <a href='/Sysmgr/News/Index?cata=@Request["cata"]&status=@Request["status"]&ordery=iddesc'>ID</a>
+                            <a href='/Sysmgr/News/Index?cata=@Request["cata"]&status=@Request["status"]&ordery=iddesc&menu=@menu'>ID</a>
                         }
                         else
                         {
-                            <a href='/Sysmgr/News/Index?cata=@Request["cata"]&status=@Request["status"]&ordery=idasc'>ID</a>
+                            <a href='/Sysmgr/News/Index?cata=@Request["cata"]&status=@Request["status"]&ordery=idasc&menu=@menu'>ID</a>
                         }
                     </td>
                     <td class="checkbox">
                         <input type="checkbox" name="checkboxAll" id="checkboxAll">
                     </td>
                     <td class="alignLeft main">文章主題</td>
-                    <td class="minWidth">所屬類別</td>
+                    <td class="minWidth" style="width:20%;">所屬類別</td>
                     <td class="minWidth">點閱數</td>
                     <td class="minWidth">上線狀態</td>
                     @*<td class="minWidth">首頁顯示</td>*@
                     <td class="time minWidth">
                         @if (Request["ordery"] == "pubtimeasc")
                         {
-                            <a href='/Sysmgr/News/Index?cata=@Request["cata"]&status=@Request["status"]&ordery=pubtimedesc' class="sortUp">發佈時間</a>
+                            <a href='/Sysmgr/News/Index?cata=@Request["cata"]&status=@Request["status"]&ordery=pubtimedesc&menu=@menu' class="sortUp">發佈時間</a>
                         }
                         else
                         {
-                            <a href='/Sysmgr/News/Index?cata=@Request["cata"]&status=@Request["status"]&ordery=pubtimeasc' class="sortDown">發佈時間</a>
+                            <a href='/Sysmgr/News/Index?cata=@Request["cata"]&status=@Request["status"]&ordery=pubtimeasc&menu=@menu' class="sortDown">發佈時間</a>
                         }
                     </td>
                     <td class="time minWidth">
                         @if (Request["ordery"] == "timeasc")
                         {
-                            <a href='/Sysmgr/News/Index?cata=@Request["cata"]&status=@Request["status"]&ordery=timedesc' class="sortUp">建立時間</a>
+                            <a href='/Sysmgr/News/Index?cata=@Request["cata"]&status=@Request["status"]&ordery=timedesc&menu=@menu' class="sortUp">建立時間</a>
                         }
                         else
                         {
-                            <a href='/Sysmgr/News/Index?cata=@Request["cata"]&status=@Request["status"]&ordery=timeasc' class="sortDown">建立時間</a>
+                            <a href='/Sysmgr/News/Index?cata=@Request["cata"]&status=@Request["status"]&ordery=timeasc&menu=@menu' class="sortDown">建立時間</a>
                         }
                     </td>
                     <td class="btn minWidth">功能</td>
@@ -248,7 +242,7 @@
                         </td>
                         @*<td class="alignLeft"><a href="/News/Detail?id=@item.ID" target="_blank">@item.Title</a></td>*@
                         <td class="alignLeft">@item.Title</td>
-                        <td class="alignLeft">@Academy.Common.GetData.GetNewsCataName(item.CataID)</td>
+                        <td>@Academy.Common.GetData.GetCategorieName(item.CataID)</td>
                         <td>@(item.ReadCount == null ? 0 : item.ReadCount)</td>
                         <td>
                             @if (item.Status == 0 || item.Status == 2 && (item.OnDate != null && item.OnDate > DateTime.Now || item.OffDate != null && item.OffDate < DateTime.Now))
@@ -261,27 +255,29 @@
                             }
                         </td>
                         @*<td>
-                            @if (item.IsShowIndex == 1)
-                            {
-                                <span class="icon-on" title="顯示"></span>
-                            }
-                            else
-                            {
-                                <span class="icon-off" title="不顯示"></span>
-                            }
-                        </td>*@
+                                @if (item.IsShowIndex == 1)
+                                {
+                                    <span class="icon-on" title="顯示"></span>
+                                }
+                                else
+                                {
+                                    <span class="icon-off" title="不顯示"></span>
+                                }
+                            </td>*@
                         @if (item.PubDate != null)
                         {
-                            <td class="num">@item.PubDate.Value.ToString("yyyy-MM-dd HH:mm:ss")</td>  
+                            <td class="num">@item.PubDate.Value.ToString("yyyy-MM-dd HH:mm:ss")</td>
+
                         }
                         else
                         {
-                            <td class="num"></td>  
+                            <td class="num"></td>
+
                         }
                         <td class="num">@item.CDate.Value.ToString("yyyy-MM-dd HH:mm:ss")</td>
                         <td>
                             <p class="function">
-                                <a href="/Sysmgr/News/Edit?id=@item.ID&ret=@HttpUtility.UrlEncode(Request.Url.ToString())" class="icon-edit" title="編輯"></a>
+                                <a href="/Sysmgr/News/Edit?menu=@menu&id=@item.ID&ret=@HttpUtility.UrlEncode(Request.Url.ToString())&menu=@menu" class="icon-edit" title="編輯"></a>
                                 <a href="javascript:;" data-id="@item.ID" data-title="@item.Title" class="icon-trash-bin" title="刪除"></a>
                             </p>
                         </td>
@@ -296,11 +292,11 @@
     }
     <section class="numberArea">
         <p>
-            共 : 
+            共 :
             @data.PageCount 頁  /  總共 : @data.TotalItemCount 筆記錄
         </p>
         <ul>
-            @Html.PagedListPager(data, page => Url.Action("Index", new { page = page, cata = Request["cata"], status = Request["status"], ordery = Request["ordery"] }), new PagedListRenderOptions() { LinkToFirstPageFormat = "首頁", LinkToNextPageFormat = "下一頁", LinkToPreviousPageFormat = "上一頁", LinkToLastPageFormat = "末頁", DisplayItemSliceAndTotal = true, ItemSliceAndTotalFormat = "共有 {2} 筆", MaximumPageNumbersToDisplay = 5 })
+            @Html.PagedListPager(data, page => Url.Action("Index", new { page = page, cata = Request["cata"], status = Request["status"], ordery = Request["ordery"], menu = menu }), new PagedListRenderOptions() { LinkToFirstPageFormat = "首頁", LinkToNextPageFormat = "下一頁", LinkToPreviousPageFormat = "上一頁", LinkToLastPageFormat = "末頁", DisplayItemSliceAndTotal = true, ItemSliceAndTotalFormat = "共有 {2} 筆", MaximumPageNumbersToDisplay = 5 })
         </ul>
     </section>
     <!--功能操作-->
@@ -312,9 +308,9 @@
             <input name="" type="button" value="x" class="btnBackto">
         </div>
         @*<div>
-            <p>更新排序</p>
-            <input name="" type="button" value="k" class="btnSort">
-        </div>*@
+                <p>更新排序</p>
+                <input name="" type="button" value="k" class="btnSort">
+            </div>*@
         <div>
             <p>刪除勾選</p>
             <input name="" type="button" value="K" class="btnDelete">

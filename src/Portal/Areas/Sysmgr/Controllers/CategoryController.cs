@@ -103,12 +103,11 @@ namespace Academy.Areas.Sysmgr.Controllers
             {
                 var category = viewModel.Category;
                 category.CreateTime = DateTime.Now;
-
+                category.Menu = string.IsNullOrEmpty(menu) ? 0 : int.Parse(menu);
                 // 设置层级和路径
                 if (!category.ParentId.HasValue)
                 {
-                    category.Level = 0;
-                    category.Menu= string.IsNullOrEmpty(menu)?0:int.Parse(menu);
+                    category.Level = 0;                   
                     db.Categories.Add(category);
                     db.SaveChanges();
                     category.Path = category.Id.ToString();
@@ -133,7 +132,7 @@ namespace Academy.Areas.Sysmgr.Controllers
                 // 重定向到列表頁，並帶上 menu 參數（如果存在）
                 if (!string.IsNullOrEmpty(menu))
                 {
-                    return RedirectToAction("Index", new { parentId = category.ParentId, menu = menu });
+                    return RedirectToAction("Index", new { sub = 2, menu = menu });
                 }
                 else
                 {
@@ -189,7 +188,7 @@ namespace Academy.Areas.Sysmgr.Controllers
             if (ModelState.IsValid)
             {
                 var category = viewModel.Category;
-
+                category.Menu = string.IsNullOrEmpty(menu) ? 0 : int.Parse(menu);
                 // 检查是否形成循环引用
                 if (IsCircularReference(category.Id, category.ParentId))
                 {
@@ -232,6 +231,7 @@ namespace Academy.Areas.Sysmgr.Controllers
                         }
 
                         db.Entry(category).State = EntityState.Modified;
+
                         db.SaveChanges();
 
                         // 更新所有子类别的路径
@@ -249,7 +249,7 @@ namespace Academy.Areas.Sysmgr.Controllers
                 // 重定向到列表页，带上 menu 参数（如果存在）
                 if (!string.IsNullOrEmpty(menu))
                 {
-                    return RedirectToAction("Index", new { parentId = category.ParentId, menu = menu });
+                    return RedirectToAction("Index", new { sub = 2, menu = menu });
                 }
                 else
                 {
@@ -271,7 +271,7 @@ namespace Academy.Areas.Sysmgr.Controllers
         }
 
 
-       
+
 
         // POST: Category/Delete
         [HttpPost]
@@ -420,16 +420,22 @@ namespace Academy.Areas.Sysmgr.Controllers
         private List<SelectListItem> GetParentCategoryList(List<Category> categories, int? selectedParentId)
         {
             var list = new List<SelectListItem>
-            {
-                new SelectListItem { Value = "", Text = "-- 頂級類別 --" }
-            };
+    {
+        new SelectListItem { Value = "", Text = "-- 頂級類別 --" }
+    };
 
             foreach (var category in categories)
             {
                 string prefix = "";
-                for (int i = 0; i < category.Level; i++)
+                if (category.Level > 0)
                 {
-                    prefix += "　"; // 全角空格
+                    // 根据层级添加缩进（每级两个空格）
+                    for (int i = 0; i < category.Level; i++)
+                    {
+                        prefix += "  "; // 两个空格
+                    }
+                    // 添加 └─ 符号和空格
+                    prefix += "└─ ";
                 }
 
                 list.Add(new SelectListItem

@@ -61,5 +61,7 @@ namespace Academy.Models
         public Nullable<int> LUser { get; set; }
         [Display(Name = "ÐÞ¸Ä•rég")]
         public Nullable<System.DateTime> LDate { get; set; }
+
+        public int Menu { get; set; } = 0;
     }
 }

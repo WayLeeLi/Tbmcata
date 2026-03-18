@@ -49,7 +49,7 @@ namespace Academy.Areas.Sysmgr.Controllers
             }
             ViewBag.CategoryFilterList = categoryFilterList;
 
-            var data = from a in db.Newss select a;
+            var data = from a in db.Newss where a.Menu == resunt select a;
 
             if (cata != 0)
             {
@@ -313,6 +313,7 @@ namespace Academy.Areas.Sysmgr.Controllers
             }
             ViewBag.CategorySelectList = categoryList;
             News model = new News();
+            model.Menu = resunt;
             model.Status = 1;
             model.PubDate = DateTime.Now;
             return View(model);
@@ -351,7 +352,7 @@ namespace Academy.Areas.Sysmgr.Controllers
                     db.Newss.Add(model);
                     db.SaveChanges();
 
-                    return RedirectToAction("Index", "News", new { success = true });
+                    return RedirectToAction("Index", "News", new { menu = model.Menu, success = true });
                 }
                 catch
                 {
@@ -475,7 +476,7 @@ namespace Academy.Areas.Sysmgr.Controllers
                         Response.Redirect(Session["ret"].ToString());
                         return null;
                     }
-                    return RedirectToAction("Index", "News", new { success = true });
+                    return RedirectToAction("Index", "News", new { menu = model.Menu, success = true });
                 }
                 catch
                 {

@@ -47,6 +47,7 @@
                 <li>
                     <p class="title">文章主題<span class="mark"> *</span> :</p>
                     @Html.TextBoxFor(model => model.Title, new { @class = "validate[required,maxSize[100]] text-input long", maxlength = "101" })
+                    @Html.HiddenFor(m => m.Menu)
                 </li>
                 @*<li>
                     <p class="title">圖/編輯單位 :</p>

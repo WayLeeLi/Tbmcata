@@ -16,11 +16,11 @@ namespace Academy.Areas.Sysmgr.Controllers
     {
 
         // GET: Category
-        public ActionResult Index(int page = 1, int? parentId = null, string keyword = "")
+        public ActionResult Index(int page = 1, int? parentId = null, string keyword = "", string menu = "")
         {
             int pageSize = 15;
-
-            var query = db.Categories.AsQueryable();
+            var result = string.IsNullOrEmpty(menu) ? 0 : int.Parse(menu);
+            var query = db.Categories.Where(s => s.Menu == result).AsQueryable();
 
             // 如果指定了 parentId，只显示该父级下的类别
             if (parentId.HasValue)
@@ -71,8 +71,9 @@ namespace Academy.Areas.Sysmgr.Controllers
         }
 
         // GET: Category/Create
-        public ActionResult Create(int? parentId)
+        public ActionResult Create(int? parentId, string menu = "")
         {
+            var result = string.IsNullOrEmpty(menu) ? 0 : int.Parse(menu);
             var category = new Category();
             if (parentId.HasValue)
             {
@@ -85,7 +86,7 @@ namespace Academy.Areas.Sysmgr.Controllers
             };
 
             // 获取父类别列表供下拉框使用（编辑时用）
-            var categories = db.Categories
+            var categories = db.Categories.Where(s => s.Menu == result)
                 .OrderBy(c => c.Path)
                 .ToList();
 
@@ -107,7 +108,7 @@ namespace Academy.Areas.Sysmgr.Controllers
                 // 设置层级和路径
                 if (!category.ParentId.HasValue)
                 {
-                    category.Level = 0;                   
+                    category.Level = 0;
                     db.Categories.Add(category);
                     db.SaveChanges();
                     category.Path = category.Id.ToString();
@@ -154,8 +155,9 @@ namespace Academy.Areas.Sysmgr.Controllers
         }
 
         // GET: Category/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int id, string menu = "")
         {
+            var result = string.IsNullOrEmpty(menu) ? 0 : int.Parse(menu);
             var category = db.Categories.Find(id);
             if (category == null)
             {
@@ -164,7 +166,7 @@ namespace Academy.Areas.Sysmgr.Controllers
 
             // 获取父类别列表（排除自身）
             var categories = db.Categories
-                .Where(c => c.Id != id)
+                .Where(c => c.Id != id && c.Menu == result)
                 .OrderBy(c => c.Path)
                 .ToList();
 

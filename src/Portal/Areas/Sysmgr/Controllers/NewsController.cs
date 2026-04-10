@@ -22,6 +22,21 @@ namespace Academy.Areas.Sysmgr.Controllers
         public ActionResult Index(int page = 1, int cata = 0, string status = "", string ordery = "", string menu = "")
         {
             var resunt = string.IsNullOrEmpty(menu) ? 0 : int.Parse(menu);
+            if (!string.IsNullOrEmpty(menu))
+            {
+                switch (menu)
+                {
+                    case "3":
+                        ViewBag.MenuName = "設計服務";
+                        break;
+                    case "4":
+                        ViewBag.MenuName = "作品集";
+                        break;
+                    default:
+                        ViewBag.MenuName = "新聞活動";
+                        break;
+                }
+            }
             var categories = db.Categories.Where(s => s.Menu == resunt && s.Status == 1).OrderBy(c => c.Path).ToList();
             var categoryFilterList = new List<SelectListItem>();
             categoryFilterList.Add(new SelectListItem { Value = "", Text = "請選擇" });

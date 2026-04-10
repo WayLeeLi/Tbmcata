@@ -136,7 +136,7 @@
         <a href="/Sysmgr/News/Add?menu=@menu" class="add"><span class="icon-plus"></span>新增文章</a>
     </section>
     <h1>
-        資訊管理 <span>/ 文章列表</span><span class="tip">
+        @ViewBag.MenuName <span>/ 文章列表</span><span class="tip">
             <section class="tipBox">
                 <span>&nbsp;</span>
                 <ul>
@@ -277,7 +277,7 @@
                         <td class="num">@item.CDate.Value.ToString("yyyy-MM-dd HH:mm:ss")</td>
                         <td>
                             <p class="function">
-                                <a href="/Sysmgr/News/Edit?menu=@menu&id=@item.ID&ret=@HttpUtility.UrlEncode(Request.Url.ToString())&menu=@menu" class="icon-edit" title="編輯"></a>
+                                <a href="/Sysmgr/News/Edit?menu=@menu&id=@item.ID&ret=@HttpUtility.UrlEncode(Request.Url.ToString())" class="icon-edit" title="編輯"></a>
                                 <a href="javascript:;" data-id="@item.ID" data-title="@item.Title" class="icon-trash-bin" title="刪除"></a>
                             </p>
                         </td>

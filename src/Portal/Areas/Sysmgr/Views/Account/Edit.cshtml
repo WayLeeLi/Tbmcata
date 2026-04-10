@@ -106,19 +106,19 @@
                                 <label for="cb100">首頁管理</label>
 
                                 <input type="checkbox" @if ((Model.Auths ?? "").Contains("200")) { <text> checked="checked" </text> } name="Auths" id="cb200" value="200">
-                                <label for="cb200">關於協會</label>
+                                <label for="cb200">公司簡介</label>
 
                                 <input type="checkbox" @if ((Model.Auths ?? "").Contains("300")) { <text> checked="checked" </text> } name="Auths" id="cb300" value="300">
-                                <label for="cb300">資訊管理</label>
+                                <label for="cb300">設計服務</label>
 
                                 <input type="checkbox" @if ((Model.Auths ?? "").Contains("400")) { <text> checked="checked" </text> } name="Auths" id="cb400" value="400">
-                                <label for="cb400">會員名錄</label>
+                                <label for="cb400">作品集</label>
 
                                 <input type="checkbox" @if ((Model.Auths ?? "").Contains("500")) { <text> checked="checked" </text> } name="Auths" id="cb500" value="500">
-                                <label for="cb500">業務諮詢</label>
+                                <label for="cb500">新聞活動</label>
 
                                 <input type="checkbox" @if ((Model.Auths ?? "").Contains("600")) { <text> checked="checked" </text> } name="Auths" id="cb600" value="600">
-                                <label for="cb600">其他訊息</label>
+                                <label for="cb600">聯絡我們</label>
                             </td>
                         </tr>
                     </table>

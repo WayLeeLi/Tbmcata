@@ -1,62 +1,122 @@
 ﻿@model Academy.Models.DictSet
-
 @{
-    var ModelName = "組織成員";
-    ViewBag.Title = ModelName;
+    ViewBag.Title = "核心價值｜智匯創新 G-wise Design";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 @section Styles {
+    <link href="/css/about.css" rel="stylesheet" />
 }
+
 @section Scripts {
+    <script src="/js/about.js"></script>
+    <script>
+        $(function () {
+            $('.value-card, .mission-block').each(function () {
+                $(this).css({ opacity: 0, transform: 'translateY(20px)' });
+                var obs = new IntersectionObserver(function (entries) {
+                    entries.forEach(function (e) {
+                        if (e.isIntersecting) {
+                            $(e.target).css({
+                                transition: 'opacity 0.5s ease, transform 0.5s ease',
+                                opacity: 1,
+                                transform: 'translateY(0)'
+                            });
+                            obs.unobserve(e.target);
+                        }
+                    });
+                }, { threshold: 0.15 });
+                obs.observe(this);
+            });
+        });
+    </script>
 }
 
-<div class="main">
-    <div class="minner">
-        <div class="row col1 row_0">
-            <div class="mrow">
-                <div class="col col_02">
-                    <div class="mcol">
-                        <div id="Dyn_2_1" class="M19461">
-                            <div class="module module-um md_style1">
-                                <header class="mt mthide">
-                                </header>
+<!-- HERO -->
+<div class="page-hero">
+    <div class="page-hero-bg"></div>
+    <div class="page-hero-gradient"></div>
+    <div class="page-hero-content">
+        <div class="page-hero-eyebrow">
+            <div class="page-hero-line"></div>
+            <span class="page-hero-label">About Us</span>
+        </div>
+        <h1 class="page-hero-title">公司簡介<br>About</h1>
+    </div>
+</div>
 
-                                <section class="mb">
-                                    <div class="minner">
-                                        <script src="/js/tmcata.js"></script>
-                                    </div>
-                                </section>
-                            </div>
-                        </div>
-                        <div id="Dyn_2_2" class="M19465">
-                            <div class="module module-detail md_style1">
-                                <div class="module-inner">
-                                    <section class="mb">
-                                        <div class="mpgtitle">
-                                            <h3>
-                                                @ModelName
-                                            </h3>
-                                        </div>
-                                        <div class="mcont">
-                                            <div class="mpgdetail">
-                                                <div class="container-inner page aboutus">
-                                                    <h1 class="index-title"><span class="en">ABOUT US</span><span class="ch">@ModelName</span></h1>
-                                                    <div class="row">
-                                                        @if (Model != null)
-                                                        {
-                                                            @Html.Raw(Model.Value)
-                                                        }
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </section>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+    <a href="@Url.Action("Index", "Home")">首頁</a>
+    <span>›</span>
+    <span style="color:rgba(255,255,255,0.6)">公司簡介</span>
+    <span>›</span>
+    <span style="color:#fff">核心價值</span>
+</div>
+
+<!-- SUB NAV -->
+<div class="sub-nav">
+    <div class="sub-nav-inner">
+        <a class="sub-tab" href="@Url.Action("Info", "About")">關於智匯創新</a>
+        <a class="sub-tab" href="@Url.Action("Chairman", "About")">公司使命</a>
+        <a class="sub-tab active" href="@Url.Action("Member", "About")">核心價值</a>
+    </div>
+</div>
+
+<!-- MAIN -->
+<div class="about-wrap">
+
+    <div class="about-content">
+        @if (Model != null)
+        {
+            @Html.Raw(Model.Value)
+        }
+        else
+        {
+            <div style="text-align:center;padding:100px;color:var(--gray);">暫無內容</div>
+        }
+    </div>
+
+    <div class="sidebar">
+        <div class="sidebar-box">
+            <h4>公司簡介</h4>
+            <ul class="sub-menu-list">
+                <li><a href="@Url.Action("Info", "About")">關於智匯創新 <span>›</span></a></li>
+                <li><a href="@Url.Action("Chairman", "About")">公司使命 <span>›</span></a></li>
+                <li><a class="active" href="@Url.Action("Member", "About")">核心價值 <span>›</span></a></li>
+            </ul>
+        </div>
+
+        <div class="sidebar-box">
+            <h4>聯絡資訊</h4>
+            <div class="sidebar-info">
+                <p><strong>智匯創新股份有限公司</strong></p>
+                <p style="margin-top:8px;">桃園市桃園區經國路9號3樓之2</p>
+                <p style="margin-top:6px;"><strong>TEL：</strong>(03)358-2500</p>
+                <p><strong>FAX：</strong>(03)358-2503</p>
+                <p style="margin-top:6px;"><strong>E-mail：</strong><br><a href="mailto:service@g-wise.com">service@g-wise.com</a></p>
             </div>
         </div>
+
+        <!-- 設計服務侧边栏 - 简化版 -->
+        <div class="sidebar-box">
+            <h4>設計服務</h4>
+            <ul class="sub-menu-list">
+                @if (ViewBag.CategoryList != null)
+                {
+                    var categories = ViewBag.CategoryList as List<Academy.Models.Category> ?? new List<Academy.Models.Category>();
+                    foreach (var cat in categories)
+                    {
+                        <li><a href="@Url.Action("Index", "Service")?category=@cat.Id">@cat.Name <span>›</span></a></li>
+                    }
+                }
+            </ul>
+        </div>
     </div>
+</div>
+
+<!-- CTA BAR -->
+<div class="cta-bar">
+    <div class="cta-bar-title">有設計需求？<br>歡迎與我們聯繫合作</div>
+    <a href="@Url.Action("Quote", "Home")" class="btn-white">立即詢價 →</a>
 </div>

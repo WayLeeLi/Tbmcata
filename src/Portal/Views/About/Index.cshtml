@@ -1,6 +1,6 @@
 ﻿@model Academy.Models.DictSet
 @{
-    ViewBag.Title = "公司使命｜智匯創新 G-wise Design";
+    ViewBag.Title = "公司簡介 About｜智匯創新 G-wise Design";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -11,6 +11,12 @@
 @section Scripts {
     <script src="/js/about.js"></script>
     <script>
+        // Tab 切换 - 直接跳转到对应页面
+        function switchTab(tabUrl) {
+            window.location.href = tabUrl;
+        }
+
+        // 渐显动画
         $(function () {
             $('.value-card, .mission-block').each(function () {
                 $(this).css({ opacity: 0, transform: 'translateY(20px)' });
@@ -51,14 +57,14 @@
     <span>›</span>
     <span style="color:rgba(255,255,255,0.6)">公司簡介</span>
     <span>›</span>
-    <span style="color:#fff">公司使命</span>
+    <span style="color:#fff">關於智匯創新</span>
 </div>
 
 <!-- SUB NAV -->
 <div class="sub-nav">
     <div class="sub-nav-inner">
-        <a class="sub-tab" href="@Url.Action("Info", "About")">關於智匯創新</a>
-        <a class="sub-tab active" href="@Url.Action("Chairman", "About")">公司使命</a>
+        <a class="sub-tab active" href="@Url.Action("Info", "About")">關於智匯創新</a>
+        <a class="sub-tab" href="@Url.Action("Chairman", "About")">公司使命</a>
         <a class="sub-tab" href="@Url.Action("Member", "About")">核心價值</a>
     </div>
 </div>
@@ -66,6 +72,7 @@
 <!-- MAIN -->
 <div class="about-wrap">
 
+    <!-- ── LEFT CONTENT ── -->
     <div class="about-content">
         @if (Model != null)
         {
@@ -77,12 +84,14 @@
         }
     </div>
 
+    <!-- ── SIDEBAR ── -->
     <div class="sidebar">
+
         <div class="sidebar-box">
             <h4>公司簡介</h4>
             <ul class="sub-menu-list">
-                <li><a href="@Url.Action("Info", "About")">關於智匯創新 <span>›</span></a></li>
-                <li><a class="active" href="@Url.Action("Chairman", "About")">公司使命 <span>›</span></a></li>
+                <li><a class="active" href="@Url.Action("Info", "About")">關於智匯創新 <span>›</span></a></li>
+                <li><a href="@Url.Action("Chairman", "About")">公司使命 <span>›</span></a></li>
                 <li><a href="@Url.Action("Member", "About")">核心價值 <span>›</span></a></li>
             </ul>
         </div>
@@ -98,23 +107,20 @@
             </div>
         </div>
 
-        <!-- 設計服務侧边栏 - 简化版 -->
         <div class="sidebar-box">
             <h4>設計服務</h4>
             <ul class="sub-menu-list">
-                @if (ViewBag.CategoryList != null)
-                {
-                    var categories = ViewBag.CategoryList as List<Academy.Models.Category> ?? new List<Academy.Models.Category>();
-                    foreach (var cat in categories)
-                    {
-                        <li><a href="@Url.Action("Index", "Service")?category=@cat.Id">@cat.Name <span>›</span></a></li>
-                    }
-                }
+                <li><a href="@Url.Action("Index", "Service")#auto">汽車零配件設計 <span>›</span></a></li>
+                <li><a href="@Url.Action("Index", "Service")#moto">摩托車設計服務 <span>›</span></a></li>
+                <li><a href="@Url.Action("Index", "Service")#bike">自行車設計服務 <span>›</span></a></li>
+                <li><a href="@Url.Action("Index", "Service")#marine">船舶外形設計 <span>›</span></a></li>
+                <li><a href="@Url.Action("Index", "Service")#3c">3C 家電設計 <span>›</span></a></li>
+                <li><a href="@Url.Action("Index", "Service")#reverse">逆向工程服務 <span>›</span></a></li>
             </ul>
         </div>
-    </div>
-</div>
 
+    </div><!-- /sidebar -->
+</div><!-- /about-wrap -->
 <!-- CTA BAR -->
 <div class="cta-bar">
     <div class="cta-bar-title">有設計需求？<br>歡迎與我們聯繫合作</div>

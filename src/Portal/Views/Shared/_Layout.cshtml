@@ -1,176 +1,196 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="zh-TW">
 <head>
-    <!-- meta [start]-->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
-    <!--標題為動態資料-->
-    <title>@ViewBag.Title</title>
-    <meta name="keywords" content="智匯創新股份有限公司，台灣生技醫療協會，台灣生技醫療照護協會，台灣生技輔具協會，TBMCA，tbmca" />
-    <meta name="description" content="本協會於民國109年經內政部同意，正式更名為「智匯創新股份有限公司」，成為推展我國醫療輔具產業之獨立社團法人組織。產業含蓋範圍更由原先的電動代步車產業延伸至更廣義的醫療輔具產業，目前會員包括產業界與研發機構近100家公司陸續增加中，並積極招募擴大協會規模。在此，誠摯地邀請與我們有共同理念的產官學研單位依同來關懷並參與這波勢不可擋的潮流，讓協會能集結更多能量，為台灣高齡者與醫療輔具相關產業盡一份心力。" />
-    <meta name="Robots" content="all">
-    <meta http-equiv="content-language" content="zh-TW">
-    <link href="~/Scripts/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="/Content/combine-zh-tw.css?v=20201023" type="text/css">
-    <link rel="stylesheet" href="/Content/usercss.css?v=20201023">
-    <link rel="stylesheet" href="/Content/tmcata.css?v=20201023">
-    <link rel="stylesheet" href="/Content/styles.css?v=20201023">
-    @RenderSection("styles", required: false)
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - 智匯創新 G-wise Design</title>
 
-    <script src="/js/jquery-1.11.0.min.js"></script>
-    <script src="~/js/m_20201001.js"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Barlow+Condensed:wght@300;400;600;700;900&family=Barlow:wght@300;400;600&display=swap" rel="stylesheet">
 
-    @RenderSection("scripts", required: false)
+    <!-- jQuery & Plugins -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/5.0.0/imagesloaded.pkgd.min.js"></script>
+
+    <!-- Site Styles -->
+    <link href="~/css/index.css" rel="stylesheet" />
+
+    @RenderSection("Styles", required: false)
 </head>
 <body>
-    <div class="wrap">
-        <div class="minner">
-            <!--[header共用區塊-需獨立拆出來][--Start--]-->
-            <div id="Dyn_head">
-                <div class="header">
-                    <div class="minner">
-                        <div class="selfhead">
-                            <script src="~/js/userjs.js?v=20201023"></script>
-                            <div class="top">
-                                <div class="container">
-                                    <div class="msearch">
-                                        <form class="formBS" role="search" name="SearchMoForm" method="get" action="/home/search">
-                                            <div class="input-group">
-                                                <input id="sch_key" name="keyWord" type="text" class="form-control" placeholder="Search" value="@Request["keyWord"]">
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <div>
-                                        <div class="mnavbar mn-collapse">
-                                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-toggle">
-                                                <span class="glyphicons show_lines">Menu</span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <nav class="navbar navbar-static-top marginBottom-0" role="navigation">
-                                        <div class="navbar-header">
-                                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
-                                                <span class="sr-only">Toggle navigation</span>
-                                                <span class="icon-bar"></span>
-                                                <span class="icon-bar"></span>
-                                                <span class="icon-bar"></span>
-                                            </button>
-                                            <a class="navbar-brand" href="/"><img style="width:auto;height:100px;" src="/images/web/logo.png" alt=""></a>
-                                        </div>
-                                        <script defer="defer">
-                                            $(function () {
-                                                $(".navbar-header .navbar-toggle").on("click", function () {
-                                                    $(this).toggleClass("open");
-                                                    if ($(this).hasClass("open")) {
-                                                        $("#navbar-collapse-1").slideDown();
-                                                    } else {
-                                                        $("#navbar-collapse-1").slideUp();
-                                                    }
-                                                });
-                                                $('.dropdown-toggle').click(function () {
-                                                    if ($(this).next().is(":visible")) {
-                                                        $(this).removeClass('actived')
-                                                    } else {
-                                                        $(this).addClass('actived')
-                                                    }
-                                                    $(this).next().toggle();
-                                                });
-                                            });
-                                        </script>
-                                        <div class="collapse navbar-collapse" id="navbar-collapse-1">
-                                            <ul class="nav navbar-nav menu_bar">
-                                                <!-- 關於協會 -->
-                                                <li class="dropdown">
-                                                    <a class="dropdown-toggle" data-toggle="dropdown"><span>ABOUT US</span><span>關於協會</span></a>
-                                                    <ul class="dropdown-menu">
-                                                        <li><a href="/about/info">協會簡介</a></li>
-                                                        <li><a href="/about/chairman">理事長的話</a></li>
-                                                        <li><a href="/about/member">組織成員</a></li>
-                                                        <!--<li><a href="/about/constitution">協會章程</a></li>-->
-                                                        <li><a href="/about/calendar">年度行事曆</a></li>
-                                                    </ul>
-                                                </li>
-                                                <!-- 最新消息 -->
-                                                <li class="dropdown">
-                                                    <a class="dropdown-toggle" data-toggle="dropdown"><span>NEWS</span><span>最新消息</span></a>
-                                                    <ul class="dropdown-menu dropodown2">
-                                                        <li><a href="/news/index">協會動態</a></li>
-                                                        <li><a href="/news/indexIndustry">產業訊息</a></li>
-                                                        <li><a href="/news/indexNotice">相關公告</a></li>
-                                                        <li class="dropdown third">
-                                                            <a class="dropdown-toggle" data-toggle="dropdown">影音專區</a>
-                                                            <ul class="dropdown-menu third-menu-down">
-                                                                <li><a href="/news/indexVideo">影音區</a></li>
-                                                                <li><a href="/news/indexPhoto">相片區</a></li>
-                                                            </ul>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                                <!-- 會員專區 -->
-                                                <li class="dropdown">
-                                                    <a class="dropdown-toggle" data-toggle="dropdown"><span>MEMBERS</span><span>會員名錄</span></a>
-                                                    <ul class="dropdown-menu dropodown3">
-                                                        <li><a href="/member/index">會員專區</a></li>
-                                                        <li><a href="/member/join">申請入會</a></li>
-                                                    </ul>
-                                                </li>
-                                                <!-- 相關連結 -->
-                                                <li><a href="/About/Link"><span>CONNECTION</span><span>相關連結</span></a></li>
-                                                <!-- 聯絡我們 -->
-                                                <li><a href="/About/Contact"><span>CONTACT US</span><span>聯絡我們</span></a></li>
-                                                <!-- 檔案下載 -->
-                                                <li><a href="/About/Download"><span>DOWNLOAD</span><span>檔案下載</span></a></li>
-                                            </ul>
-                                        </div>
-                                    </nav>
-                                </div>
-                            </div>
-                            <!-- top 鍵 -->
-                            <div class="gototop" style="display: none; opacity: 1;">
-                                <a href="javascript:;"><img class="img-responsive" src="/images/web/top.png" alt=""></a>
-                            </div>
-                        </div>
-                    </div>
+
+    <!-- LANG BAR -->
+    <div class="lang-bar" id="langBar">
+        <a href="#" class="active" onclick="setLang('zh');return false;" id="langZh">中文</a>
+        <span class="lang-sep">|</span>
+        <a href="javascript:void(0);" onclick="setLang('en');return false;" id="langEn">English</a>
+    </div>
+
+    <!-- NAVBAR -->
+    <nav id="navbar">
+        <a href="@Url.Action("Index", "Home")" class="logo-area" style="display:flex;align-items:center;">
+            <img src="~/images/web/templatemo_logo.png" alt="G-Wise Design Logo">
+        </a>
+        <ul class="nav-links">
+            <li><a href="@Url.Action("Index", "Home")" id="navHome">首頁</a></li>
+            <li><a href="@Url.Action("Index", "About")" id="navAbout">公司簡介</a></li>
+            <li><a href="@Url.Action("Index", "Service")" id="navService">設計服務</a></li>
+            <li><a href="@Url.Action("Index", "Product")" id="navProduct">作品集</a></li>
+            <li><a href="@Url.Action("Index", "News")" id="navNews">新聞活動</a></li>
+            <li><a href="@Url.Action("Contact", "Home")" id="navContact">聯絡我們</a></li>
+            <li><a href="@Url.Action("Quote", "Home")" class="nav-cta btn-primary" id="navQuote">線上詢價</a></li>
+        </ul>
+        <div class="hamburger" id="ham" onclick="toggleMenu()">
+            <span></span><span></span><span></span>
+        </div>
+    </nav>
+
+    <!-- MOBILE MENU -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="@Url.Action("Index", "Home")">首頁 Home</a>
+        <a href="@Url.Action("Info", "About")">公司簡介 About</a>
+        <a href="@Url.Action("Index", "Service")">設計服務 Service</a>
+        <a href="@Url.Action("Index", "Product")">作品集 Portfolio</a>
+        <a href="@Url.Action("Index", "News")">新聞活動 News</a>
+        <a href="@Url.Action("Contact", "Home")">聯絡我們 Contact</a>
+        <a href="@Url.Action("Quote", "Home")" style="color:var(--red)">線上詢價 Quotation</a>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <main>
+        @RenderBody()
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-top">
+            <div class="footer-brand">
+                <div style="margin-bottom:16px;">
+                    <img src="/images/web/templatemo_logo.png" alt="G-Wise Design Logo">
                 </div>
+                <p class="footer-tagline">
+                    本著替客戶創造最高價值的心態做設計，<br>
+                    是全方位的產品設計公司。
+                </p>
             </div>
-            <!--[header共用區塊-需獨立拆出來][--End--]-->
-            <!--[main共用區塊-需獨立拆出來][--Start--]-->
-            @RenderBody()
-            <!--[main共用區塊-需獨立拆出來][--End--]-->
-            <!--[footer共用區塊-需獨立拆出來][--Start--]-->
-            <div class="footer">
-                <div class="minner">
-                    <div id="Dyn_footer">
-                        <div class="go-pcurl"><a href="/">返回PC版網頁</a></div>
 
-                        <div class="copyright">
-                            <div class="footer-">
-                                <div class="container">
-                                    <div class="footer-logo">
-                                        <img src="/images/web/logo.png" alt="" class="img-resposive center-block">
-                                    </div>
-                                    <div class="footer-content">
-                                        <h1 class="footer-title">智匯創新股份有限公司</h1>
-                                        <h1 class="footer-title-en">Taiwan Bio-medical Care Association</h1>
-                                        <div class="footer-info">
-                                            <p>．電話：+886-02-8227-3639</p>
-                                            <p>．傳真：+886-02-8227-3638</p>
-                                            <p>．地址：23552新北市中和區中正路716號2樓之1</p>
-                                            <p class="text-indent">2F.-1, No.716, Jhongjheng Rd., Jhonghe Dist., New Taipei City 23552, Taiwan</p>
-                                            <p>．E-MAIL: tbmca@fmh.com.tw <span class="fb"><a href="/"><img src="/images/web/fb.png" alt=""></a></span></p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                        <!-- generated at Thu Oct 01 2020 10:56:37 -->
-                    </div>
-
-                </div>
+            <div class="footer-col">
+                <h4>Services</h4>
+                <ul class="footer-links">
+                    <li><a href="@Url.Action("Services", "Home", new { category = "automotive" })">汽車零配件設計</a></li>
+                    <li><a href="@Url.Action("Services", "Home", new { category = "motorcycle" })">摩托車設計服務</a></li>
+                    <li><a href="@Url.Action("Services", "Home", new { category = "bicycle" })">自行車設計服務</a></li>
+                    <li><a href="@Url.Action("Services", "Home", new { category = "marine" })">船舶外形設計</a></li>
+                    <li><a href="@Url.Action("Services", "Home", new { category = "3c" })">3C 家電設計</a></li>
+                    <li><a href="@Url.Action("Services", "Home", new { category = "reverse" })">逆向工程服務</a></li>
+                </ul>
             </div>
-            <!--[footer共用區塊-需獨立拆出來][--End--]-->
+
+            <div class="footer-col">
+                <h4>Company</h4>
+                <ul class="footer-links">
+                    <li><a href="@Url.Action("About", "Home")">關於智匯創新</a></li>
+                    <li><a href="@Url.Action("Mission", "Home")">公司使命</a></li>
+                    <li><a href="@Url.Action("Values", "Home")">核心價值</a></li>
+                    <li><a href="@Url.Action("Portfolio", "Home")">作品集</a></li>
+                    <li><a href="@Url.Action("Awards", "Home")">得獎作品</a></li>
+                    <li><a href="@Url.Action("Careers", "Home")">徵才消息</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>Contact</h4>
+                <ul class="footer-links">
+                    <li><a href="@Url.Action("Contact", "Home")">聯絡我們</a></li>
+                    <li><a href="@Url.Action("Quote", "Home")">快速報價</a></li>
+                    <li><a href="@Url.Action("Faq", "Home")">線上 Q&A</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p class="footer-copy">© @DateTime.Now.Year 智匯創新股份有限公司 G-Wise Design Inc. All rights reserved.</p>
+            <div class="footer-contact-info">
+                <div>桃園市桃園區經國路9號3樓之2</div>
+                <div>TEL: (03)358-2500 · <a href="mailto:service@g-wise.com">service@g-wise.com</a></div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- FLOATING BUTTONS -->
+    <div class="float-btns">
+        <a href="https://line.me/R/" target="_blank" class="float-btn float-line" title="LINE 聯繫我們">
+            <svg width="26" height="26" viewBox="0 0 48 48" fill="white">
+                <path d="M24 4C12.95 4 4 11.82 4 21.4c0 5.8 3.27 10.96 8.37 14.32-.37 1.38-1.35 4.97-1.54 5.74-.24.98.36 .96 .75 .7 .31-.21 4.96-3.27 6.97-4.6.79.11 1.6.17 2.45.17 11.05 0 20-7.82 20-17.4C44 11.82 35.05 4 24 4zm-6 22H14v-10h2v8h2v2zm4 0h-2V16h2v10zm10 0h-2l-4-6v6h-2V16h2l4 6v-6h2v10z" />
+            </svg>
+        </a>
+        <div class="float-btn float-top" id="backTop" style="opacity:0;pointer-events:none;" onclick="window.scrollTo({top:0,behavior:'smooth'});" title="回到頂部">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5">
+                <path d="M18 15l-6-6-6 6" />
+            </svg>
         </div>
     </div>
+
+    <!-- Site Scripts -->
+    <script src="~/js/index.js"></script>
+    <script>
+        // 导航高亮 - 根据当前 URL 设置 active 状态
+        $(function () {
+            var currentUrl = window.location.pathname;
+
+            // 定义菜单与 URL 的映射关系
+            var navMap = {
+                'navHome': ['/Home', '/Home/Index'],
+                'navAbout': ['/About', '/About/Index', '/About/Info', '/About/Chairman', '/About/Member', '/About/Constitution', '/About/Calendar', '/About/Contact'],
+                'navService': ['/Service', '/Service/Index'],
+                'navProduct': ['/Product', '/Product/Index'],
+                'navNews': ['/News', '/News/Index'],
+                'navContact': ['/Home/Contact', '/Contact']
+            };
+
+            // 遍历映射，设置 active 类
+            for (var navId in navMap) {
+                var urls = navMap[navId];
+                for (var i = 0; i < urls.length; i++) {
+                    if (currentUrl === urls[i] || currentUrl === urls[i] + '/' || currentUrl.startsWith(urls[i] + '/')) {
+                        $('#' + navId).addClass('active');
+                        break;
+                    }
+                }
+            }
+
+            // 如果没有匹配到任何菜单，默认首页高亮
+            if ($('.nav-links a.active').length === 0) {
+                $('#navHome').addClass('active');
+            }
+        });
+
+        // 菜单切换
+        function toggleMenu() {
+            $('#mobileMenu').toggleClass('open');
+        }
+
+        // 回到顶部
+        var btn = document.getElementById('backTop');
+        if (btn) {
+            setInterval(function () {
+                var st = window.pageYOffset || document.documentElement.scrollTop || 0;
+                btn.style.opacity = st > 300 ? '1' : '0';
+                btn.style.pointerEvents = st > 300 ? 'auto' : 'none';
+            }, 300);
+        }
+
+        // Navbar 背景
+        window.addEventListener('scroll', function () {
+            var nav = document.getElementById('navbar');
+            var st = window.pageYOffset || 0;
+            if (nav) {
+                nav.style.background = st > 50 ? 'rgba(17,17,17,0.98)' : 'rgba(17,17,17,0.95)';
+            }
+        });
+    </script>
+    @RenderSection("Scripts", required: false)
 </body>
 </html>

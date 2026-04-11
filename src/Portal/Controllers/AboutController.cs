@@ -15,86 +15,96 @@ namespace Academy.Controllers
     public class AboutController : WebController
     {
         /// <summary>
-        /// 協會簡介
+        /// 公司简介 - 默认显示关于我们
         /// </summary>
-        /// <returns></returns>
-        public ActionResult Info()
+        public ActionResult Index()
         {
-            var model = db.DictSets.FirstOrDefault(a => a.Code == "AboutInfo");
+            ViewBag.CategoryList = db.Categories
+                .Where(c => c.Menu == 3 && c.ParentId == null && c.Status == 1)
+                .OrderBy(c => c.SortOrder)
+                .ToList();
 
+            var model = db.DictSets.FirstOrDefault(a => a.Code == "AboutInfo");
             return View(model);
         }
+
         /// <summary>
-        /// 理事長的話
+        /// 關於智匯創新
         /// </summary>
-        /// <returns></returns>
+        public ActionResult Info()
+        {
+            ViewBag.CategoryList = db.Categories
+                .Where(c => c.Menu == 3 && c.ParentId == null && c.Status == 1)
+                .OrderBy(c => c.SortOrder)
+                .ToList();
+            var model = db.DictSets.FirstOrDefault(a => a.Code == "AboutInfo");
+            return View(model);
+        }
+
+        /// <summary>
+        /// 公司使命
+        /// </summary>
         public ActionResult Chairman()
         {
             var model = db.DictSets.FirstOrDefault(a => a.Code == "AboutChairman");
-
             return View(model);
         }
+
         /// <summary>
-        /// 組織成員
+        /// 核心價值
         /// </summary>
-        /// <returns></returns>
         public ActionResult Member()
         {
+            ViewBag.CategoryList = db.Categories
+                .Where(c => c.Menu == 3 && c.ParentId == null && c.Status == 1)
+                .OrderBy(c => c.SortOrder)
+                .ToList();
             var model = db.DictSets.FirstOrDefault(a => a.Code == "AboutMember");
-
             return View(model);
         }
 
         /// <summary>
         /// 協會章程
         /// </summary>
-        /// <returns></returns>
         public ActionResult Constitution()
         {
             var model = db.DictSets.FirstOrDefault(a => a.Code == "AboutConstitution");
-
             return View(model);
         }
 
         /// <summary>
         /// 年度行事曆
         /// </summary>
-        /// <returns></returns>
         public ActionResult Calendar()
         {
             var model = db.DictSets.FirstOrDefault(a => a.Code == "AboutCalendar");
-
             return View(model);
         }
 
         /// <summary>
         /// 相關連結
         /// </summary>
-        /// <returns></returns>
         public ActionResult Link()
         {
             var model = db.DictSets.FirstOrDefault(a => a.Code == "SettingLink");
-
             return View(model);
         }
+
         /// <summary>
         /// 聯絡我們
         /// </summary>
-        /// <returns></returns>
         public ActionResult Contact()
         {
             var model = db.DictSets.FirstOrDefault(a => a.Code == "SettingContact");
-
             return View(model);
         }
+
         /// <summary>
         /// 檔案下載
         /// </summary>
-        /// <returns></returns>
         public ActionResult Download()
         {
             var model = db.DictSets.FirstOrDefault(a => a.Code == "SettingDownload");
-
             return View(model);
         }
     }

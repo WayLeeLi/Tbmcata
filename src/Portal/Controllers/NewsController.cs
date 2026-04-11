@@ -11,142 +11,114 @@ namespace Academy.Controllers
 {
     public class NewsController : WebController
     {
-        /// <summary>
-        /// 協會動態
-        /// </summary>
-        /// <param name="page"></param>
-        /// <returns></returns>
-        public ActionResult Index(int page = 1)
+        public ActionResult Index()
         {
-            DateTime dtNow = DateTime.Now;
+            // 获取分类数据（Menu = 3 表示新闻活动分类，Status = 1 表示上线的）
+            ViewBag.CategoryList = db.Categories
+                .Where(c => c.Menu == 5 && c.Status == 1)
+                .OrderBy(c => c.SortOrder)
+                .ToList();
 
-            var data = db.Newss
-                .Where(a => db.NewsCatas.Any(b => b.Status == 1 && b.Code == "news" && b.ID == a.CataID))
-                .Where(a => a.Status == 1 || a.Status == 2 && (a.OnDate != null && a.OnDate < dtNow || a.OnDate == null) && (a.OffDate != null && a.OffDate > dtNow || a.OffDate == null))
-                .OrderByDescending(a => a.PubDate);
-
-            var pagedData = data.ToPagedList(pageNumber: page, pageSize: 5);
-
-            return View(pagedData);
+            return View();
         }
+
         /// <summary>
-        /// 產業訊息
+        /// 获取新闻列表
         /// </summary>
-        /// <param name="page"></param>
-        /// <returns></returns>
-        public ActionResult IndexIndustry(int page = 1)
+        /// <param name="categoryId">分类ID，0表示全部新闻</param>
+        [HttpPost]
+        public JsonResult GetNewsList(int categoryId = 0)
         {
-            DateTime dtNow = DateTime.Now;
-
-            var data = db.Newss
-                .Where(a => db.NewsCatas.Any(b => b.Status == 1 && b.Code == "industry" && b.ID == a.CataID))
-                .Where(a => a.Status == 1 || a.Status == 2 && (a.OnDate != null && a.OnDate < dtNow || a.OnDate == null) && (a.OffDate != null && a.OffDate > dtNow || a.OffDate == null))
-                .OrderByDescending(a => a.PubDate);
-
-            var pagedData = data.ToPagedList(pageNumber: page, pageSize: 5);
-
-            return View(pagedData);
-        }
-        /// <summary>
-        /// 相關公告
-        /// </summary>
-        /// <param name="page"></param>
-        /// <returns></returns>
-        public ActionResult IndexNotice(int page = 1)
-        {
-            DateTime dtNow = DateTime.Now;
-
-            var data = db.Newss
-                .Where(a => db.NewsCatas.Any(b => b.Status == 1 && b.Code == "notice" && b.ID == a.CataID))
-                .Where(a => a.Status == 1 || a.Status == 2 && (a.OnDate != null && a.OnDate < dtNow || a.OnDate == null) && (a.OffDate != null && a.OffDate > dtNow || a.OffDate == null))
-                .OrderByDescending(a => a.PubDate);
-
-            var pagedData = data.ToPagedList(pageNumber: page, pageSize: 5);
-
-            return View(pagedData);
-        }
-        /// <summary>
-        /// 影音區
-        /// </summary>
-        /// <param name="page"></param>
-        /// <returns></returns>
-        public ActionResult IndexVideo(int page = 1)
-        {
-            DateTime dtNow = DateTime.Now;
-
-            var data = db.Newss
-                .Where(a => db.NewsCatas.Any(b => b.Status == 1 && b.Code == "video" && b.ID == a.CataID))
-                .Where(a => a.Status == 1 || a.Status == 2 && (a.OnDate != null && a.OnDate < dtNow || a.OnDate == null) && (a.OffDate != null && a.OffDate > dtNow || a.OffDate == null))
-                .OrderByDescending(a => a.PubDate);
-
-            var pagedData = data.ToPagedList(pageNumber: page, pageSize: 12);
-
-            return View(pagedData);
-        }
-        /// <summary>
-        /// 相片區
-        /// </summary>
-        /// <param name="page"></param>
-        /// <returns></returns>
-        public ActionResult IndexPhoto(int page = 1)
-        {
-            DateTime dtNow = DateTime.Now;
-
-            var data = db.Newss
-                .Where(a => db.NewsCatas.Any(b => b.Status == 1 && b.Code == "photo" && b.ID == a.CataID))
-                .Where(a => a.Status == 1 || a.Status == 2 && (a.OnDate != null && a.OnDate < dtNow || a.OnDate == null) && (a.OffDate != null && a.OffDate > dtNow || a.OffDate == null))
-                .OrderByDescending(a => a.PubDate);
-
-            var pagedData = data.ToPagedList(pageNumber: page, pageSize: 12);
-
-            return View(pagedData);
-        }
-        /// <summary>
-        /// 活動集錦
-        /// </summary>
-        /// <param name="page"></param>
-        /// <returns></returns>
-        public ActionResult IndexActive(int page = 1)
-        {
-            DateTime dtNow = DateTime.Now;
-
-            var data = db.Newss
-                .Where(a => db.NewsCatas.Any(b => b.Status == 1 && b.Code == "active" && b.ID == a.CataID))
-                .Where(a => a.Status == 1 || a.Status == 2 && (a.OnDate != null && a.OnDate < dtNow || a.OnDate == null) && (a.OffDate != null && a.OffDate > dtNow || a.OffDate == null))
-                .OrderByDescending(a => a.PubDate);
-
-            var pagedData = data.ToPagedList(pageNumber: page, pageSize: 12);
-
-            return View(pagedData);
-        }
-        /// <summary>
-        /// 詳情
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public ActionResult Detail(int id)
-        {
-            News model = db.Newss.Where(p => p.ID == id).FirstOrDefault();
-            if (!string.IsNullOrEmpty(model.LinkPath) && model.LinkPath.Trim().Length > 0)
+            try
             {
-                return Redirect(model.LinkPath);
+                // 从 News 表查询新闻数据（Menu = 3 表示新闻活动）
+                var query = from n in db.Newss
+                            join c in db.Categories on n.CataID equals c.Id
+                            where n.Status == 1 && n.Menu == 3
+                            select new
+                            {
+                                n.ID,
+                                n.Title,
+                                n.ImagePath,
+                                n.CataID,
+                                n.CDate,
+                                n.Content,
+                                n.Note,
+                                CategoryName = c.Name
+                            };
+
+                // 如果不是全部，按分类筛选
+                if (categoryId > 0)
+                {
+                    query = query.Where(p => p.CataID == categoryId);
+                }
+
+                // 先获取数据到内存
+                var list = query.OrderByDescending(p => p.CDate).ToList();
+
+                // 在内存中进行格式化处理
+                var result = list.Select(p => new
+                {
+                    p.ID,
+                    p.Title,
+                    ImageUrl = p.ImagePath ?? "",
+                    Date = p.CDate.HasValue ? p.CDate.Value.ToString("yyyy 年 M 月") : "",
+                    p.Note,
+                    p.Content,
+                    p.CategoryName
+                }).ToList();
+
+                return Json(new { success = true, data = result }, JsonRequestBehavior.AllowGet);
             }
-            if (model != null)
+            catch (Exception ex)
             {
-                model.ReadCount = (model.ReadCount ?? 0) + 1;
-                db.SaveChanges();
-
-                ViewBag.CataName = db.NewsCatas.Where(p => p.Status == 1 && p.ID == model.CataID).Select(a => a.Title).FirstOrDefault();
-                ViewBag.PrevModel = db.Newss.Where(p => p.Status == 1 && p.CataID == model.CataID && p.ID < model.ID).OrderByDescending(a => a.ID).FirstOrDefault();
-                ViewBag.NextModel = db.Newss.Where(p => p.Status == 1 && p.CataID == model.CataID && p.ID > model.ID).OrderBy(a => a.ID).FirstOrDefault();
-
-                return View(model);
-            }
-            else
-            {
-                return RedirectToAction("Detail", "News");
+                return Json(new { success = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
 
+        /// <summary>
+        /// 获取新闻详情
+        /// </summary>
+        [HttpPost]
+        public JsonResult GetNewsDetail(int id)
+        {
+            try
+            {
+                var news = (from n in db.Newss
+                            join c in db.Categories on n.CataID equals c.Id
+                            where n.ID == id && n.Status == 1
+                            select new
+                            {
+                                n.ID,
+                                n.Title,
+                                n.ImagePath,
+                                n.CDate,
+                                n.Content,
+                                n.Note,
+                                CategoryName = c.Name
+                            }).FirstOrDefault();
+
+                if (news == null)
+                {
+                    return Json(new { success = false, message = "新聞不存在" }, JsonRequestBehavior.AllowGet);
+                }
+
+                var data = new
+                {
+                    news.ID,
+                    news.Title,
+                    ImageUrl = news.ImagePath ?? "",
+                    Date = news.CDate.HasValue ? news.CDate.Value.ToString("yyyy 年 M 月") : "",
+                    Content = news.Content ?? news.Note ?? "",
+                    news.CategoryName
+                };
+
+                return Json(new { success = true, data = data }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

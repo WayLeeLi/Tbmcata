@@ -1,0 +1,74 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using PagedList;
+using Academy.Models;
+using System.Data;
+
+namespace Academy.Controllers
+{
+    public class ProductController : WebController
+    {
+        public ActionResult Index()
+        {
+            // 获取分类数据（Menu = 4 表示作品集分类，Status = 1 表示上线的）
+            ViewBag.CategoryList = db.Categories
+                .Where(c => c.Menu == 4 && c.Status == 1)
+                .OrderBy(c => c.SortOrder)
+                .ToList();
+
+            return View();
+        }
+
+        [HttpPost]
+        public JsonResult GetPortfolioList(int categoryId = 0)
+        {
+            try
+            {
+                // 从 News 表查询作品数据（Menu = 4 表示作品集）
+                var query = from n in db.Newss
+                            join c in db.Categories on n.CataID equals c.Id
+                            where n.Status == 1 && n.Menu == 4
+                            select new
+                            {
+                                n.ID,
+                                n.Title,
+                                n.ImagePath,
+                                n.CataID,
+                                n.CDate,
+                                CategoryName = c.Name
+                            };
+
+                // 如果不是全部，按分类筛选
+                if (categoryId > 0)
+                {
+                    query = query.Where(p => p.CataID == categoryId);
+                }
+
+                var list = query.OrderByDescending(p => p.CDate)
+                    .Select(p => new
+                    {
+                        p.ID,
+                        p.Title,
+                        // 优先使用 ImagePath，如果没有则使用 Photo
+                        ImageUrl = !string.IsNullOrEmpty(p.ImagePath) ? p.ImagePath : p.ImagePath,
+                        p.CataID,
+                        p.CategoryName,
+                        // 如果没有 IsWide/IsTall 字段，可以去掉或设置默认值
+                        IsWide = false,
+                        IsTall = false
+                    })
+                    .ToList();
+
+                return Json(new { success = true, data = list }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+    }
+}

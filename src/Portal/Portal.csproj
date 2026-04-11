@@ -217,6 +217,8 @@
     <Compile Include="Controllers\MemberController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\ServiceController.cs" />
     <Compile Include="Controllers\WebController.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AdLink.cs" />
@@ -256,6 +258,11 @@
     <Content Include="Content\styles.css" />
     <Content Include="Content\tmcata.css" />
     <Content Include="Content\usercss.css" />
+    <Content Include="css\about.css" />
+    <Content Include="css\index.css" />
+    <Content Include="css\news.css" />
+    <Content Include="css\product.css" />
+    <Content Include="css\service.css" />
     <Content Include="Global.asax" />
     <Content Include="ie8.htm" />
     <Content Include="Images\admin\default.png" />
@@ -292,10 +299,15 @@
     <Content Include="Images\web\mobilead_8134_9323453_12992.jpg" />
     <Content Include="Images\web\search.png" />
     <Content Include="Images\web\top.png" />
+    <Content Include="js\about.js" />
     <Content Include="js\flexslider.css" />
+    <Content Include="js\index.js" />
     <Content Include="js\jquery-1.11.0.min.js" />
     <Content Include="js\jquery.flexslider.js" />
     <Content Include="js\m_20201001.js" />
+    <Content Include="js\news.js" />
+    <Content Include="js\product.js" />
+    <Content Include="js\service.js" />
     <Content Include="Scripts\address.js" />
     <Content Include="Scripts\admin\aj-address.js" />
     <Content Include="Scripts\ckeditor\build-config.js" />
@@ -1229,7 +1241,7 @@
     <Content Include="UploadHandler.ashx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\Index-bk.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\News\Index.cshtml" />
@@ -1466,6 +1478,10 @@
     <Content Include="Views\Info\Detail.cshtml" />
     <Content Include="Views\Info\Index.cshtml" />
     <Content Include="Views\Member\ProductDetail.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Service\index.cshtml" />
+    <Content Include="Views\Product\Index.cshtml" />
+    <Content Include="Views\About\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

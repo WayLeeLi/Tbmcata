@@ -68,9 +68,9 @@
                 var cls = 'portfolio-item';
                 if (item.IsWide && i % 5 === 0) cls += ' wide';
                 if (item.IsTall) cls += ' tall';
-
+                debugger
                 html += '<div class="' + cls + '" onclick="openLB(' + i + ')">'
-                    + '<img class="portfolio-thumb" src="' + escapeHtml(item.ImagePath) + '" alt="' + escapeHtml(item.Title) + '" loading="lazy">'
+                    + '<img class="portfolio-thumb" src="' + escapeHtml(item.ImageUrl) + '" alt="' + escapeHtml(item.Title) + '" loading="lazy">'
                     + '<div class="portfolio-overlay">'
                     + '<div class="portfolio-cat">' + escapeHtml(item.CategoryName) + '</div>'
                     + '<div class="portfolio-name">' + escapeHtml(item.Title) + '</div>'

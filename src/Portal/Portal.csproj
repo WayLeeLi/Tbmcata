@@ -313,6 +313,7 @@
     <Content Include="js\m_20201001.js" />
     <Content Include="js\news.js" />
     <Content Include="js\product.js" />
+    <Content Include="js\quotation.js" />
     <Content Include="js\service.js" />
     <Content Include="Scripts\address.js" />
     <Content Include="Scripts\admin\aj-address.js" />

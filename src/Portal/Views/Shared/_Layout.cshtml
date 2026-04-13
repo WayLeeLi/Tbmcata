@@ -62,7 +62,11 @@
     <main>
         @RenderBody()
     </main>
-
+    <!-- CTA BAR -->
+    <div class="cta-bar">
+        <div class="cta-title">有設計需求？<br>歡迎與我們聯繫合作</div>
+        <a href="@Url.Action("Index", "Quote")" class="btn-white">立即詢價 →</a>
+    </div>
     <!-- FOOTER -->
     <footer>
         <div class="footer-top">
@@ -91,21 +95,21 @@
             <div class="footer-col">
                 <h4>Company</h4>
                 <ul class="footer-links">
-                    <li><a href="@Url.Action("About", "Home")">關於智匯創新</a></li>
-                    <li><a href="@Url.Action("Mission", "Home")">公司使命</a></li>
-                    <li><a href="@Url.Action("Values", "Home")">核心價值</a></li>
-                    <li><a href="@Url.Action("Portfolio", "Home")">作品集</a></li>
-                    <li><a href="@Url.Action("Awards", "Home")">得獎作品</a></li>
-                    <li><a href="@Url.Action("Careers", "Home")">徵才消息</a></li>
+                    <li><a href="@Url.Action("Info", "About")">關於智匯創新</a></li>
+                    <li><a href="@Url.Action("Chairman", "About")">公司使命</a></li>
+                    <li><a href="@Url.Action("Member", "About")">核心價值</a></li>
+                    <li><a href="@Url.Action("Index", "Product")">作品集</a></li>
+                    <li><a href="@Url.Action("Index", "Product")">得獎作品</a></li>
+                    <li><a href="@Url.Action("Index", "News")">徵才消息</a></li>
                 </ul>
             </div>
 
             <div class="footer-col">
                 <h4>Contact</h4>
                 <ul class="footer-links">
-                    <li><a href="@Url.Action("Contact", "Home")">聯絡我們</a></li>
-                    <li><a href="@Url.Action("Quote", "Home")">快速報價</a></li>
-                    <li><a href="@Url.Action("Faq", "Home")">線上 Q&A</a></li>
+                    <li><a href="@Url.Action("Index", "Contact")">聯絡我們</a></li>
+                    <li><a href="@Url.Action("Index", "Quote")">快速報價</a></li>
+                    <li><a href="@Url.Action("Index", "Quote")">線上 Q&A</a></li>
                 </ul>
             </div>
         </div>

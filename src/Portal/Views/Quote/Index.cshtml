@@ -1,0 +1,290 @@
+﻿@{
+    ViewBag.Title = "線上詢價 Quotation｜智匯創新 G-wise Design";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles {
+    <link href="/css/quotation.css" rel="stylesheet" />
+}
+
+@section Scripts {
+    <script src="/js/quotation.js"></script>
+}
+
+<!-- HERO -->
+<div class="page-hero">
+    <div class="page-hero-bg" style="background-image:url('https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=1600&q=80');"></div>
+    <div class="page-hero-grad"></div>
+    <div class="page-hero-content">
+        <div class="eyebrow">
+            <div class="eyebrow-line"></div>
+            <span class="eyebrow-label">Quotation Request</span>
+        </div>
+        <h1 class="page-title">線上詢價<br>Quotation</h1>
+    </div>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+    <a href="@Url.Action("Index", "Home")">首頁</a>
+    <span>›</span>
+    <span style="color:#fff" id="bcCurrent">快速報價</span>
+</div>
+
+<!-- TAB NAV -->
+<div class="tab-nav">
+    <button class="tab-btn active" onclick="switchTab('quote')">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" /></svg>
+        快速報價
+    </button>
+    <button class="tab-btn" onclick="switchTab('qa')">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" /></svg>
+        線上 Q&amp;A
+    </button>
+    <button class="tab-btn" onclick="switchTab('pinfo')">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" /><polyline points="14 2 14 8 20 8" /><line x1="16" y1="13" x2="8" y2="13" /><line x1="16" y1="17" x2="8" y2="17" /></svg>
+        填寫產品資訊
+    </button>
+</div>
+
+<!-- PANEL 1 : 快速報價 -->
+<div class="panel active" id="panel-quote">
+    <div class="panel-wrap">
+
+        <div class="section-label" style="margin-bottom:24px;">How It Works</div>
+        <div class="quote-intro">
+            <div class="quote-step">
+                <div class="quote-step-num">01</div>
+                <div class="quote-step-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" /><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" /></svg></div>
+                <h4>填寫需求</h4>
+                <p>透過本頁表單填寫設計需求，或直接來電說明，我們會快速評估您的需求。</p>
+            </div>
+            <div class="quote-step">
+                <div class="quote-step-num">02</div>
+                <div class="quote-step-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 00-3-3.87" /><path d="M16 3.13a4 4 0 010 7.75" /></svg></div>
+                <h4>專業評估</h4>
+                <p>我們的設計團隊將評估工作項目與時程，於 1–2 個工作日內提供報價單。</p>
+            </div>
+            <div class="quote-step">
+                <div class="quote-step-num">03</div>
+                <div class="quote-step-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 11.08V12a10 10 0 11-5.93-9.14" /><polyline points="22 4 12 14.01 9 11.01" /></svg></div>
+                <h4>確認合作</h4>
+                <p>雙方確認報價後正式開始專案，全程由專人追蹤進度確保如期交付。</p>
+            </div>
+            <div class="quote-step">
+                <div class="quote-step-num">04</div>
+                <div class="quote-step-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2" /><path d="M8 21h8M12 17v4" /></svg></div>
+                <h4>交付成果</h4>
+                <p>完成設計後提供完整的設計檔案，可依需求進一步協助量產開模。</p>
+            </div>
+        </div>
+
+        <div class="quote-cta-cards">
+            <div class="quote-cta-card primary">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" /><polyline points="14 2 14 8 20 8" /><line x1="16" y1="13" x2="8" y2="13" /><line x1="16" y1="17" x2="8" y2="17" /></svg>
+                <h3>填寫產品資訊</h3>
+                <p>提供詳細的產品規格與需求說明，讓我們更精準地評估報價。</p>
+                <span class="cta-btn red">立即填寫 →</span>
+            </div>
+            <div class="quote-cta-card secondary">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" /></svg>
+                <h3>線上 Q&amp;A</h3>
+                <p>查看常見問題，或直接向我們提問，我們將盡快為您解答。</p>
+                <span class="cta-btn green">查看問答 →</span>
+            </div>
+        </div>
+
+        <div class="section-label">快速詢問表單</div>
+        <form id="quickForm">
+            <div class="form-grid-2">
+                <div class="form-group"><label>姓名 <span>*</span></label><input class="form-input" name="Name" type="text" placeholder="您的姓名" required></div>
+                <div class="form-group"><label>公司名稱</label><input class="form-input" name="Company" type="text" placeholder="公司或品牌名稱"></div>
+            </div>
+            <div class="form-grid-2">
+                <div class="form-group"><label>聯絡電話 <span>*</span></label><input class="form-input" name="Phone" type="tel" placeholder="電話號碼" required></div>
+                <div class="form-group"><label>電子信箱 <span>*</span></label><input class="form-input" name="Email" type="email" placeholder="your@email.com" required></div>
+            </div>
+            <div class="form-group">
+                <label>服務項目 <span>*</span></label>
+                <select class="form-select form-input" name="Service" required>
+                    <option value="" disabled selected>請選擇服務項目</option>
+                    <option>汽車零配件設計</option>
+                    <option>摩托車設計服務</option>
+                    <option>自行車設計服務</option>
+                    <option>船舶外形設計</option>
+                    <option>3C 家電設計</option>
+                    <option>生活用品設計</option>
+                    <option>A 級曲面製作</option>
+                    <option>正向 CAD</option>
+                    <option>產品開模量產</option>
+                    <option>3D 逆向工程服務</option>
+                    <option>其他</option>
+                </select>
+            </div>
+            <div class="form-group"><label>需求說明</label><textarea class="form-textarea" name="Message" placeholder="請簡述您的設計需求..." style="min-height:90px;"></textarea></div>
+            <button type="submit" class="form-submit">送出詢價 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7" /></svg></button>
+            <p class="form-note">* 為必填欄位。我們將於 1–2 個工作日內回覆。也可直接來電：<strong style="color:rgba(255,255,255,.5)">03-358-2500</strong></p>
+        </form>
+        <div class="form-success" id="quickSuccess">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#6DB82A" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14" /><polyline points="22 4 12 14.01 9 11.01" /></svg>
+            <p>詢價已送出！我們將盡快與您聯繫，感謝您的來訊。</p>
+        </div>
+
+        <div class="quote-note" style="margin-top:32px;">
+            <p><strong>備注：</strong>報價金額將依產品複雜度、工作項目數量及時程而定。如需緊急報價或有特殊需求，歡迎直接致電 <strong>03-358-2500</strong> 或 e-mail：<strong><a href="mailto:service@g-wise.com">service@g-wise.com</a></strong></p>
+        </div>
+    </div>
+</div>
+
+<!-- PANEL 2 : 線上 Q&A -->
+<div class="panel" id="panel-qa">
+    <div class="panel-wrap">
+        <div class="section-label" style="margin-bottom:8px;">Frequently Asked Questions</div>
+        <h2 class="qa-section-title">常見問答 Q&amp;A</h2>
+
+        <div class="qa-list">
+            <div class="qa-item">
+                <div class="qa-question" onclick="toggleQA(this)">
+                    <div class="qa-question-text"><strong>Q</strong> 我們是專門做 AM 保桿的公司，如果有樣品給你們參考，然後要改一個新的外型，這樣可以做嗎？大概多少錢？</div>
+                    <div class="qa-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></svg></div>
+                </div>
+                <div class="qa-answer"><p><strong>A</strong>沒問題！我們可以協助您從樣品逆向掃描、建立 3D 圖擋，然後從 3D 圖檔上直接修改您要的造型，如果沒有明確的造型，我們也可以協助設計提案給您選擇。價格的部分與樣品的困難度有關係，我們會評估所需要的工作時間對您做報價，同意後再製作。</p></div>
+            </div>
+            <div class="qa-item">
+                <div class="qa-question" onclick="toggleQA(this)">
+                    <div class="qa-question-text"><strong>Q</strong> 請問你們會不會做電動摩托車設計？是專門做外形設計還是連結構設計也可以協助？</div>
+                    <div class="qa-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></svg></div>
+                </div>
+                <div class="qa-answer"><p><strong>A</strong>您好，我們是專業的交通工具外型設計公司，對於電動摩托車除了發展外型之外，也能協助客戶設計拆出零件與設計細部的結構。</p></div>
+            </div>
+            <div class="qa-item">
+                <div class="qa-question" onclick="toggleQA(this)">
+                    <div class="qa-question-text"><strong>Q</strong> 你們公司會做板金的逆向工程嗎？</div>
+                    <div class="qa-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></svg></div>
+                </div>
+                <div class="qa-answer"><p><strong>A</strong>智匯創新可以協助客戶鈑金面的逆向掃描與 3D 曲面的 CAD 檔案製作工作，精確度高外形尺寸準確，並可符合生產條件要求。所製作之檔案光影順暢且能達成客戶規定之曲面公差要求。</p></div>
+            </div>
+            <div class="qa-item">
+                <div class="qa-question" onclick="toggleQA(this)">
+                    <div class="qa-question-text"><strong>Q</strong> 請問從設計到量產，你們可以提供哪些服務？</div>
+                    <div class="qa-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></svg></div>
+                </div>
+                <div class="qa-answer"><p><strong>A</strong>智匯創新提供一條龍服務，從外觀造型設計、機構設計、模型試作，到正向 CAD 建模、A 級曲面製作、逆向工程，最後到開模量產管理，客戶無需尋找不同廠商即可完成整個開發流程。</p></div>
+            </div>
+            <div class="qa-item">
+                <div class="qa-question" onclick="toggleQA(this)">
+                    <div class="qa-question-text"><strong>Q</strong> 設計費用如何計算？需要先付費才開始嗎？</div>
+                    <div class="qa-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></svg></div>
+                </div>
+                <div class="qa-answer"><p><strong>A</strong>費用依工作項目的複雜度與工作量評估，我們會先提供詳細報價單供客戶確認，雙方同意後再正式開始製作，全程透明不隱含費用。</p></div>
+            </div>
+        </div>
+
+        <div class="qa-ask-box">
+            <h4>還有其他問題？</h4>
+            <p>歡迎填寫您的問題，我們將盡快回覆解答。</p>
+            <form id="qaForm">
+                <div class="form-grid-2">
+                    <div class="form-group"><label>姓名 <span>*</span></label><input class="form-input" name="QAName" type="text" placeholder="您的姓名" required></div>
+                    <div class="form-group"><label>電子信箱 <span>*</span></label><input class="form-input" name="QAEmail" type="email" placeholder="your@email.com" required></div>
+                </div>
+                <div class="form-group"><label>您的問題 <span>*</span></label><textarea class="form-textarea" name="QAQuestion" placeholder="請輸入您想詢問的問題..." required></textarea></div>
+                <button type="submit" class="form-submit">送出提問 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7" /></svg></button>
+            </form>
+            <div class="form-success" id="qaSuccess">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#6DB82A" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14" /><polyline points="22 4 12 14.01 9 11.01" /></svg>
+                <p>問題已送出！我們將盡快回覆，感謝您的提問。</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- PANEL 3 : 填寫產品資訊 -->
+<div class="panel" id="panel-pinfo">
+    <div class="panel-wrap">
+        <div class="section-label" style="margin-bottom:8px;">Product Information Form</div>
+        <h2 class="qa-section-title">填寫產品資訊</h2>
+
+        <div class="pinfo-intro">
+            <p>請填寫詳細的產品資訊，讓我們能更精準地評估您的設計需求並提供合理報價。帶 <span style="color:var(--green)">*</span> 為必填欄位。</p>
+        </div>
+
+        <form id="pinfoForm">
+            <div class="section-label">委託人資訊</div>
+            <div class="form-grid-2">
+                <div class="form-group"><label>委託公司 <span>*</span></label><input class="form-input" name="Company" type="text" placeholder="公司名稱" required></div>
+                <div class="form-group"><label>聯絡人 <span>*</span></label><input class="form-input" name="Contact" type="text" placeholder="姓名" required></div>
+            </div>
+            <div class="form-grid-3">
+                <div class="form-group"><label>聯絡電話 <span>*</span></label><input class="form-input" name="Phone" type="tel" placeholder="電話" required></div>
+                <div class="form-group"><label>傳真</label><input class="form-input" name="Fax" type="tel" placeholder="傳真號碼"></div>
+                <div class="form-group"><label>EMAIL <span>*</span></label><input class="form-input" name="Email" type="email" placeholder="your@email.com" required></div>
+            </div>
+            <div class="form-group"><label>公司地址</label><input class="form-input" name="Address" type="text" placeholder="公司或通訊地址"></div>
+
+            <div class="form-divider"></div>
+            <div class="section-label">產品資訊</div>
+
+            <div class="form-grid-2">
+                <div class="form-group"><label>產品名稱 <span>*</span></label><input class="form-input" name="ProductName" type="text" placeholder="產品或零件名稱" required></div>
+                <div class="form-group"><label>概略尺寸</label><input class="form-input" name="Size" type="text" placeholder="例：500×300×200mm 或 全車"></div>
+            </div>
+            <div class="form-group">
+                <label>產品類別</label>
+                <select class="form-select form-input" name="Category">
+                    <option value="" disabled selected>請選擇產品類別</option>
+                    <option>汽車零配件 / 空力套件</option>
+                    <option>摩托車外觀</option>
+                    <option>自行車 / 電動自行車</option>
+                    <option>船舶 / 遊艇</option>
+                    <option>3C 消費性電子</option>
+                    <option>生活用品 / 家居</option>
+                    <option>醫療器材</option>
+                    <option>工業設備</option>
+                    <option>其他</option>
+                </select>
+            </div>
+
+            <div class="form-divider"></div>
+            <div class="section-label">委託服務事項</div>
+
+            <div class="form-group">
+                <label>委託服務項目（可複選）</label>
+                <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:8px;">
+                    <label style="display:flex;align-items:center;gap:8px;cursor:pointer;color:rgba(255,255,255,.75);font-size:13px;"><input type="checkbox" name="Services" value="外觀造型設計" style="accent-color:var(--green);">外觀造型設計</label>
+                    <label style="display:flex;align-items:center;gap:8px;cursor:pointer;color:rgba(255,255,255,.75);font-size:13px;"><input type="checkbox" name="Services" value="正向 CAD 建模" style="accent-color:var(--green);">正向 CAD 建模</label>
+                    <label style="display:flex;align-items:center;gap:8px;cursor:pointer;color:rgba(255,255,255,.75);font-size:13px;"><input type="checkbox" name="Services" value="機構設計" style="accent-color:var(--green);">機構設計</label>
+                    <label style="display:flex;align-items:center;gap:8px;cursor:pointer;color:rgba(255,255,255,.75);font-size:13px;"><input type="checkbox" name="Services" value="逆向工程 / 掃描" style="accent-color:var(--green);">逆向工程 / 掃描</label>
+                    <label style="display:flex;align-items:center;gap:8px;cursor:pointer;color:rgba(255,255,255,.75);font-size:13px;"><input type="checkbox" name="Services" value="A 級曲面製作" style="accent-color:var(--green);">A 級曲面製作</label>
+                    <label style="display:flex;align-items:center;gap:8px;cursor:pointer;color:rgba(255,255,255,.75);font-size:13px;"><input type="checkbox" name="Services" value="模型試作" style="accent-color:var(--green);">模型試作</label>
+                    <label style="display:flex;align-items:center;gap:8px;cursor:pointer;color:rgba(255,255,255,.75);font-size:13px;"><input type="checkbox" name="Services" value="開模量產管理" style="accent-color:var(--green);">開模量產管理</label>
+                    <label style="display:flex;align-items:center;gap:8px;cursor:pointer;color:rgba(255,255,255,.75);font-size:13px;"><input type="checkbox" name="Services" value="設計提案" style="accent-color:var(--green);">設計提案</label>
+                    <label style="display:flex;align-items:center;gap:8px;cursor:pointer;color:rgba(255,255,255,.75);font-size:13px;"><input type="checkbox" name="Services" value="其他" style="accent-color:var(--green);">其他</label>
+                </div>
+            </div>
+
+            <div class="form-group"><label>需求說明 / 備注 <span>*</span></label><textarea class="form-textarea" name="Requirement" placeholder="請詳細描述您的設計需求、參考資料說明、預期時程，或任何特殊要求..." style="min-height:140px;" required></textarea></div>
+
+            <div class="form-group">
+                <label>預期完成時程</label>
+                <select class="form-select form-input" name="Deadline">
+                    <option value="" disabled selected>請選擇預期時程</option>
+                    <option>1 個月內</option>
+                    <option>1–3 個月</option>
+                    <option>3–6 個月</option>
+                    <option>6 個月以上</option>
+                    <option>尚未確定</option>
+                </select>
+            </div>
+
+            <button type="submit" class="form-submit">送出產品資訊 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7" /></svg></button>
+            <p class="form-note">* 為必填欄位。填寫越詳細，我們越能快速且準確地提供報價。</p>
+        </form>
+        <div class="form-success" id="pinfoSuccess">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#6DB82A" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14" /><polyline points="22 4 12 14.01 9 11.01" /></svg>
+            <p>產品資訊已成功送出！我們將評估後盡快提供報價，感謝您的委託。</p>
+        </div>
+    </div>
+</div>
+
+<!-- CTA BAR（Footer 已在 Layout 中，无需重复） -->

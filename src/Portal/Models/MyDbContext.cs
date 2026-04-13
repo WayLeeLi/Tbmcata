@@ -20,6 +20,7 @@ namespace Academy.Models
         public DbSet<Role> Roles { get; set; }
         public DbSet<MailSet> MailSets { get; set; }
         public DbSet<Message> Messages { get; set; }
+        public DbSet<InquiryRecord> InquiryRecords { get; set; }
         public DbSet<Member> Members { get; set; }
         public DbSet<MemberMsg> MemberMsgs { get; set; }
         public DbSet<AdLink> AdLinks { get; set; }

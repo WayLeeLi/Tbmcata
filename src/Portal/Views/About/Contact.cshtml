@@ -1,152 +1,116 @@
-﻿@model Academy.Models.DictSet
-
-@{
-    var ModelName = "聯絡我們";
-    ViewBag.Title = ModelName;
+﻿@{
+    ViewBag.Title = "聯絡我們 Contact｜智匯創新 G-wise Design";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 @section Styles {
+    <link href="/css/contact.css" rel="stylesheet" />
 }
+
 @section Scripts {
+    <script src="/js/contact.js"></script>
 }
 
-<div class="main">
-    <div class="minner">
-        <div class="row col1 row_0">
-            <div class="mrow">
-                <div class="col col_02">
-                    <div class="mcol">
-                        <div id="Dyn_2_1" class="M19461">
-                            <div class="module module-um md_style1">
-                                <header class="mt mthide">
-                                </header>
+<!-- HERO -->
+<div class="page-hero">
+    <div class="page-hero-bg" style="background-image:url('https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&q=80');"></div>
+    <div class="page-hero-grad"></div>
+    <div class="page-hero-content">
+        <div class="eyebrow">
+            <div class="eyebrow-line"></div>
+            <span class="eyebrow-label">Contact Us</span>
+        </div>
+        <h1 class="page-title">聯絡我們<br>Contact</h1>
+    </div>
+</div>
 
-                                <section class="mb">
-                                    <div class="minner">
-                                        <script src="/js/tmcata.js"></script>
-                                    </div>
-                                </section>
-                            </div>
-                        </div>
-                        <div id="Dyn_2_2" class="M19465">
-                            <div class="module module-detail md_style1">
-                                <div class="module-inner">
-                                    <section class="mb">
-                                        <div class="mpgtitle">
-                                            <h3>
-                                                @ModelName
-                                            </h3>
-                                        </div>
-                                        <div class="mcont">
-                                            <div class="mpgdetail">
-                                                <div class="container-inner page contactus">
-                                                    <h1 class="index-title"><span class="en">CONTACT US</span><span class="ch">@ModelName</span></h1>
-                                                    <div class="row">
-                                                        @if (Model != null)
-                                                        {
-                                                            @Html.Raw(Model.Value)
-                                                        }
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="module module-form ">
-                                                            <section class="mb">
-                                                                <section class="form-section" id="_Form_Section_824">
-                                                                    <form class="formBS" role="form" method="post" id="msgForm">
-                                                                        <div class="row form-group required">
-                                                                            <label class="control-label col-sm-3">姓名: </label>
-                                                                            <div class="col-sm-8">
-                                                                                <input type="text" class="form-control" name="UserName" value="">
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="row form-group required">
-                                                                            <label class="control-label col-sm-3">電話: </label>
-                                                                            <div class="col-sm-8">
-                                                                                <input type="text" class="form-control" name="Tel" value="">
-                                                                            </div>
-                                                                        </div><div class="row form-group required">
-                                                                            <label class="control-label col-sm-3">E-mail: </label>
-                                                                            <div class="col-sm-8">
-                                                                                <input type="text" class="form-control" name="Mail" value="">
-                                                                            </div>
-                                                                        </div><div class="row form-group required">
-                                                                            <label class="control-label col-sm-3">內容: </label>
-                                                                            <div class="col-sm-8">
-                                                                                <textarea name="Content" class="form-control" cols="20" rows="4"></textarea>
-                                                                            </div>
-                                                                        </div>
-                                                                    </form>
-                                                                    <footer class="desc"></footer>
-                                                                    <div class="form-btn">
-                                                                        <button class="btn btn-s" id="btnSendMsg">提交</button>
-                                                                    </div>
-                                                                    <script>
-                                                                        $(function () {
-                                                                            $("#btnSendMsg").click(function () {
-                                                                                var UserName = $.trim($("input[name='UserName']").val());
-                                                                                if (UserName.length == 0) {
-                                                                                    alert("請輸入姓名！");
-                                                                                    $("input[name='UserName']").focus();
-                                                                                    return;
-                                                                                }
-                                                                                var Tel = $.trim($("input[name='Tel']").val());
-                                                                                if (Tel.length == 0) {
-                                                                                    alert("請輸入電話！");
-                                                                                    $("input[name='Tel']").focus();
-                                                                                    return;
-                                                                                }
-                                                                                var Mail = $.trim($("input[name='Mail']").val());
-                                                                                if (Mail.length == 0) {
-                                                                                    alert("請輸入E-mail！");
-                                                                                    $("input[name='Mail']").focus();
-                                                                                    return;
-                                                                                } else {
-                                                                                    if (Mail.split("@Html.Raw("@")").length == 1 || Mail.split(".").length == 1) {
-                                                                                        alert("郵箱地址必須包含@和.");
-                                                                                        $("input[name='Mail']").focus();
-                                                                                        return;
-                                                                                    }
-                                                                                }
-                                                                                var Content = $.trim($("textarea[name='Content']").val());
-                                                                                if (Content.length == 0) {
-                                                                                    alert("請輸入諮詢內容！");
-                                                                                    $("textarea[name='Content']").focus();
-                                                                                    return;
-                                                                                }
-                                                                                $.ajax({
-                                                                                    cache: false,
-                                                                                    url: '/Home/PostMsg',
-                                                                                    type: "POST",
-                                                                                    data: $("#msgForm").serialize(),
-                                                                                    dataType: "json",
-                                                                                    success: function (msg) {
-                                                                                        alert(msg.msg);
-                                                                                        $("input[name='UserName']").val("");
-                                                                                        $("input[name='Tel']").val("");
-                                                                                        $("input[name='Mail']").val("");
-                                                                                        $("textarea[name='Content']").val("").text("");
-                                                                                    },
-                                                                                    timeout: 30000,
-                                                                                    error: function (xhr, textStatus) {
-                                                                                        alert("發送失敗，請重試！");
-                                                                                    }
-                                                                                });
-                                                                            });
-                                                                        })
-                                                                    </script>
-                                                                </section>
-                                                            </section>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </section>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+    <a href="@Url.Action("Index", "Home")">首頁</a>
+    <span>›</span>
+    <span style="color:#fff">聯絡我們</span>
+</div>
+
+<!-- MAIN BODY -->
+<div class="contact-wrap">
+
+    <!-- LEFT -->
+    <div class="contact-left">
+
+        @if (Model != null)
+        {
+            @Html.Raw(Model.Value)
+        }
+
+    </div><!-- /contact-left -->
+    <!-- RIGHT: Contact Form -->
+    <div class="contact-right">
+        <div class="form-label">Get In Touch</div>
+        <h2 class="form-section-title">留下訊息<br>聯繫我們</h2>
+
+        <form id="contactForm" onsubmit="submitForm(event)">
+            <div class="form-row">
+                <div class="form-group">
+                    <label>姓名 <span>*</span></label>
+                    <input class="form-input" type="text" placeholder="您的姓名" required>
+                </div>
+                <div class="form-group">
+                    <label>公司名稱</label>
+                    <input class="form-input" type="text" placeholder="公司或品牌名稱">
                 </div>
             </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>電話 <span>*</span></label>
+                    <input class="form-input" type="tel" placeholder="聯絡電話" required>
+                </div>
+                <div class="form-group">
+                    <label>電子信箱 <span>*</span></label>
+                    <input class="form-input" type="email" placeholder="your@email.com" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>服務項目</label>
+                <select class="form-select form-input">
+                    <option value="" disabled selected>請選擇您感興趣的服務</option>
+                    <option>汽車零配件設計</option>
+                    <option>摩托車設計服務</option>
+                    <option>自行車設計服務</option>
+                    <option>船舶外形設計</option>
+                    <option>3C 家電設計</option>
+                    <option>生活用品設計</option>
+                    <option>A 級曲面製作</option>
+                    <option>正向 CAD</option>
+                    <option>產品開模量產</option>
+                    <option>3D 逆向工程服務</option>
+                    <option>其他</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>訊息內容 <span>*</span></label>
+                <textarea class="form-textarea" placeholder="請描述您的設計需求或問題..." required></textarea>
+            </div>
+
+            <button type="submit" class="form-submit">
+                送出訊息
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+            </button>
+
+            <p class="form-note">* 為必填欄位。我們將在 1–2 個工作日內與您聯繫。<br>您也可以直接來信：<a href="mailto:service@g-wise.com" style="color:var(--green)">service@g-wise.com</a></p>
+        </form>
+
+        <div class="form-success" id="formSuccess">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#6DB82A" stroke-width="2" style="margin-bottom:10px;"><path d="M22 11.08V12a10 10 0 11-5.93-9.14" /><polyline points="22 4 12 14.01 9 11.01" /></svg>
+            <p>訊息已成功送出！我們將盡快與您聯繫，感謝您的來訊。</p>
         </div>
     </div>
+
+</div><!-- /contact-wrap -->
+<!-- CTA BAR -->
+<div class="cta-bar">
+    <div class="cta-title">有設計需求？<br>歡迎與我們聯繫合作</div>
+    <a href="mailto:service@g-wise.com" class="btn-white">立即寄信 →</a>
 </div>

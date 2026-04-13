@@ -211,6 +211,7 @@
       <DependentUpon>ValidateCode.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\AboutController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\InfoController.cs" />
@@ -259,6 +260,7 @@
     <Content Include="Content\tmcata.css" />
     <Content Include="Content\usercss.css" />
     <Content Include="css\about.css" />
+    <Content Include="css\contact.css" />
     <Content Include="css\index.css" />
     <Content Include="css\news.css" />
     <Content Include="css\product.css" />
@@ -300,6 +302,7 @@
     <Content Include="Images\web\search.png" />
     <Content Include="Images\web\top.png" />
     <Content Include="js\about.js" />
+    <Content Include="js\contact.js" />
     <Content Include="js\flexslider.css" />
     <Content Include="js\index.js" />
     <Content Include="js\jquery-1.11.0.min.js" />
@@ -1482,6 +1485,7 @@
     <Content Include="Views\Service\index.cshtml" />
     <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Views\About\Index.cshtml" />
+    <Content Include="Views\Contact\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

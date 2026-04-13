@@ -34,7 +34,7 @@ namespace Academy.Controllers
                 // 从 News 表查询新闻数据（Menu = 3 表示新闻活动）
                 var query = from n in db.Newss
                             join c in db.Categories on n.CataID equals c.Id
-                            where n.Status == 1 && n.Menu == 3
+                            where n.Status == 1 && n.Menu == 5
                             select new
                             {
                                 n.ID,

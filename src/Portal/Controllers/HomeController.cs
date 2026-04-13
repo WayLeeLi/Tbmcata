@@ -140,6 +140,8 @@ namespace Academy.Controllers
             Message msg = new Message();
             msg.UserName = Request["UserName"];
             msg.Tel = Request["Tel"];
+            msg.CompanyName = Request["CompanyName"];
+            msg.CategoryName = Request["CategoryName"];
             msg.Mail = Request["Mail"];
             msg.Content = Request["Content"];
             msg.Status = 0;

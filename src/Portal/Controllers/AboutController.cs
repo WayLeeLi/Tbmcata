@@ -107,5 +107,39 @@ namespace Academy.Controllers
             var model = db.DictSets.FirstOrDefault(a => a.Code == "SettingDownload");
             return View(model);
         }
+        [HttpPost]
+        public JsonResult PostMsg(FormCollection form)
+        {
+            try
+            {
+                string userName = form["UserName"];
+                string companyName = form["CompanyName"];
+                string tel = form["Tel"];
+                string mail = form["Mail"];
+                string category = form["CategoryName"];
+                string content = form["Content"];
+
+                // 必填项验证
+                if (string.IsNullOrWhiteSpace(userName) || string.IsNullOrWhiteSpace(tel) ||
+                    string.IsNullOrWhiteSpace(mail) || string.IsNullOrWhiteSpace(content))
+                {
+                    return Json(new { success = false, msg = "請填寫所有必填欄位！" });
+                }
+
+                // 邮箱格式验证
+                if (!System.Text.RegularExpressions.Regex.IsMatch(mail, @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"))
+                {
+                    return Json(new { success = false, msg = "請輸入有效的電子信箱！" });
+                }
+
+                // TODO: 保存数据或发送邮件
+
+                return Json(new { success = true, msg = "發送成功！" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, msg = "系統錯誤：" + ex.Message });
+            }
+        }
     }
 }

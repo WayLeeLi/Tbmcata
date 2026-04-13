@@ -18,7 +18,11 @@ namespace Academy.Models
         public string UserName { get; set; }
         [DisplayName("電話")]
         public string Tel { get; set; }
-        [DisplayName("E-mail")]
+        [DisplayName("公司名稱")]
+        public string CompanyName { get; set; }
+        [DisplayName("類別名稱")]
+        public string CategoryName { get; set; }
+        [DisplayName("電子信箱")]
         public string Mail { get; set; }
         [DisplayName("諮詢內容")]
         public string Content { get; set; }

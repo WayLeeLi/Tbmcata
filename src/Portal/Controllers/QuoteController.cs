@@ -20,12 +20,13 @@ namespace Academy.Controllers
         {
             try
             {
+                
                 string name = form["Name"];
                 string company = form["Company"];
                 string phone = form["Phone"];
                 string email = form["Email"];
                 string service = form["Service"];
-                string message = form["Message"];
+                string content = form["Content"];
 
                 // 必填校验...
                 if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(phone) ||
@@ -47,7 +48,7 @@ namespace Academy.Controllers
                     CompanyName = company,
                     Phone = phone,
                     Email = email,
-                    Content = message,
+                    Content = content,
                     ExtraData = JsonConvert.SerializeObject(extra),
                     Status = 0,
                     CreateTime = DateTime.Now

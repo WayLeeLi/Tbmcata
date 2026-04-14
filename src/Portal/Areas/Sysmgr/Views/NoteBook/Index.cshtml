@@ -7,7 +7,127 @@
 }
 
 @section Scripts {
-    
+    <script>
+        $(function () {
+            //刪除確認視窗
+            $(".icon-trash-bin").click(function () {
+                var itemId = $(this).data("id");
+                var itemName = $(this).data("title");
+                $("#delete-confirm").dialog({
+                    position: { my: 'cneter', at: 'cneter' },
+                    resizable: true,
+                    height: 220,
+                    modal: true,
+                    open: function () {
+                        $(this).find(".mark").html("ID" + itemId + ": " + itemName);
+                    },
+                    buttons: {
+                        "確認刪除": function () {
+                            $(this).dialog("close");
+                            //這裡放置按下刪除時要進行的動作
+                            $.ajax({
+                                type: "POST",
+                                dataType: "json",
+                                url: "/Sysmgr/NoteBook/Delete",
+                                data: { id: itemId },
+                                error: function (request) {
+                                },
+                                success: function (data) {
+                                    alert("刪除成功！");
+                                    setTimeout(function () {
+                                        location.href = location.href;
+                                    }, 1000);
+                                }
+                            });
+                        },
+                        "取消": function () {
+                            $(this).dialog("close");
+                        }
+                    }
+                });
+            });
+
+            //排序確認視窗
+            $(".btnSort").click(function () {
+                var data = [];
+                $(".sort").each(function () {
+                    var item = {};
+                    item.ID = $(this).data("id");
+                    item.Sort = $(this).val();
+                    data.push(item);
+                });
+                if (data.length == 0) {
+                    return;
+                }
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    url: "/Sysmgr/NoteBook/Sort",
+                    data: { data: JSON.stringify(data) },
+                    error: function (request) {
+                    },
+                    success: function (data) {
+                        location.href = location.href;
+                    }
+                });
+            });
+
+            //批量確認視窗
+            $(".btnDelete").click(function () {
+                var data = [];
+                $("input[name='checkbox']:checked").each(function () {
+                    var item = {};
+                    item.ID = $(this).data("id");
+                    item.Sort = $(this).parent().parent().find(".sort").val();
+                    data.push(item);
+                });
+                if (data.length == 0) {
+                    return;
+                }
+                $("#delete-confirm").dialog({
+                    position: { my: 'cneter', at: 'cneter' },
+                    resizable: true,
+                    height: 220,
+                    modal: true,
+                    open: function () {
+                        $(this).find(".mark").html("");
+                    },
+                    buttons: {
+                        "確認刪除": function () {
+                            $(this).dialog("close");
+                            //這裡放置按下刪除時要進行的動作
+                            $.ajax({
+                                type: "POST",
+                                dataType: "json",
+                                url: "/Sysmgr/NoteBook/Deletes",
+                                data: { data: JSON.stringify(data) },
+                                error: function (request) {
+                                },
+                                success: function (data) {
+                                    alert("刪除成功！");
+                                    setTimeout(function () {
+                                        location.href = location.href;
+                                    }, 1000);
+                                }
+                            });
+                        },
+                        "取消": function () {
+                            $(this).dialog("close");
+                        }
+                    }
+                });
+            });
+
+            $("#checkboxAll").click(function () {
+                if ($(this).is(":checked")) {
+                    $("input[name='checkbox']").attr("checked", "checked");
+                } else {
+                    $("input[name='checkbox']").removeAttr("checked");
+                }
+            });
+
+        });
+    </script>
 }
 <!--主要內容-->
 <article id="content" class="contentArea">
@@ -67,7 +187,7 @@
                     </td>
                     <td class="alignLeft main">諮詢內容</td>
                     <td class="minWidth">聯絡人</td>
-                    @*<td class="minWidth">電話</td>*@
+                    <td class="minWidth">類別</td>
                     <td class="minWidth">E-mail</td>
                     <td class="minWidth">是否回覆</td>
                     <td class="time minWidth">
@@ -99,7 +219,7 @@
                         </td>
                         <td class="alignLeft">@item.Content</td>
                         <td class="alignLeft">@item.UserName</td>
-                        @*<td class="alignLeft">@item.Tel</td>*@
+                        <td class="alignLeft">@item.CategoryName</td>
                         <td class="alignLeft">@item.Email</td>
                         <td>
                             @if (item.Status == 0)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -20,6 +21,8 @@ namespace Academy.Models
 
         [StringLength(200)]
         public string CompanyName { get; set; }
+        [DisplayName("類別名稱")]
+        public string CategoryName { get; set; }
 
         [Required, StringLength(50)]
         public string Phone { get; set; }

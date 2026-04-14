@@ -131,15 +131,16 @@
 }
 <!--主要內容-->
 <article id="content" class="contentArea">
-    <h1>業務咨詢 <span>/ 咨詢列表</span><span class="tip">
-        <section class="tipBox">
-            <span>&nbsp;</span>
-            <ul>
-                <li>下列是目前咨詢列表。您可點選每條內容後面的  '回覆' 及 '刪除' 圖示進行您需要的動作。</li>
-                <li>列表頁均以 建立時間 做為排序，最新往下排列至最舊。</li>
-            </ul>
-        </section>
-    </span>
+    <h1>
+        線上 Q&A <span>/ 列表</span><span class="tip">
+            <section class="tipBox">
+                <span>&nbsp;</span>
+                <ul>
+                    <li>下列是目前咨詢列表。您可點選每條內容後面的  '回覆' 及 '刪除' 圖示進行您需要的動作。</li>
+                    <li>列表頁均以 建立時間 做為排序，最新往下排列至最舊。</li>
+                </ul>
+            </section>
+        </span>
     </h1>
     <section class="selectArea">
         <div class="selectMenu">
@@ -186,7 +187,7 @@
                     </td>
                     <td class="alignLeft main">諮詢內容</td>
                     <td class="minWidth">聯絡人</td>
-                    <td class="minWidth">電話</td>
+                    @*<td class="minWidth">電話</td>*@
                     <td class="minWidth">E-mail</td>
                     <td class="minWidth">是否回覆</td>
                     <td class="time minWidth">
@@ -218,7 +219,7 @@
                         </td>
                         <td class="alignLeft">@item.Content</td>
                         <td class="alignLeft">@item.UserName</td>
-                        <td class="alignLeft">@item.Tel</td>
+                        @*<td class="alignLeft">@item.Tel</td>*@
                         <td class="alignLeft">@item.Mail</td>
                         <td>
                             @if (item.Status == 0)

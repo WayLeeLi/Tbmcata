@@ -22,15 +22,16 @@
 <article class="contentArea" id="content">
     @using (Html.BeginForm("Edit", "Message", FormMethod.Post, new { id = "formcontent", enctype = "multipart/form-data" }))
     {
-        <h1>業務咨詢<span>/ 回覆咨詢</span><span class="tip">
-            <section class="tipBox">
-                <span>&nbsp;</span>
-                <ul>
-                    <li>填入您要編輯的資訊。 *為必填欄位。</li>
-                    <li>回覆內容時，會自動給用戶發送一封郵件。</li>
-                </ul>
-            </section>
-        </span>
+        <h1>
+            線上 Q&A<span>/ 回覆</span><span class="tip">
+                <section class="tipBox">
+                    <span>&nbsp;</span>
+                    <ul>
+                        <li>填入您要編輯的資訊。 *為必填欄位。</li>
+                        <li>回覆內容時，會自動給用戶發送一封郵件。</li>
+                    </ul>
+                </section>
+            </span>
         </h1>
         @Html.ValidationSummary(true)
         @Html.HiddenFor(model => model.ID)

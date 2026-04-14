@@ -65,18 +65,18 @@ namespace Academy.Controllers
                 }
 
                 // 保存到数据库
-                var message = new Message
+                var message = new InquiryRecord
                 {
                     UserName = userName,
                     CompanyName = companyName,
-                    Tel = tel,
-                    Mail = mail,
+                    Phone = tel,
+                    Email = mail,
                     CategoryName = category,
                     Content = content,
-                    CDate = DateTime.Now,
+                    CreateTime = DateTime.Now,
                     Status = 0
                 };
-                db.Messages.Add(message);
+                db.InquiryRecords.Add(message);
                 db.SaveChanges();
 
                 // 可选：发送邮件

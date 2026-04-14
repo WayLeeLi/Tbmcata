@@ -1,8 +1,10 @@
 ﻿using Academy.Models;
 using Newtonsoft.Json;
 using System;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web.Mvc;
+using static NPOI.HSSF.Util.HSSFColor;
 
 namespace Academy.Controllers
 {
@@ -11,8 +13,13 @@ namespace Academy.Controllers
 
         public ActionResult Index()
         {
-            // 可在此传递左侧内容或分类列表（暂无）
-            return View();
+            ViewBag.CategoryList = db.Categories
+                .Where(c => c.Menu == 3 && c.ParentId != null && c.Status == 1)
+                .OrderBy(c => c.SortOrder)
+                .ToList();
+
+            var qaList = db.Messages.Where(a => a.Status == 1).ToList();
+            return View(qaList);
         }
 
         [HttpPost]
@@ -83,17 +90,15 @@ namespace Academy.Controllers
                     return Json(new { success = false, msg = "請輸入有效的電子信箱！" });
                 }
 
-                var record = new InquiryRecord
+                var message = new Message
                 {
-                    FormType = "QA",
                     UserName = name,
-                    Phone = "",
-                    Email = email,
                     Content = question,
+                    Mail = email,
                     Status = 0,
-                    CreateTime = DateTime.Now
+                    CDate = DateTime.Now
                 };
-                db.InquiryRecords.Add(record);
+                db.Messages.Add(message);
                 db.SaveChanges();
 
                 return Json(new { success = true, msg = "問題已送出！" });

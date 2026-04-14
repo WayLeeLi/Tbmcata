@@ -137,47 +137,44 @@
 </div>
 
 <!-- PANEL 2 : 線上 Q&A -->
+@model List<Academy.Models.Message>
+
+<!-- 其他内容不变 ... -->
+<!-- PANEL 2 : 線上 Q&A -->
 <div class="panel" id="panel-qa">
     <div class="panel-wrap">
         <div class="section-label" style="margin-bottom:8px;">Frequently Asked Questions</div>
         <h2 class="qa-section-title">常見問答 Q&amp;A</h2>
 
         <div class="qa-list">
-            <div class="qa-item">
-                <div class="qa-question" onclick="toggleQA(this)">
-                    <div class="qa-question-text"><strong>Q</strong> 我們是專門做 AM 保桿的公司，如果有樣品給你們參考，然後要改一個新的外型，這樣可以做嗎？大概多少錢？</div>
-                    <div class="qa-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></svg></div>
+            @if (Model != null && Model.Any())
+            {
+                foreach (var item in Model)
+                {
+                    <div class="qa-item">
+                        <div class="qa-question" onclick="toggleQA(this)">
+                            <div class="qa-question-text">
+                                <strong>Q</strong> @item.Content
+                            </div>
+                            <div class="qa-toggle">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                    <line x1="12" y1="5" x2="12" y2="19" />
+                                    <line x1="5" y1="12" x2="19" y2="12" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="qa-answer">
+                            <p><strong>A</strong> @item.ReplyContent</p>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="qa-item">
+                    <div class="qa-question-text" style="padding:20px; color:var(--gray);">暫無常見問題</div>
                 </div>
-                <div class="qa-answer"><p><strong>A</strong>沒問題！我們可以協助您從樣品逆向掃描、建立 3D 圖擋，然後從 3D 圖檔上直接修改您要的造型，如果沒有明確的造型，我們也可以協助設計提案給您選擇。價格的部分與樣品的困難度有關係，我們會評估所需要的工作時間對您做報價，同意後再製作。</p></div>
-            </div>
-            <div class="qa-item">
-                <div class="qa-question" onclick="toggleQA(this)">
-                    <div class="qa-question-text"><strong>Q</strong> 請問你們會不會做電動摩托車設計？是專門做外形設計還是連結構設計也可以協助？</div>
-                    <div class="qa-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></svg></div>
-                </div>
-                <div class="qa-answer"><p><strong>A</strong>您好，我們是專業的交通工具外型設計公司，對於電動摩托車除了發展外型之外，也能協助客戶設計拆出零件與設計細部的結構。</p></div>
-            </div>
-            <div class="qa-item">
-                <div class="qa-question" onclick="toggleQA(this)">
-                    <div class="qa-question-text"><strong>Q</strong> 你們公司會做板金的逆向工程嗎？</div>
-                    <div class="qa-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></svg></div>
-                </div>
-                <div class="qa-answer"><p><strong>A</strong>智匯創新可以協助客戶鈑金面的逆向掃描與 3D 曲面的 CAD 檔案製作工作，精確度高外形尺寸準確，並可符合生產條件要求。所製作之檔案光影順暢且能達成客戶規定之曲面公差要求。</p></div>
-            </div>
-            <div class="qa-item">
-                <div class="qa-question" onclick="toggleQA(this)">
-                    <div class="qa-question-text"><strong>Q</strong> 請問從設計到量產，你們可以提供哪些服務？</div>
-                    <div class="qa-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></svg></div>
-                </div>
-                <div class="qa-answer"><p><strong>A</strong>智匯創新提供一條龍服務，從外觀造型設計、機構設計、模型試作，到正向 CAD 建模、A 級曲面製作、逆向工程，最後到開模量產管理，客戶無需尋找不同廠商即可完成整個開發流程。</p></div>
-            </div>
-            <div class="qa-item">
-                <div class="qa-question" onclick="toggleQA(this)">
-                    <div class="qa-question-text"><strong>Q</strong> 設計費用如何計算？需要先付費才開始嗎？</div>
-                    <div class="qa-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></svg></div>
-                </div>
-                <div class="qa-answer"><p><strong>A</strong>費用依工作項目的複雜度與工作量評估，我們會先提供詳細報價單供客戶確認，雙方同意後再正式開始製作，全程透明不隱含費用。</p></div>
-            </div>
+           }
         </div>
 
         <div class="qa-ask-box">

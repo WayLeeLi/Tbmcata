@@ -108,17 +108,13 @@
                 <label>服務項目 <span>*</span></label>
                 <select class="form-select form-input" name="Service" required>
                     <option value="" disabled selected>請選擇服務項目</option>
-                    <option>汽車零配件設計</option>
-                    <option>摩托車設計服務</option>
-                    <option>自行車設計服務</option>
-                    <option>船舶外形設計</option>
-                    <option>3C 家電設計</option>
-                    <option>生活用品設計</option>
-                    <option>A 級曲面製作</option>
-                    <option>正向 CAD</option>
-                    <option>產品開模量產</option>
-                    <option>3D 逆向工程服務</option>
-                    <option>其他</option>
+                    @if (ViewBag.CategoryList != null)
+                    {
+                        foreach (var cat in ViewBag.CategoryList)
+                        {
+                            <option value="@cat.Name">@cat.Name</option>
+                        }
+                    }
                 </select>
             </div>
             <div class="form-group"><label>需求說明</label><textarea class="form-textarea" name="Content" placeholder="請簡述您的設計需求..." style="min-height:90px;"></textarea></div>
@@ -248,15 +244,15 @@
             <div class="form-group">
                 <label>委託服務項目（可複選）</label>
                 <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:8px;">
-                    <label style="display:flex;align-items:center;gap:8px;cursor:pointer;color:rgba(255,255,255,.75);font-size:13px;"><input type="checkbox" name="Services" value="外觀造型設計" style="accent-color:var(--green);">外觀造型設計</label>
-                    <label style="display:flex;align-items:center;gap:8px;cursor:pointer;color:rgba(255,255,255,.75);font-size:13px;"><input type="checkbox" name="Services" value="正向 CAD 建模" style="accent-color:var(--green);">正向 CAD 建模</label>
-                    <label style="display:flex;align-items:center;gap:8px;cursor:pointer;color:rgba(255,255,255,.75);font-size:13px;"><input type="checkbox" name="Services" value="機構設計" style="accent-color:var(--green);">機構設計</label>
-                    <label style="display:flex;align-items:center;gap:8px;cursor:pointer;color:rgba(255,255,255,.75);font-size:13px;"><input type="checkbox" name="Services" value="逆向工程 / 掃描" style="accent-color:var(--green);">逆向工程 / 掃描</label>
-                    <label style="display:flex;align-items:center;gap:8px;cursor:pointer;color:rgba(255,255,255,.75);font-size:13px;"><input type="checkbox" name="Services" value="A 級曲面製作" style="accent-color:var(--green);">A 級曲面製作</label>
-                    <label style="display:flex;align-items:center;gap:8px;cursor:pointer;color:rgba(255,255,255,.75);font-size:13px;"><input type="checkbox" name="Services" value="模型試作" style="accent-color:var(--green);">模型試作</label>
-                    <label style="display:flex;align-items:center;gap:8px;cursor:pointer;color:rgba(255,255,255,.75);font-size:13px;"><input type="checkbox" name="Services" value="開模量產管理" style="accent-color:var(--green);">開模量產管理</label>
-                    <label style="display:flex;align-items:center;gap:8px;cursor:pointer;color:rgba(255,255,255,.75);font-size:13px;"><input type="checkbox" name="Services" value="設計提案" style="accent-color:var(--green);">設計提案</label>
-                    <label style="display:flex;align-items:center;gap:8px;cursor:pointer;color:rgba(255,255,255,.75);font-size:13px;"><input type="checkbox" name="Services" value="其他" style="accent-color:var(--green);">其他</label>
+                    @if (ViewBag.CategoryList != null)
+                    {
+                        foreach (var category in ViewBag.CategoryList)
+                        {
+                            <label style="display:flex;align-items:center;gap:8px;cursor:pointer;color:rgba(255,255,255,.75);font-size:13px;">
+                                <input type="checkbox" name="Services" value="@category.Name" style="accent-color:var(--green);"> @category.Name
+                            </label>
+                        }
+                    }
                 </div>
             </div>
 

@@ -1,0 +1,156 @@
+@using PagedList
+@using PagedList.Mvc
+@model IEnumerable<Academy.Models.InquiryRecord>
+
+@{
+    Layout = "~/Areas/Sysmgr/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts {
+    
+}
+<!--主要內容-->
+<article id="content" class="contentArea">
+    <h1>
+        產品資訊 <span>/ 列表</span><span class="tip">
+            <section class="tipBox">
+                <span>&nbsp;</span>
+                <ul>
+                    <li>下列是目前咨詢列表。您可點選每條內容後面的  '回覆' 及 '刪除' 圖示進行您需要的動作。</li>
+                    <li>列表頁均以 建立時間 做為排序，最新往下排列至最舊。</li>
+                </ul>
+            </section>
+        </span>
+    </h1>
+    <section class="selectArea">
+        <div class="selectMenu">
+            <p>上線狀態 :</p>
+            <select name="selectItem" id="selectItem">
+                <option value="">請選擇</option>
+                @if (Request["status"] == "1")
+                {
+                    <option value="1" selected>已回覆</option>
+                }
+                else
+                {
+                    <option value="1">已回覆</option>
+                }
+                @if (Request["status"] == "0")
+                {
+                    <option value="0" selected>未回覆</option>
+                }
+                else
+                {
+                    <option value="0">未回覆</option>
+                }
+            </select>
+        </div>
+        <input type="button" value="送出" onclick="location.href = '/Sysmgr/Quote/Index?cata=' + $('#selType').val() + '&status=' + $('#selectItem').val()">
+    </section>
+
+    <section class="tableArea">
+        <table border="0" class="responsive" cellpadding="0" cellspacing="0">
+            <thead>
+                <tr class="titlebar">
+                    <td class="no">
+                        @if (Request["ordery"] == "idasc")
+                        {
+                            <a href='/Sysmgr/Quote/Index?cata=@Request["cata"]&status=@Request["status"]&ordery=iddesc'>ID</a>
+                        }
+                        else
+                        {
+                            <a href='/Sysmgr/Quote/Index?cata=@Request["cata"]&status=@Request["status"]&ordery=idasc'>ID</a>
+                        }
+                    </td>
+                    <td class="checkbox">
+                        <input type="checkbox" name="checkboxAll" id="checkboxAll">
+                    </td>
+                    <td class="alignLeft main">諮詢內容</td>
+                    <td class="minWidth">聯絡人</td>
+                    @*<td class="minWidth">電話</td>*@
+                    <td class="minWidth">E-mail</td>
+                    <td class="minWidth">是否回覆</td>
+                    <td class="time minWidth">
+                        @if (Request["ordery"] == "timeasc")
+                        {
+                            <a href='/Sysmgr/Quote/Index?cata=@Request["cata"]&status=@Request["status"]&ordery=timedesc' class="sortUp">建立時間</a>
+                        }
+                        else
+                        {
+                            <a href='/Sysmgr/Quote/Index?cata=@Request["cata"]&status=@Request["status"]&ordery=timeasc' class="sortDown">建立時間</a>
+                        }
+                    </td>
+                    <td class="btn minWidth">功能</td>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Count() == 0)
+                {
+                    <tr>
+                        <td colspan="9" align="center">暫無資料！</td>
+                    </tr>
+                }
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="num">@item.Id</td>
+                        <td>
+                            <input type="checkbox" name="checkbox" data-id="@item.Id" id="checkbox">
+                        </td>
+                        <td class="alignLeft">@item.Content</td>
+                        <td class="alignLeft">@item.UserName</td>
+                        @*<td class="alignLeft">@item.Tel</td>*@
+                        <td class="alignLeft">@item.Email</td>
+                        <td>
+                            @if (item.Status == 0)
+                            {
+                                <span class="icon-off" title="未回覆"></span>
+                            }
+                            else
+                            {
+                                <span class="icon-on" title="已回覆"></span>
+                            }
+                        </td>
+                        <td class="num">@item.CDate.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                        <td>
+                            <p class="function">
+                                <a href="/Sysmgr/Quote/Edit?id=@item.Id&ret=@HttpUtility.UrlEncode(Request.Url.ToString())" class="icon-edit" title="回覆"></a>
+                                <a href="javascript:;" data-id="@item.Id" data-title="@item.Content" class="icon-trash-bin" title="刪除"></a>
+                            </p>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </section>
+
+    @{
+        var data = Model as IPagedList<Academy.Models.InquiryRecord>;
+    }
+    <section class="numberArea">
+        <p>
+            共 :
+            @data.PageCount 頁  /  總共 : @data.TotalItemCount 筆記錄
+        </p>
+        <ul>
+            @Html.PagedListPager(data, page => Url.Action("Index", new { page = page, status = Request["status"], ordery = Request["ordery"] }), new PagedListRenderOptions() { LinkToFirstPageFormat = "首頁", LinkToNextPageFormat = "下一頁", LinkToPreviousPageFormat = "上一頁", LinkToLastPageFormat = "末頁", DisplayItemSliceAndTotal = true, ItemSliceAndTotalFormat = "共有 {2} 筆", MaximumPageNumbersToDisplay = 5 })
+        </ul>
+    </section>
+    <!--功能操作-->
+    <section class="openArea"><span title="開啟執行列" class="open">開啟執行列</span></section>
+    <section class="functionArea">
+        <span title="關閉執行列" class="close">關閉執行列</span><span id="closeShort" title="關閉執行列" class="close">關閉執行列</span>
+        <div>
+            <p>回上一頁</p>
+            <input name="" type="button" value="x" class="btnBackto">
+        </div>
+        @*<div>
+                <p>更新排序</p>
+                <input name="" type="button" value="k" class="btnSort">
+            </div>*@
+        <div>
+            <p>刪除勾選</p>
+            <input name="" type="button" value="K" class="btnDelete">
+        </div>
+    </section>
+</article>

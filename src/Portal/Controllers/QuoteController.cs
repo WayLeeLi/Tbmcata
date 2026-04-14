@@ -58,7 +58,7 @@ namespace Academy.Controllers
                     Content = content,
                     ExtraData = JsonConvert.SerializeObject(extra),
                     Status = 0,
-                    CreateTime = DateTime.Now
+                    CDate = DateTime.Now
                 };
                 db.InquiryRecords.Add(record);
                 db.SaveChanges();
@@ -160,7 +160,7 @@ namespace Academy.Controllers
                     Content = requirement,
                     ExtraData = JsonConvert.SerializeObject(extra),
                     Status = 0,
-                    CreateTime = DateTime.Now
+                    CDate = DateTime.Now
                 };
                 db.InquiryRecords.Add(record);
                 db.SaveChanges();

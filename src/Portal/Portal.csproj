@@ -195,6 +195,9 @@
     <Compile Include="Areas\Sysmgr\Controllers\CategoryController.cs" />
     <Compile Include="Areas\Sysmgr\Controllers\MainController.cs" />
     <Compile Include="Areas\Sysmgr\Controllers\AboutController.cs" />
+    <Compile Include="Areas\Sysmgr\Controllers\NoteBookController.cs" />
+    <Compile Include="Areas\Sysmgr\Controllers\QuickQuoteController.cs" />
+    <Compile Include="Areas\Sysmgr\Controllers\QuoteController.cs" />
     <Compile Include="Areas\Sysmgr\Controllers\ProductController.cs" />
     <Compile Include="Areas\Sysmgr\Controllers\SettingController.cs" />
     <Compile Include="Areas\Sysmgr\Controllers\BannerController.cs" />
@@ -1333,6 +1336,12 @@
     <Content Include="Areas\Sysmgr\Views\Category\Index.cshtml" />
     <Content Include="Areas\Sysmgr\Views\Category\Create.cshtml" />
     <Content Include="Areas\Sysmgr\Views\Category\Edit.cshtml" />
+    <Content Include="Areas\Sysmgr\Views\Quote\Edit.cshtml" />
+    <Content Include="Areas\Sysmgr\Views\Quote\Index.cshtml" />
+    <Content Include="Areas\Sysmgr\Views\NoteBook\Edit.cshtml" />
+    <Content Include="Areas\Sysmgr\Views\NoteBook\Index.cshtml" />
+    <Content Include="Areas\Sysmgr\Views\QuickQuote\Edit.cshtml" />
+    <Content Include="Areas\Sysmgr\Views\QuickQuote\Index.cshtml" />
     <None Include="Properties\PublishProfiles\NCRS.pubxml" />
     <Content Include="Scripts\fonts\lg.eot" />
     <Content Include="Scripts\fonts\lg.ttf" />

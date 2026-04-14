@@ -14,31 +14,37 @@ namespace Academy.Models
         public int Id { get; set; }
 
         [Required, StringLength(50)]
-        public string FormType { get; set; }        // QuickQuote, QA, ProductInfo
+        public string FormType { get; set; }
 
-        [Required, StringLength(100)]
+        [StringLength(100)]
         public string UserName { get; set; }
 
         [StringLength(200)]
         public string CompanyName { get; set; }
-        [DisplayName("類別名稱")]
-        public string CategoryName { get; set; }
 
-        [Required, StringLength(50)]
+        [StringLength(50)]
         public string Phone { get; set; }
 
-        [Required, StringLength(200)]
+        [StringLength(200)]
         public string Email { get; set; }
 
-        public string Content { get; set; }          // 主要描述
+        [StringLength(100)]
+        public string CategoryName { get; set; }   // 新增：服务项目类别
 
-        [Required, StringLength(2000)]
-        public string ExtraData { get; set; }        // JSON 格式存储额外的字段
+        public string Content { get; set; }
 
-        public int Status { get; set; } = 0;
+        public string ExtraData { get; set; }
 
-        public DateTime CreateTime { get; set; } = DateTime.Now;
+        public int Status { get; set; }
 
-        public DateTime? UpdateTime { get; set; }
+        public string ReplyContent { get; set; }   // 新增：回复内容
+        public int? ReplyUser { get; set; }        // 新增：回复人ID
+        public DateTime? ReplyDate { get; set; }   // 新增：回复时间
+
+        public int? CUser { get; set; }            // 新增：创建人ID
+        public int? LUser { get; set; }            // 新增：修改人ID
+
+        public DateTime CDate { get; set; }   // 保留（与CDate可能重复，可考虑统一）
+        public DateTime? LDate { get; set; }
     }
 }

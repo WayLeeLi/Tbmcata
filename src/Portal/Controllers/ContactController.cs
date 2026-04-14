@@ -67,13 +67,14 @@ namespace Academy.Controllers
                 // 保存到数据库
                 var message = new InquiryRecord
                 {
+                    FormType = "QA",
                     UserName = userName,
                     CompanyName = companyName,
                     Phone = tel,
                     Email = mail,
                     CategoryName = category,
                     Content = content,
-                    CreateTime = DateTime.Now,
+                    CDate = DateTime.Now,
                     Status = 0
                 };
                 db.InquiryRecords.Add(message);

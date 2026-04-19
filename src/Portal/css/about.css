@@ -711,77 +711,6 @@ footer {
         pointer-events: auto;
     }
 
-/* Responsive */
-@media(max-width: 1024px) {
-    .footer-top {
-        grid-template-columns: 1fr 1fr;
-    }
-}
-
-@media(max-width: 768px) {
-    nav {
-        padding: 0 24px;
-    }
-
-    .nav-links {
-        display: none;
-    }
-
-    .hamburger {
-        display: flex;
-    }
-
-    .page-hero-content {
-        padding: 0 24px 36px;
-    }
-
-    .page-hero {
-        height: 240px;
-    }
-
-    .sub-nav-inner {
-        padding: 0 16px;
-        overflow-x: auto;
-        white-space: nowrap;
-    }
-
-    .sub-tab {
-        padding: 14px 16px;
-        font-size: 13px;
-    }
-
-    .breadcrumb {
-        padding: 16px 24px;
-    }
-
-    .about-wrap {
-        grid-template-columns: 1fr;
-        padding: 48px 24px;
-        gap: 40px;
-    }
-
-    .value-cards {
-        grid-template-columns: 1fr;
-    }
-
-    .cta-bar {
-        padding: 40px 24px;
-    }
-
-    footer {
-        padding: 48px 24px 32px;
-    }
-
-    .footer-top {
-        grid-template-columns: 1fr;
-        gap: 28px;
-    }
-
-    .sidebar {
-        order: -1;
-    }
-}
-
 /* ── Language Switcher ── */
 .lang-bar {
     position: fixed;
@@ -835,7 +764,120 @@ nav {
     margin-top: calc(88px + 30px) !important;
 }
 
-@media(max-width: 768px) {
+/* ─── RESPONSIVE (Mobile) ─── */
+/* 省略原有基础样式... (保留之前的 :root, nav, hero 等，只修改媒体查询部分) */
+
+/* ─── 媒体查询：平板与手机 ─── */
+@media (max-width: 1024px) {
+    .footer-top {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    /* 基础防溢出 */
+    html, body {
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+
+    nav {
+        padding: 0 24px;
+    }
+
+    .nav-links {
+        display: none;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+
+    .page-hero-content {
+        padding: 0 24px 36px;
+    }
+
+    .page-hero {
+        height: 240px;
+    }
+
+    .sub-nav-inner {
+        padding: 0 16px;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    .sub-tab {
+        padding: 14px 16px;
+        font-size: 13px;
+    }
+
+    .breadcrumb {
+        padding: 16px 24px;
+    }
+
+    /* ★★★ 核心修复：确保主容器和侧边栏左右内边距一致且不溢出 ★★★ */
+    .about-wrap {
+        display: block; /* 改为 block，避免 grid 额外影响 */
+        padding: 48px 20px; /* 统一左右内边距 20px */
+        max-width: 100%;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .about-content {
+        width: 100%;
+        padding: 0; /* 内边距由父级 .about-wrap 统一提供，这里清零 */
+        box-sizing: border-box;
+    }
+
+    .sidebar {
+        width: 100%;
+        padding: 0; /* 同上，内边距由父级提供 */
+        margin-top: 40px;
+        order: -1; /* 侧边栏显示在主内容上方（可选） */
+        box-sizing: border-box;
+    }
+
+    /* 侧边栏内部盒子也需要完整宽度 */
+    .sidebar-box {
+        width: 100%;
+        padding: 28px;
+        margin-bottom: 16px;
+        box-sizing: border-box;
+    }
+
+    /* 所有图片自适应宽度 */
+    .about-img,
+    .mission-img,
+    .value-card img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .value-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .cta-bar {
+        padding: 40px 24px;
+    }
+
+    footer {
+        padding: 48px 24px 32px;
+    }
+
+    .footer-top {
+        grid-template-columns: 1fr;
+        gap: 28px;
+    }
+
+    .page-hero {
+        margin-top: calc(88px + 30px) !important;
+    }
+}
+
+@media (max-width: 768px) {
     .lang-bar {
         padding: 0 24px;
     }

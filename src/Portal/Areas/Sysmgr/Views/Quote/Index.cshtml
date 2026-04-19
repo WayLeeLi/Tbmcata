@@ -1,4 +1,4 @@
-@using PagedList
+ï»¿@using PagedList
 @using PagedList.Mvc
 @model IEnumerable<Academy.Models.InquiryRecord>
 
@@ -9,7 +9,7 @@
 @section Scripts {
     <script>
         $(function () {
-            //„h³ı´_ÕJÒ•´°
+            //åˆªé™¤ç¢ºèªè¦–çª—
             $(".icon-trash-bin").click(function () {
                 var itemId = $(this).data("id");
                 var itemName = $(this).data("title");
@@ -22,9 +22,9 @@
                         $(this).find(".mark").html("ID" + itemId + ": " + itemName);
                     },
                     buttons: {
-                        "´_ÕJ„h³ı": function () {
+                        "ç¢ºèªåˆªé™¤": function () {
                             $(this).dialog("close");
-                            //ß@Ñe·ÅÖÃ°´ÏÂ„h³ı•rÒªßMĞĞµÄ„Ó×÷
+                            //é€™è£¡æ”¾ç½®æŒ‰ä¸‹åˆªé™¤æ™‚è¦é€²è¡Œçš„å‹•ä½œ
                             $.ajax({
                                 type: "POST",
                                 dataType: "json",
@@ -33,21 +33,21 @@
                                 error: function (request) {
                                 },
                                 success: function (data) {
-                                    alert("„h³ı³É¹¦£¡");
+                                    alert("åˆªé™¤æˆåŠŸï¼");
                                     setTimeout(function () {
                                         location.href = location.href;
                                     }, 1000);
                                 }
                             });
                         },
-                        "È¡Ïû": function () {
+                        "å–æ¶ˆ": function () {
                             $(this).dialog("close");
                         }
                     }
                 });
             });
 
-            //ÅÅĞò´_ÕJÒ•´°
+            //æ’åºç¢ºèªè¦–çª—
             $(".btnSort").click(function () {
                 var data = [];
                 $(".sort").each(function () {
@@ -72,7 +72,7 @@
                 });
             });
 
-            //ÅúÁ¿´_ÕJÒ•´°
+            //æ‰¹é‡ç¢ºèªè¦–çª—
             $(".btnDelete").click(function () {
                 var data = [];
                 $("input[name='checkbox']:checked").each(function () {
@@ -93,9 +93,9 @@
                         $(this).find(".mark").html("");
                     },
                     buttons: {
-                        "´_ÕJ„h³ı": function () {
+                        "ç¢ºèªåˆªé™¤": function () {
                             $(this).dialog("close");
-                            //ß@Ñe·ÅÖÃ°´ÏÂ„h³ı•rÒªßMĞĞµÄ„Ó×÷
+                            //é€™è£¡æ”¾ç½®æŒ‰ä¸‹åˆªé™¤æ™‚è¦é€²è¡Œçš„å‹•ä½œ
                             $.ajax({
                                 type: "POST",
                                 dataType: "json",
@@ -104,14 +104,14 @@
                                 error: function (request) {
                                 },
                                 success: function (data) {
-                                    alert("„h³ı³É¹¦£¡");
+                                    alert("åˆªé™¤æˆåŠŸï¼");
                                     setTimeout(function () {
                                         location.href = location.href;
                                     }, 1000);
                                 }
                             });
                         },
-                        "È¡Ïû": function () {
+                        "å–æ¶ˆ": function () {
                             $(this).dialog("close");
                         }
                     }
@@ -129,43 +129,43 @@
         });
     </script>
 }
-<!--Ö÷ÒªƒÈÈİ-->
+<!--ä¸»è¦å…§å®¹-->
 <article id="content" class="contentArea">
     <h1>
-        ®aÆ·ÙYÓ <span>/ ÁĞ±í</span><span class="tip">
+        ç”¢å“è³‡è¨Š <span>/ åˆ—è¡¨</span><span class="tip">
             <section class="tipBox">
                 <span>&nbsp;</span>
                 <ul>
-                    <li>ÏÂÁĞÊÇÄ¿Ç°×ÉÔƒÁĞ±í¡£Äú¿ÉücßxÃ¿—lƒÈÈİááÃæµÄ  '»Ø¸²' ¼° '„h³ı' ˆDÊ¾ßMĞĞÄúĞèÒªµÄ„Ó×÷¡£</li>
-                    <li>ÁĞ±íí“¾ùÒÔ ½¨Á¢•rég ×öéÅÅĞò£¬×îĞÂÍùÏÂÅÅÁĞÖÁ×îÅf¡£</li>
+                    <li>ä¸‹åˆ—æ˜¯ç›®å‰å’¨è©¢åˆ—è¡¨ã€‚æ‚¨å¯é»é¸æ¯æ¢å…§å®¹å¾Œé¢çš„  'å›è¦†' åŠ 'åˆªé™¤' åœ–ç¤ºé€²è¡Œæ‚¨éœ€è¦çš„å‹•ä½œã€‚</li>
+                    <li>åˆ—è¡¨é å‡ä»¥ å»ºç«‹æ™‚é–“ åšç‚ºæ’åºï¼Œæœ€æ–°å¾€ä¸‹æ’åˆ—è‡³æœ€èˆŠã€‚</li>
                 </ul>
             </section>
         </span>
     </h1>
     <section class="selectArea">
         <div class="selectMenu">
-            <p>ÉÏ¾€ î‘B :</p>
+            <p>ä¸Šç·šç‹€æ…‹ :</p>
             <select name="selectItem" id="selectItem">
-                <option value="">Õˆßx“ñ</option>
+                <option value="">è«‹é¸æ“‡</option>
                 @if (Request["status"] == "1")
                 {
-                    <option value="1" selected>ÒÑ»Ø¸²</option>
+                    <option value="1" selected>å·²å›è¦†</option>
                 }
                 else
                 {
-                    <option value="1">ÒÑ»Ø¸²</option>
+                    <option value="1">å·²å›è¦†</option>
                 }
                 @if (Request["status"] == "0")
                 {
-                    <option value="0" selected>Î´»Ø¸²</option>
+                    <option value="0" selected>æœªå›è¦†</option>
                 }
                 else
                 {
-                    <option value="0">Î´»Ø¸²</option>
+                    <option value="0">æœªå›è¦†</option>
                 }
             </select>
         </div>
-        <input type="button" value="ËÍ³ö" onclick="location.href = '/Sysmgr/Quote/Index?cata=' + $('#selType').val() + '&status=' + $('#selectItem').val()">
+        <input type="button" value="é€å‡º" onclick="location.href = '/Sysmgr/Quote/Index?cata=' + $('#selType').val() + '&status=' + $('#selectItem').val()">
     </section>
 
     <section class="tableArea">
@@ -185,29 +185,29 @@
                     <td class="checkbox">
                         <input type="checkbox" name="checkboxAll" id="checkboxAll">
                     </td>
-                    <td class="alignLeft main">ÖJÔƒƒÈÈİ</td>
-                    <td class="minWidth">Â“½jÈË</td>
-                    <td class="minWidth">î„e</td>
+                    <td class="alignLeft main">è«®è©¢å…§å®¹</td>
+                    <td class="minWidth">è¯çµ¡äºº</td>
+                    <td class="minWidth">é¡åˆ¥</td>
                     <td class="minWidth">E-mail</td>
-                    <td class="minWidth">ÊÇ·ñ»Ø¸²</td>
+                    <td class="minWidth">æ˜¯å¦å›è¦†</td>
                     <td class="time minWidth">
                         @if (Request["ordery"] == "timeasc")
                         {
-                            <a href='/Sysmgr/Quote/Index?cata=@Request["cata"]&status=@Request["status"]&ordery=timedesc' class="sortUp">½¨Á¢•rég</a>
+                            <a href='/Sysmgr/Quote/Index?cata=@Request["cata"]&status=@Request["status"]&ordery=timedesc' class="sortUp">å»ºç«‹æ™‚é–“</a>
                         }
                         else
                         {
-                            <a href='/Sysmgr/Quote/Index?cata=@Request["cata"]&status=@Request["status"]&ordery=timeasc' class="sortDown">½¨Á¢•rég</a>
+                            <a href='/Sysmgr/Quote/Index?cata=@Request["cata"]&status=@Request["status"]&ordery=timeasc' class="sortDown">å»ºç«‹æ™‚é–“</a>
                         }
                     </td>
-                    <td class="btn minWidth">¹¦ÄÜ</td>
+                    <td class="btn minWidth">åŠŸèƒ½</td>
                 </tr>
             </thead>
             <tbody>
                 @if (Model.Count() == 0)
                 {
                     <tr>
-                        <td colspan="9" align="center">•ºŸoÙYÁÏ£¡</td>
+                        <td colspan="9" align="center">æš«ç„¡è³‡æ–™ï¼</td>
                     </tr>
                 }
                 @foreach (var item in Model)
@@ -224,18 +224,18 @@
                         <td>
                             @if (item.Status == 0)
                             {
-                                <span class="icon-off" title="Î´»Ø¸²"></span>
+                                <span class="icon-off" title="æœªå›è¦†"></span>
                             }
                             else
                             {
-                                <span class="icon-on" title="ÒÑ»Ø¸²"></span>
+                                <span class="icon-on" title="å·²å›è¦†"></span>
                             }
                         </td>
                         <td class="num">@item.CDate.ToString("yyyy-MM-dd HH:mm:ss")</td>
                         <td>
                             <p class="function">
-                                <a href="/Sysmgr/Quote/Edit?id=@item.Id&ret=@HttpUtility.UrlEncode(Request.Url.ToString())" class="icon-edit" title="»Ø¸²"></a>
-                                <a href="javascript:;" data-id="@item.Id" data-title="@item.Content" class="icon-trash-bin" title="„h³ı"></a>
+                                <a href="/Sysmgr/Quote/Edit?id=@item.Id&ret=@HttpUtility.UrlEncode(Request.Url.ToString())" class="icon-edit" title="å›è¦†"></a>
+                                <a href="javascript:;" data-id="@item.Id" data-title="@item.Content" class="icon-trash-bin" title="åˆªé™¤"></a>
                             </p>
                         </td>
                     </tr>
@@ -249,27 +249,27 @@
     }
     <section class="numberArea">
         <p>
-            ¹² :
-            @data.PageCount í“  /  ¿‚¹² : @data.TotalItemCount ¹PÓ›ä›
+            å…± :
+            @data.PageCount é   /  ç¸½å…± : @data.TotalItemCount ç­†è¨˜éŒ„
         </p>
         <ul>
-            @Html.PagedListPager(data, page => Url.Action("Index", new { page = page, status = Request["status"], ordery = Request["ordery"] }), new PagedListRenderOptions() { LinkToFirstPageFormat = "Ê×í“", LinkToNextPageFormat = "ÏÂÒ»í“", LinkToPreviousPageFormat = "ÉÏÒ»í“", LinkToLastPageFormat = "Ä©í“", DisplayItemSliceAndTotal = true, ItemSliceAndTotalFormat = "¹²ÓĞ {2} ¹P", MaximumPageNumbersToDisplay = 5 })
+            @Html.PagedListPager(data, page => Url.Action("Index", new { page = page, status = Request["status"], ordery = Request["ordery"] }), new PagedListRenderOptions() { LinkToFirstPageFormat = "é¦–é ", LinkToNextPageFormat = "ä¸‹ä¸€é ", LinkToPreviousPageFormat = "ä¸Šä¸€é ", LinkToLastPageFormat = "æœ«é ", DisplayItemSliceAndTotal = true, ItemSliceAndTotalFormat = "å…±æœ‰ {2} ç­†", MaximumPageNumbersToDisplay = 5 })
         </ul>
     </section>
-    <!--¹¦ÄÜ²Ù×÷-->
-    <section class="openArea"><span title="é_†¢ˆÌĞĞÁĞ" class="open">é_†¢ˆÌĞĞÁĞ</span></section>
+    <!--åŠŸèƒ½æ“ä½œ-->
+    <section class="openArea"><span title="é–‹å•ŸåŸ·è¡Œåˆ—" class="open">é–‹å•ŸåŸ·è¡Œåˆ—</span></section>
     <section class="functionArea">
-        <span title="êPé]ˆÌĞĞÁĞ" class="close">êPé]ˆÌĞĞÁĞ</span><span id="closeShort" title="êPé]ˆÌĞĞÁĞ" class="close">êPé]ˆÌĞĞÁĞ</span>
+        <span title="é—œé–‰åŸ·è¡Œåˆ—" class="close">é—œé–‰åŸ·è¡Œåˆ—</span><span id="closeShort" title="é—œé–‰åŸ·è¡Œåˆ—" class="close">é—œé–‰åŸ·è¡Œåˆ—</span>
         <div>
-            <p>»ØÉÏÒ»í“</p>
+            <p>å›ä¸Šä¸€é </p>
             <input name="" type="button" value="x" class="btnBackto">
         </div>
         @*<div>
-                <p>¸üĞÂÅÅĞò</p>
+                <p>æ›´æ–°æ’åº</p>
                 <input name="" type="button" value="k" class="btnSort">
             </div>*@
         <div>
-            <p>„h³ı¹´ßx</p>
+            <p>åˆªé™¤å‹¾é¸</p>
             <input name="" type="button" value="K" class="btnDelete">
         </div>
     </section>

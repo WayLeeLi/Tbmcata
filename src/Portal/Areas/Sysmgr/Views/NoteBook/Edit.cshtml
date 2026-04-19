@@ -20,10 +20,10 @@
 
 <!--主要內容-->
 <article class="contentArea" id="content">
-    @using (Html.BeginForm("Edit", "NoteBook", FormMethod.Post, new { id = "formcontent", enctype = "multipart/form-data" }))
+    @using (Html.BeginForm("Edit", "Quote", FormMethod.Post, new { id = "formcontent", enctype = "multipart/form-data" }))
     {
         <h1>
-            留言管理<span>/ 回覆</span><span class="tip">
+            線上 Q&A<span>/ 回覆</span><span class="tip">
                 <section class="tipBox">
                     <span>&nbsp;</span>
                     <ul>
@@ -35,6 +35,7 @@
         </h1>
         @Html.ValidationSummary(true)
         @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.FormType, new { Value = "QA" })
         <section class="detailGroup">
             <h3>基本資料</h3>
             <ul>

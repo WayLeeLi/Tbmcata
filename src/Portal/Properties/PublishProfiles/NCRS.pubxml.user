@@ -9,12 +9,12 @@
     <LastUsedPlatform>Any CPU</LastUsedPlatform>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
     <_PublishTargetUrl>E:\mine\publish</_PublishTargetUrl>
-    <History>True|2026-04-13T14:43:15.7636415Z||;True|2026-04-13T15:19:23.7067271+08:00||;True|2026-04-13T15:17:54.5920147+08:00||;True|2026-04-13T12:26:07.9944687+08:00||;True|2026-04-13T11:27:23.7822714+08:00||;True|2026-04-13T10:14:20.0323587+08:00||;True|2026-04-11T16:58:33.7760408+08:00||;True|2026-04-10T16:27:27.2950864+08:00||;True|2026-03-18T10:38:52.6153994+08:00||;True|2026-03-16T18:23:57.7695908+08:00||;False|2026-03-16T18:23:29.6319774+08:00||;False|2026-03-16T18:23:07.4676349+08:00||;False|2026-03-16T18:22:15.5953615+08:00||;False|2026-03-16T18:16:01.8858832+08:00||;False|2026-03-16T18:15:05.1831783+08:00||;False|2026-03-16T18:14:05.7809083+08:00||;False|2026-03-16T18:13:11.2052083+08:00||;False|2026-03-16T18:11:47.9816902+08:00||;False|2026-03-16T18:09:53.9056903+08:00||;False|2026-03-16T18:09:28.8183758+08:00||;False|2026-03-16T17:51:39.3342080+08:00||;</History>
+    <History>True|2026-04-19T13:56:19.4430234Z||;True|2026-04-18T23:30:51.9198152+08:00||;True|2026-04-13T22:43:15.7636415+08:00||;True|2026-04-13T15:19:23.7067271+08:00||;True|2026-04-13T15:17:54.5920147+08:00||;True|2026-04-13T12:26:07.9944687+08:00||;True|2026-04-13T11:27:23.7822714+08:00||;True|2026-04-13T10:14:20.0323587+08:00||;True|2026-04-11T16:58:33.7760408+08:00||;True|2026-04-10T16:27:27.2950864+08:00||;True|2026-03-18T10:38:52.6153994+08:00||;True|2026-03-16T18:23:57.7695908+08:00||;False|2026-03-16T18:23:29.6319774+08:00||;False|2026-03-16T18:23:07.4676349+08:00||;False|2026-03-16T18:22:15.5953615+08:00||;False|2026-03-16T18:16:01.8858832+08:00||;False|2026-03-16T18:15:05.1831783+08:00||;False|2026-03-16T18:14:05.7809083+08:00||;False|2026-03-16T18:13:11.2052083+08:00||;False|2026-03-16T18:11:47.9816902+08:00||;False|2026-03-16T18:09:53.9056903+08:00||;False|2026-03-16T18:09:28.8183758+08:00||;False|2026-03-16T17:51:39.3342080+08:00||;</History>
     <LastFailureDetails />
   </PropertyGroup>
   <ItemGroup>
     <File Include="Areas/Sysmgr/Views/About/Calendar.cshtml">
-      <publishTime>04/09/2026 09:56:46</publishTime>
+      <publishTime>04/19/2026 21:49:29</publishTime>
     </File>
     <File Include="Areas/Sysmgr/Views/About/Chairman.cshtml">
       <publishTime>04/09/2026 09:56:46</publishTime>
@@ -23,10 +23,10 @@
       <publishTime>04/09/2026 09:56:46</publishTime>
     </File>
     <File Include="Areas/Sysmgr/Views/About/Info.cshtml">
-      <publishTime>04/09/2026 09:56:46</publishTime>
+      <publishTime>04/19/2026 21:49:27</publishTime>
     </File>
     <File Include="Areas/Sysmgr/Views/About/Member.cshtml">
-      <publishTime>04/09/2026 09:56:46</publishTime>
+      <publishTime>04/19/2026 21:50:09</publishTime>
     </File>
     <File Include="Areas/Sysmgr/Views/Account/Add.cshtml">
       <publishTime>04/10/2026 11:21:29</publishTime>
@@ -95,10 +95,10 @@
       <publishTime>04/27/2016 07:24:10</publishTime>
     </File>
     <File Include="Areas/Sysmgr/Views/Message/Edit.cshtml">
-      <publishTime>04/09/2026 09:56:46</publishTime>
+      <publishTime>04/14/2026 08:53:37</publishTime>
     </File>
     <File Include="Areas/Sysmgr/Views/Message/Index.cshtml">
-      <publishTime>04/09/2026 09:56:46</publishTime>
+      <publishTime>04/14/2026 08:52:52</publishTime>
     </File>
     <File Include="Areas/Sysmgr/Views/News/Add.cshtml">
       <publishTime>04/09/2026 09:56:46</publishTime>
@@ -123,6 +123,12 @@
     </File>
     <File Include="Areas/Sysmgr/Views/NewsCata/Index.cshtml">
       <publishTime>04/09/2026 09:56:46</publishTime>
+    </File>
+    <File Include="Areas/Sysmgr/Views/NoteBook/Edit.cshtml">
+      <publishTime>04/18/2026 23:28:02</publishTime>
+    </File>
+    <File Include="Areas/Sysmgr/Views/NoteBook/Index.cshtml">
+      <publishTime>04/18/2026 22:40:24</publishTime>
     </File>
     <File Include="Areas/Sysmgr/Views/Product/Add.cshtml">
       <publishTime>04/09/2026 09:56:46</publishTime>
@@ -157,6 +163,18 @@
     <File Include="Areas/Sysmgr/Views/Publishs/SearchList.cshtml">
       <publishTime>04/27/2016 07:24:10</publishTime>
     </File>
+    <File Include="Areas/Sysmgr/Views/QuickQuote/Edit.cshtml">
+      <publishTime>04/18/2026 23:27:42</publishTime>
+    </File>
+    <File Include="Areas/Sysmgr/Views/QuickQuote/Index.cshtml">
+      <publishTime>04/18/2026 22:40:03</publishTime>
+    </File>
+    <File Include="Areas/Sysmgr/Views/Quote/Edit.cshtml">
+      <publishTime>04/18/2026 23:24:35</publishTime>
+    </File>
+    <File Include="Areas/Sysmgr/Views/Quote/Index.cshtml">
+      <publishTime>04/18/2026 22:53:26</publishTime>
+    </File>
     <File Include="Areas/Sysmgr/Views/Reports/Add.cshtml">
       <publishTime>04/08/2016 07:08:29</publishTime>
     </File>
@@ -173,7 +191,7 @@
       <publishTime>04/27/2016 07:24:10</publishTime>
     </File>
     <File Include="Areas/Sysmgr/Views/Setting/Contact.cshtml">
-      <publishTime>04/09/2026 09:56:46</publishTime>
+      <publishTime>04/14/2026 08:53:57</publishTime>
     </File>
     <File Include="Areas/Sysmgr/Views/Setting/Download.cshtml">
       <publishTime>04/09/2026 09:56:46</publishTime>
@@ -185,7 +203,7 @@
       <publishTime>04/09/2026 09:56:46</publishTime>
     </File>
     <File Include="Areas/Sysmgr/Views/Shared/_Layout.cshtml">
-      <publishTime>04/10/2026 11:19:05</publishTime>
+      <publishTime>04/14/2026 10:10:51</publishTime>
     </File>
     <File Include="Areas/Sysmgr/Views/Type/Add.cshtml">
       <publishTime>04/07/2016 07:45:29</publishTime>
@@ -200,10 +218,10 @@
       <publishTime>04/09/2026 09:56:46</publishTime>
     </File>
     <File Include="bin/Academy.dll">
-      <publishTime>04/13/2026 22:42:56</publishTime>
+      <publishTime>04/19/2026 21:56:04</publishTime>
     </File>
     <File Include="bin/Academy.pdb">
-      <publishTime>04/13/2026 22:42:56</publishTime>
+      <publishTime>04/19/2026 21:56:04</publishTime>
     </File>
     <File Include="bin/Antlr3.Runtime.dll">
       <publishTime>04/09/2026 09:56:51</publishTime>
@@ -308,13 +326,13 @@
       <publishTime>04/09/2026 09:56:51</publishTime>
     </File>
     <File Include="bin/zh-Hans/EntityFramework.resources.dll">
-      <publishTime>04/09/2026 09:56:50</publishTime>
+      <publishTime>06/07/2012 22:52:26</publishTime>
     </File>
     <File Include="bin/zh-Hans/Microsoft.Web.WebPages.OAuth.resources.dll">
-      <publishTime>04/09/2026 09:56:51</publishTime>
+      <publishTime>07/11/2012 07:39:20</publishTime>
     </File>
     <File Include="bin/zh-Hans/System.Net.Http.Formatting.resources.dll">
-      <publishTime>04/09/2026 09:56:50</publishTime>
+      <publishTime>07/11/2012 07:39:14</publishTime>
     </File>
     <File Include="bin/zh-Hans/System.Net.Http.resources.dll">
       <publishTime>08/05/2015 07:31:22</publishTime>
@@ -323,37 +341,37 @@
       <publishTime>08/05/2015 07:31:22</publishTime>
     </File>
     <File Include="bin/zh-Hans/System.Web.Helpers.resources.dll">
-      <publishTime>04/09/2026 09:56:51</publishTime>
+      <publishTime>07/11/2012 07:39:18</publishTime>
     </File>
     <File Include="bin/zh-Hans/System.Web.Http.resources.dll">
-      <publishTime>04/09/2026 09:56:50</publishTime>
+      <publishTime>07/11/2012 07:39:16</publishTime>
     </File>
     <File Include="bin/zh-Hans/System.Web.Http.WebHost.resources.dll">
-      <publishTime>04/09/2026 09:56:50</publishTime>
+      <publishTime>07/11/2012 07:39:16</publishTime>
     </File>
     <File Include="bin/zh-Hans/System.Web.Mvc.resources.dll">
-      <publishTime>04/09/2026 09:56:50</publishTime>
+      <publishTime>07/11/2012 07:39:12</publishTime>
     </File>
     <File Include="bin/zh-Hans/System.Web.Optimization.resources.dll">
-      <publishTime>04/09/2026 09:56:50</publishTime>
+      <publishTime>07/11/2012 07:39:14</publishTime>
     </File>
     <File Include="bin/zh-Hans/System.Web.Razor.resources.dll">
-      <publishTime>04/09/2026 09:56:50</publishTime>
+      <publishTime>07/11/2012 07:39:14</publishTime>
     </File>
     <File Include="bin/zh-Hans/System.Web.WebPages.Deployment.resources.dll">
-      <publishTime>04/09/2026 09:56:51</publishTime>
+      <publishTime>07/11/2012 07:39:18</publishTime>
     </File>
     <File Include="bin/zh-Hans/System.Web.WebPages.Razor.resources.dll">
-      <publishTime>04/09/2026 09:56:51</publishTime>
+      <publishTime>07/11/2012 07:39:18</publishTime>
     </File>
     <File Include="bin/zh-Hans/System.Web.WebPages.resources.dll">
-      <publishTime>04/09/2026 09:56:51</publishTime>
+      <publishTime>07/11/2012 07:39:18</publishTime>
     </File>
     <File Include="bin/zh-Hans/WebMatrix.Data.resources.dll">
-      <publishTime>04/09/2026 09:56:51</publishTime>
+      <publishTime>07/11/2012 07:39:18</publishTime>
     </File>
     <File Include="bin/zh-Hans/WebMatrix.WebData.resources.dll">
-      <publishTime>04/09/2026 09:56:51</publishTime>
+      <publishTime>07/11/2012 07:39:20</publishTime>
     </File>
     <File Include="Common/ValidateCode.aspx">
       <publishTime>04/09/2026 09:56:46</publishTime>
@@ -449,7 +467,7 @@
       <publishTime>04/11/2026 15:09:45</publishTime>
     </File>
     <File Include="css/quotation.css">
-      <publishTime>04/13/2026 13:56:49</publishTime>
+      <publishTime>04/14/2026 09:09:58</publishTime>
     </File>
     <File Include="css/service.css">
       <publishTime>04/11/2026 14:16:17</publishTime>
@@ -3955,6 +3973,9 @@
     <File Include="Scripts/jquery.e-calendar.js">
       <publishTime>04/09/2026 09:56:47</publishTime>
     </File>
+    <File Include="Scripts/jquery.form.js">
+      <publishTime>10/22/2020 08:34:50</publishTime>
+    </File>
     <File Include="Scripts/jquery.sticky.js">
       <publishTime>01/16/2016 12:13:08</publishTime>
     </File>
@@ -3969,6 +3990,39 @@
     </File>
     <File Include="Scripts/jssor.slider/jssor.slider.min.js">
       <publishTime>04/09/2026 09:56:47</publishTime>
+    </File>
+    <File Include="Scripts/layer/extend/layer.ext.js">
+      <publishTime>10/22/2020 08:34:50</publishTime>
+    </File>
+    <File Include="Scripts/layer/layer.js">
+      <publishTime>10/22/2020 08:34:51</publishTime>
+    </File>
+    <File Include="Scripts/layer/mobile/layer.js">
+      <publishTime>10/22/2020 08:34:51</publishTime>
+    </File>
+    <File Include="Scripts/layer/mobile/need/layer.css">
+      <publishTime>10/22/2020 08:34:51</publishTime>
+    </File>
+    <File Include="Scripts/layer/skin/default/icon-ext.png">
+      <publishTime>10/22/2020 08:34:51</publishTime>
+    </File>
+    <File Include="Scripts/layer/skin/default/icon.png">
+      <publishTime>10/22/2020 08:34:51</publishTime>
+    </File>
+    <File Include="Scripts/layer/skin/default/loading-0.gif">
+      <publishTime>10/22/2020 08:34:51</publishTime>
+    </File>
+    <File Include="Scripts/layer/skin/default/loading-1.gif">
+      <publishTime>10/22/2020 08:34:51</publishTime>
+    </File>
+    <File Include="Scripts/layer/skin/default/loading-2.gif">
+      <publishTime>10/22/2020 08:34:51</publishTime>
+    </File>
+    <File Include="Scripts/layer/skin/layer.css">
+      <publishTime>10/22/2020 08:34:51</publishTime>
+    </File>
+    <File Include="Scripts/layer/skin/layer.ext.css">
+      <publishTime>10/22/2020 08:34:51</publishTime>
     </File>
     <File Include="Scripts/lightgallery/lg-autoplay.js">
       <publishTime>04/09/2026 09:56:47</publishTime>
@@ -4010,6 +4064,9 @@
       <publishTime>04/09/2026 09:56:47</publishTime>
     </File>
     <File Include="Scripts/share.js">
+      <publishTime>04/09/2026 09:56:47</publishTime>
+    </File>
+    <File Include="Scripts/smooth-scroll.js">
       <publishTime>04/09/2026 09:56:47</publishTime>
     </File>
     <File Include="Scripts/tw.js">
@@ -4256,7 +4313,7 @@
       <publishTime>04/21/2016 11:04:53</publishTime>
     </File>
     <File Include="Views/Quote/Index.cshtml">
-      <publishTime>04/13/2026 21:30:05</publishTime>
+      <publishTime>04/14/2026 10:18:39</publishTime>
     </File>
     <File Include="Views/Report/Index.cshtml">
       <publishTime>04/21/2016 11:05:02</publishTime>
@@ -4286,7 +4343,7 @@
       <publishTime>04/09/2026 09:56:49</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>04/13/2026 10:14:09</publishTime>
+      <publishTime>04/18/2026 23:30:38</publishTime>
     </File>
   </ItemGroup>
 </Project>

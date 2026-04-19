@@ -44,8 +44,6 @@
             });
         }
 
-        // 渲染服务内容
-        // 渲染服务内容
         function renderServiceContent(data) {
             var html = '';
             html += '<h1>' + escapeHtml(data.title) + '</h1>';
@@ -59,8 +57,6 @@
                     if (module.enTitle) {
                         html += '<div class="svc-en">' + escapeHtml(module.enTitle) + '</div>';
                     }
-
-                    // 图片区域
                     if (module.images && module.images.length > 0) {
                         var colsClass = module.images.length == 1 ? 'cols-1' : 'cols-2';
                         html += '<div class="svc-imgs ' + colsClass + '">';
@@ -69,12 +65,9 @@
                         }
                         html += '</div>';
                     }
-
-                    // 关键修改：content 直接输出 HTML，不进行转义
                     if (module.content) {
                         html += '<div class="svc-content">' + module.content + '</div>';
                     }
-
                     html += '</div>';
                 }
             }
@@ -97,20 +90,6 @@
             }
 
             $('#serviceContent').html(html);
-
-            // 触发图片渐显动画
-            $('.svc-block').each(function () {
-                $(this).css('opacity', 0);
-                var obs = new IntersectionObserver(function (entries) {
-                    entries.forEach(function (e) {
-                        if (e.isIntersecting) {
-                            $(e.target).css({ transition: 'opacity 0.5s ease', opacity: 1 });
-                            obs.unobserve(e.target);
-                        }
-                    });
-                }, { threshold: 0.1 });
-                obs.observe(this);
-            });
         }
 
         // escapeHtml 只用于转义普通文本，不要用于 content

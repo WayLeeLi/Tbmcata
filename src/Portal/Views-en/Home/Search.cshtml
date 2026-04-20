@@ -1,0 +1,102 @@
+﻿@using PagedList
+@using PagedList.Mvc
+@model IEnumerable<System.Collections.Hashtable>
+
+@{
+    ViewBag.Title = "智匯創新股份有限公司 - 搜尋結果";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Styles {
+    <link href="~/Content/pager.css" rel="stylesheet" />
+    <style>
+        .article {
+            color: #333;
+            width: 1000px;
+            margin: 10px auto;
+            min-height: 400px;
+        }
+
+        .mainContent {
+            padding-bottom: 50px;
+        }
+
+        .article h1 {
+            font-size: 18px;
+            color: #999;
+            font-weight: normal;
+            line-height: 36px;
+        }
+
+        .article h2, .article h2 .searchKeyword {
+            font-size: 16px;
+            font-weight: normal;
+            color: #0068b7;
+        }
+
+        .newsInsideList li {
+            margin: 10px auto;
+            list-style-type: disc;
+        }
+
+            .newsInsideList li a:hover {
+                text-decoration: underline;
+            }
+
+            .newsInsideList li p {
+                font-size: 13px;
+                color: #666;
+                font-weight: 300;
+                padding-bottom: 10px;
+            }
+
+        .searchKeyword {
+            color: #f00!important;
+        }
+    </style>
+}
+@section Scripts {
+}
+<!--內容 Content-->
+<article class="article">
+    <div class="contentArea">
+        <div class="mainContent">
+            <h1 class="icon-search">搜尋結果 :</h1>
+            <ul class="newsInsideList">
+                @if (Model.Count() == 0)
+                {
+                    <li>
+                        <p style="line-height: 60px;">未找到符合條件的資料.</p>
+                    </li>
+                }
+                @foreach (var item in Model)
+                {
+                    <li>
+                        <a href="/@item["Type"]/detail?ID=@item["ID"]">
+                            @if (ViewBag.KeyWord.Length == 0)
+                            {
+                                <h2>@item["Title"]</h2>
+                                <p>@Academy.Common.FnStore.CutString(item["Note"].ToString(), 300)<i>[@item["CDate"]]</i></p>
+                            }
+                            else
+                            {
+                                <h2>@Html.Raw((item["Title"] ?? "").ToString().Replace(ViewBag.KeyWord, "<span class='searchKeyword'>" + ViewBag.KeyWord + "</span>"))</h2>
+                                <p>@Html.Raw(Academy.Common.FnStore.CutString(item["Note"].ToString(), 300).Replace(ViewBag.KeyWord, "<span class='searchKeyword'>" + @ViewBag.KeyWord + "</span>"))<i>[@item["CDate"]]</i></p>
+                            }
+                        </a>
+                    </li>
+                }
+            </ul>
+            @{
+                var data = Model as IPagedList<System.Collections.Hashtable>;
+            }
+            @if (data.TotalItemCount > 20)
+            {
+                <div class="mpgbar pagebar">
+                    <ul>
+                        @Html.PagedListPager(data, page => Url.Action("search", new { page = page, keyWord = Request["keyWord"] }), new PagedListRenderOptions() { LinkToFirstPageFormat = "最前一頁", LinkToNextPageFormat = "下一頁", LinkToPreviousPageFormat = "上一頁", LinkToLastPageFormat = "最後一頁", DisplayItemSliceAndTotal = true, ItemSliceAndTotalFormat = "共有 {2} 筆", MaximumPageNumbersToDisplay = 5 })
+                    </ul>
+                </div>
+            }
+        </div>
+    </div>
+</article>

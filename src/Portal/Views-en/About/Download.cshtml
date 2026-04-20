@@ -1,0 +1,62 @@
+﻿@model Academy.Models.DictSet
+
+@{
+    var ModelName = "檔案下載";
+    ViewBag.Title = ModelName;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Styles {
+}
+@section Scripts {
+}
+
+<div class="main">
+    <div class="minner">
+        <div class="row col1 row_0">
+            <div class="mrow">
+                <div class="col col_02">
+                    <div class="mcol">
+                        <div id="Dyn_2_1" class="M19461">
+                            <div class="module module-um md_style1">
+                                <header class="mt mthide">
+                                </header>
+
+                                <section class="mb">
+                                    <div class="minner">
+                                        <script src="/js/tmcata.js"></script>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                        <div id="Dyn_2_2" class="M19465">
+                            <div class="module module-detail md_style1">
+                                <div class="module-inner">
+                                    <section class="mb">
+                                        <div class="mpgtitle">
+                                            <h3>
+                                                @ModelName
+                                            </h3>
+                                        </div>
+                                        <div class="mcont">
+                                            <div class="mpgdetail">
+                                                <div class="container-inner page aboutus">
+                                                    <h1 class="index-title"><span class="en">DOWNLOAD</span><span class="ch">@ModelName</span></h1>
+                                                    <div class="row">
+                                                        @if (Model != null)
+                                                        {
+                                                            @Html.Raw(Model.Value)
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

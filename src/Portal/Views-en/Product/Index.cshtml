@@ -1,0 +1,281 @@
+﻿@{
+    ViewBag.Title = "Portfolio｜G-Wise Design";
+}
+
+@section Styles {
+    <link href="~/css/product.css" rel="stylesheet" />
+}
+
+@section Scripts {
+    <script src="~/js/product.js"></script>
+    <script>
+        // 分类映射（用于显示中文名称）
+        var categoryMap = {};
+
+        // 加载作品列表
+        function loadPortfolio(categoryId, categoryName) {
+            // 更新 tab 高亮
+            $('.tab-btn').removeClass('active');
+            $('.tab-btn').each(function() {
+                if ($(this).data('cat-id') == categoryId || (categoryId == 0 && $(this).data('cat-id') == 0)) {
+                    $(this).addClass('active');
+                }
+            });
+
+            // 更新筛选计数显示
+            $('#currentCategory').text(categoryName);
+
+            // 显示加载中
+            $('#portfolioGrid').html('<div style="text-align:center;padding:100px;"><div class="loading-spinner"></div><p>Loading...</p></div>');
+
+            // AJAX 请求获取作品数据
+            $.ajax({
+                url: '@Url.Action("GetPortfolioList", "Product")',
+                type: 'POST',
+                data: { categoryId: categoryId },
+                dataType: 'json',
+                success: function(response) {
+                    if (response.success) {
+                        renderPortfolioGrid(response.data);
+                    } else {
+                        $('#portfolioGrid').html('<div style="text-align:center;padding:100px;color:red;">Failed to load: ' + response.message + '</div>');
+                    }
+                },
+                error: function() {
+                    $('#portfolioGrid').html('<div style="text-align:center;padding:100px;color:red;">Failed to load, please try again later!</div>');
+                }
+            });
+        }
+
+        // 渲染作品网格
+        function renderPortfolioGrid(items) {
+            var grid = $('#portfolioGrid');
+            var empty = $('#gridEmpty');
+
+            $('#showCount').text(items.length);
+
+            if (items.length === 0) {
+                grid.empty();
+                empty.show();
+                return;
+            }
+
+            empty.hide();
+
+            var html = '';
+            for (var i = 0; i < items.length; i++) {
+                var item = items[i];
+                var cls = 'portfolio-item';
+                if (item.IsWide && i % 5 === 0) cls += ' wide';
+                if (item.IsTall) cls += ' tall';
+                html += '<div class="' + cls + '" onclick="openLB(' + i + ')">'
+                    + '<img class="portfolio-thumb" src="' + escapeHtml(item.ImageUrl) + '" alt="' + escapeHtml(item.Title) + '" loading="lazy">'
+                    + '<div class="portfolio-overlay">'
+                    + '<div class="portfolio-cat">' + escapeHtml(item.CategoryName) + '</div>'
+                    + '<div class="portfolio-name">' + escapeHtml(item.Title) + '</div>'
+                    + '</div>'
+                    + '<div class="portfolio-zoom"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>'
+                    + '</div>';
+            }
+
+            grid.html(html);
+
+            // 保存数据供查看器使用
+            window.currentPortfolioItems = items;
+
+            // 渐显动画
+            setTimeout(function() {
+                $('.portfolio-item').each(function(i) {
+                    var $el = $(this);
+                    $el.css({
+                        transition: 'opacity 0.4s ease ' + (i * 30) + 'ms, transform 0.4s ease ' + (i * 30) + 'ms',
+                        opacity: 1,
+                        transform: 'translateY(0)'
+                    });
+                });
+            }, 10);
+        }
+
+        // 转义 HTML
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str).replace(/[&<>]/g, function(m) {
+                if (m === '&') return '&amp;';
+                if (m === '<') return '&lt;';
+                if (m === '>') return '&gt;';
+                return m;
+            });
+        }
+
+        // 查看器相关
+        var currentLBIndex = 0;
+        var currentLBItems = [];
+
+        function openLB(index) {
+            debugger
+            currentLBIndex = index;
+            currentLBItems = window.currentPortfolioItems || [];
+
+            // 构建缩略图
+            var thumbs = $('#vThumbs');
+            thumbs.empty();
+
+            for (var i = 0; i < currentLBItems.length; i++) {
+                var item = currentLBItems[i];
+                var activeClass = i === index ? 'active' : '';
+                thumbs.append('<img class="viewer-thumb ' + activeClass + '" src="' + escapeHtml(item.ImageUrl) + '" alt="' + escapeHtml(item.Title) + '" onclick="vGoTo(' + i + ')">');
+            }
+
+            showViewerItem();
+            $('#viewer').addClass('open');
+            $('body').css('overflow', 'hidden');
+            setTimeout(function() { scrollThumb(index); }, 50);
+        }
+
+        function showViewerItem() {
+            var item = currentLBItems[currentLBIndex];
+            if (!item) return;
+
+            var big = $('#vBig');
+            big.css('opacity', '0');
+            big.attr('src', item.ImageUrl);
+            big.on('load', function() { big.css('opacity', '1'); });
+
+            $('#vCat').text(item.CategoryName);
+            $('#vTitle').text(item.Title);
+            $('#vCounter').text((currentLBIndex + 1) + ' / ' + currentLBItems.length);
+
+            $('.viewer-thumb').removeClass('active');
+            $('.viewer-thumb').eq(currentLBIndex).addClass('active');
+            scrollThumb(currentLBIndex);
+        }
+
+        function scrollThumb(idx) {
+            var thumb = $('.viewer-thumb')[idx];
+            if (thumb) thumb.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        }
+
+        function vGoTo(idx) {
+            currentLBIndex = idx;
+            showViewerItem();
+        }
+
+        function vNav(dir) {
+            currentLBIndex = (currentLBIndex + dir + currentLBItems.length) % currentLBItems.length;
+            showViewerItem();
+        }
+
+        function closeViewer() {
+            $('#viewer').removeClass('open');
+            $('body').css('overflow', '');
+        }
+
+        // 键盘事件
+        $(document).on('keydown', function(e) {
+            if (!$('#viewer').hasClass('open')) return;
+            if (e.key === 'ArrowLeft') vNav(-1);
+            if (e.key === 'ArrowRight') vNav(1);
+            if (e.key === 'Escape') closeViewer();
+        });
+
+        // 初始化 - 默认加载全部作品
+        $(function() {
+            // 获取第一个 tab（全部作品）
+            var firstTab = $('.tab-btn').first();
+            if (firstTab.length > 0) {
+                var categoryId = firstTab.data('cat-id') || 0;
+                var categoryName = firstTab.text();
+                loadPortfolio(categoryId, categoryName);
+            }
+        });
+    </script>
+    <style>
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            margin: 0 auto 20px;
+            border: 3px solid rgba(109, 184, 42, 0.3);
+            border-top-color: var(--green);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @@keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .portfolio-item {
+            opacity: 0;
+            transform: translateY(16px);
+        }
+    </style>
+}
+
+<!-- HERO -->
+<div class="page-hero">
+    <div class="page-hero-bg" style="background-image:url('https://images.unsplash.com/photo-1580274455191-1c62238fa333?w=1600&q=80');"></div>
+    <div class="page-hero-grad"></div>
+    <div class="page-hero-content">
+        <div class="eyebrow">
+            <div class="eyebrow-line"></div>
+            <span class="eyebrow-label">Portfolio</span>
+        </div>
+        <h1 class="page-title">Portfolio</h1>
+    </div>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+    <a href="@Url.Action("Index", "Home")">Home</a>
+    <span>›</span>
+    <span style="color:#fff">Portfolio</span>
+</div>
+
+<!-- TAB NAV -->
+<div class="tab-nav" id="tabNav">
+    <button class="tab-btn active" data-cat-id="0" onclick="loadPortfolio(0, 'All Works')">All Works</button>
+    @if (ViewBag.CategoryList != null)
+    {
+        var categories = ViewBag.CategoryList as List<Academy.Models.Category> ?? new List<Academy.Models.Category>();
+        foreach (var cat in categories)
+        {
+            <button class="tab-btn" data-cat-id="@cat.Id" onclick="loadPortfolio(@cat.Id, '@cat.Name')">@cat.Name</button>
+        }
+    }
+</div>
+
+<!-- FILTER BAR -->
+<div class="filter-bar">
+    <div class="filter-count">Showing <strong id="showCount">0</strong> works<span id="currentCategory"></span></div>
+</div>
+
+<!-- GRID -->
+<div class="portfolio-wrap">
+    <div class="portfolio-grid" id="portfolioGrid">
+        <div style="text-align:center;padding:100px;">
+            <div class="loading-spinner"></div>
+            <p>Loading...</p>
+        </div>
+    </div>
+    <div class="grid-empty" id="gridEmpty">No works in this category</div>
+</div>
+
+<!-- VIEWER MODAL -->
+<div class="viewer" id="viewer">
+    <div class="viewer-header">
+        <div class="viewer-info">
+            <div class="viewer-cat" id="vCat"></div>
+            <div class="viewer-title" id="vTitle"></div>
+        </div>
+        <button class="viewer-close" onclick="closeViewer()">✕</button>
+    </div>
+    <div class="viewer-main">
+        <img class="viewer-big" id="vBig" src="" alt="">
+        <button class="viewer-arrow left" onclick="vNav(-1)">&#8249;</button>
+        <button class="viewer-arrow right" onclick="vNav(1)">&#8250;</button>
+        <div class="viewer-counter" id="vCounter"></div>
+    </div>
+    <div class="viewer-thumbs" id="vThumbs"></div>
+</div>

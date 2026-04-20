@@ -1,0 +1,145 @@
+﻿@{
+    ViewBag.Title = "News & Events｜G-Wise Design";
+}
+
+@section Styles {
+    <link href="/css/news.css" rel="stylesheet" />
+}
+
+@section Scripts {
+    <script src="/js/news.js"></script>
+    <script>
+        // 全局变量：详情页基础 URL（用于 openDetail）
+        var newsDetailBase = '@Url.Action("Detail", "News")';
+    </script>
+}
+
+<!-- HERO -->
+<div class="page-hero">
+    <div class="page-hero-bg" style="background-image:url('https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=1600&q=80');"></div>
+    <div class="page-hero-grad"></div>
+    <div class="page-hero-content">
+        <div class="eyebrow">
+            <div class="eyebrow-line"></div>
+            <span class="eyebrow-label">News &amp; Events</span>
+        </div>
+        <h1 class="page-title">News<br>&amp; Events</h1>
+    </div>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+    <a href="@Url.Action("Index", "Home")">Home</a>
+    <span>›</span>
+    <span style="color:#fff" id="bcText">@(ViewBag.CurrentCategoryName ?? "News")</span>
+</div>
+
+<!-- TAB NAV - 从后端数据绑定 -->
+<div class="tab-nav">
+    <a href="@Url.Action("Index", "News")" class="tab-btn @(ViewBag.CurrentCategoryId == 0 ? "active" : "")">All News</a>
+    @if (ViewBag.CategoryList != null)
+    {
+        var categories = ViewBag.CategoryList as List<Academy.Models.Category> ?? new List<Academy.Models.Category>();
+        foreach (var cat in categories)
+        {
+            <a href="@Url.Action("Index", "News", new { categoryId = cat.Id })" class="tab-btn @(ViewBag.CurrentCategoryId == cat.Id ? "active" : "")">@cat.Name</a>
+        }
+    }
+</div>
+
+<!-- NEWS LIST -->
+<div id="panelNews">
+    @if (ViewBag.NewsList == null || ((IEnumerable<dynamic>)ViewBag.NewsList).Count() == 0)
+    {
+        <div style="text-align:center;padding:100px;color:var(--gray);">No news available</div>
+    }
+    else
+    {
+        var newsList = ViewBag.NewsList as List<Academy.Models.News> ?? new List<Academy.Models.News>();
+        var featured = newsList.FirstOrDefault();
+
+        <div class="news-wrap">
+            @if (featured != null)
+            {
+                <div class="news-featured" onclick="openDetail(@featured.ID)">
+                    <div class="news-featured-img">
+                        <img src="@(featured.ImagePath ?? featured.ImagePath)" alt="@featured.Title" loading="lazy">
+                    </div>
+                    <div class="news-featured-body">
+                        <div class="news-featured-tag">@(featured.Title ?? "")</div>
+                        <div class="news-featured-date">@(featured.CDate)</div>
+                        <p class="news-featured-text">@featured.Note</p>
+                        <a href="@Url.Action("Detail", "News", new { id = featured.ID })" class="news-read-more">Read More →</a>
+                    </div>
+                </div>
+            }
+
+            @if (newsList.Count > 1)
+            {
+                <div class="news-grid">
+                    @for (int i = 1; i < newsList.Count; i++)
+                    {
+                        var item = newsList[i];
+                        <div class="news-card" onclick="openDetail(@item.ID)">
+                            <div class="news-card-img">
+                                <img src="@(item.ImagePath ?? item.ImagePath)" alt="@item.Title" loading="lazy">
+                            </div>
+                            <div class="news-card-body">
+                                <div class="news-card-tag">@(item.Title ?? "")</div>
+                                <div class="news-card-date">@(item.CDate)</div>
+                                <p class="news-card-text">@item.Note</p>
+                                <a href="@Url.Action("Detail", "News", new { id = item.ID })">Read More →</a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    }
+</div>
+
+<!-- HIRING TAB -->
+<div id="panelHiring" style="display:none;">
+    <div class="hiring-wrap">
+        <div class="hiring-section">
+            <h3>Corporate Spirit</h3>
+            <p>Addressing diverse market needs and creating products of maximum brand value for our clients is the guiding spirit of G-Wise Design. We design with the mindset of creating maximum value for our customers. These core capabilities start with talent, combine collective wisdom, and result in products with beautiful appearance and excellent quality.</p>
+        </div>
+
+        <div class="hiring-section">
+            <h3>Corporate Culture</h3>
+            <p>G-Wise Design places special emphasis on the professional competence and character development of our people, featuring an open management style that values self-management and an innovative spirit.</p>
+        </div>
+
+        <div class="hiring-section">
+            <h3>Challenges & Opportunities</h3>
+            <p>G-Wise Design continuously engages in planned product design, covering product concept, exterior design, mechanical design, and prototyping — all within our professional scope. We sincerely welcome highly adaptable individuals who aspire to become well-rounded professionals to join us.</p>
+        </div>
+
+        <div class="hiring-info-grid">
+            <div class="hiring-info-card">
+                <h4>Working Hours</h4>
+                <p>Two days off per week<br>08:30 — 17:30<br>One hour lunch break</p>
+            </div>
+            <div class="hiring-info-card">
+                <h4>Benefits</h4>
+                <p>Year-end bonus (8% profit sharing)<br>Holiday gifts<br>Comprehensive labor & health insurance</p>
+            </div>
+            <div class="hiring-info-card">
+                <h4>How to Apply</h4>
+                <p>Download the application form, fill it out, and email to:<br><a href="mailto:service@g-wise.com">service@g-wise.com</a></p>
+            </div>
+            <div class="hiring-info-card">
+                <h4>Company Address</h4>
+                <p>3F-2, No.9, Jingguo Rd., Taoyuan Dist., Taoyuan City 330, Taiwan<br>TEL: (03)358-2500</p>
+            </div>
+        </div>
+
+        <a href="mailto:service@g-wise.com" class="hiring-cta">
+            Submit Resume Now
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+        </a>
+    </div>
+</div>
+
+<!-- CTA BAR（已在 Layout 中，可省略） -->

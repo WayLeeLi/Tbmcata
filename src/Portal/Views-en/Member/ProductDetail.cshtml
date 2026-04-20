@@ -1,0 +1,45 @@
+﻿@model Academy.Models.Product
+
+@{
+    ViewBag.Title = Model.Title + " - 會員產品專區";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Styles {
+}
+@section Scripts {
+}
+<div class="main">
+    <div class="minner">
+        <div class="row col1 row_0">
+            <div class="mrow">
+                <div class="col col_02">
+                    <div class="mcol">
+                        <div id="Dyn_2_2" class="M19465">
+                            <div class="module module-detail">
+                                <div class="module-inner">
+                                    <section class="mb">
+                                        <div class="mcont">
+                                            <div class="mpgdetail">
+                                                <div class="container-inner page">
+                                                    <h1 class="content-title">
+                                                        @Model.Title
+                                                    </h1>
+                                                    <div class="row content-body">
+                                                        @if (Model != null)
+                                                        {
+                                                            @Html.Raw(Model.Content)
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

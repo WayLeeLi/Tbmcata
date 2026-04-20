@@ -1,0 +1,125 @@
+﻿@model Academy.Models.DictSet
+@{
+    ViewBag.Title = "About Us｜G-Wise Design";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles {
+    <link href="/css/about.css" rel="stylesheet" />
+}
+
+@section Scripts {
+    <script src="/js/about.js"></script>
+    <script>
+        // Tab 切换 - 直接跳转到对应页面
+        function switchTab(tabUrl) {
+            window.location.href = tabUrl;
+        }
+
+        // 渐显动画
+        $(function () {
+            $('.value-card, .mission-block').each(function () {
+                $(this).css({ opacity: 0, transform: 'translateY(20px)' });
+                var obs = new IntersectionObserver(function (entries) {
+                    entries.forEach(function (e) {
+                        if (e.isIntersecting) {
+                            $(e.target).css({
+                                transition: 'opacity 0.5s ease, transform 0.5s ease',
+                                opacity: 1,
+                                transform: 'translateY(0)'
+                            });
+                            obs.unobserve(e.target);
+                        }
+                    });
+                }, { threshold: 0.15 });
+                obs.observe(this);
+            });
+        });
+    </script>
+}
+
+<!-- HERO -->
+<div class="page-hero">
+    <div class="page-hero-bg"></div>
+    <div class="page-hero-gradient"></div>
+    <div class="page-hero-content">
+        <div class="page-hero-eyebrow">
+            <div class="page-hero-line"></div>
+            <span class="page-hero-label">About Us</span>
+        </div>
+        <h1 class="page-hero-title">About<br>Us</h1>
+    </div>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+    <a href="@Url.Action("Index", "Home")">Home</a>
+    <span>›</span>
+    <span style="color:rgba(255,255,255,0.6)">About</span>
+    <span>›</span>
+    <span style="color:#fff">About G-Wise</span>
+</div>
+
+<!-- SUB NAV -->
+<div class="sub-nav">
+    <div class="sub-nav-inner">
+        <a class="sub-tab active" href="@Url.Action("Info", "About")">About G-Wise</a>
+        <a class="sub-tab" href="@Url.Action("Chairman", "About")">Mission</a>
+        <a class="sub-tab" href="@Url.Action("Member", "About")">Core Values</a>
+    </div>
+</div>
+
+<!-- MAIN -->
+<div class="about-wrap">
+
+    <!-- ── LEFT CONTENT ── -->
+    <div class="about-content">
+        @if (Model != null)
+        {
+            @Html.Raw(Model.Value)
+        }
+        else
+        {
+            <div style="text-align:center;padding:100px;color:var(--gray);">No content available</div>
+        }
+    </div>
+
+    <!-- ── SIDEBAR ── -->
+    <div class="sidebar">
+
+        <div class="sidebar-box">
+            <h4>Company Profile</h4>
+            <ul class="sub-menu-list">
+                <li><a class="active" href="@Url.Action("Info", "About")">About G-Wise <span>›</span></a></li>
+                <li><a href="@Url.Action("Chairman", "About")">Mission <span>›</span></a></li>
+                <li><a href="@Url.Action("Member", "About")">Core Values <span>›</span></a></li>
+            </ul>
+        </div>
+
+        <div class="sidebar-box">
+            <h4>Contact Info</h4>
+            <div class="sidebar-info">
+                <p><strong>G-Wise Design Co., Ltd.</strong></p>
+                <p style="margin-top:8px;">3F-2, No.9, Jingguo Rd., Taoyuan Dist., Taoyuan City 330, Taiwan</p>
+                <p style="margin-top:6px;"><strong>TEL：</strong>(03)358-2500</p>
+                <p><strong>FAX：</strong>(03)358-2503</p>
+                <p style="margin-top:6px;"><strong>E-mail：</strong><br><a href="mailto:service@g-wise.com">service@g-wise.com</a></p>
+            </div>
+        </div>
+
+        <div class="sidebar-box">
+            <h4>Design Services</h4>
+            <ul class="sub-menu-list">
+                @if (ViewBag.CategoryList != null)
+                {
+                    var categories = ViewBag.CategoryList as List<Academy.Models.Category> ?? new List<Academy.Models.Category>();
+                    foreach (var cat in categories)
+                    {
+                        <li><a href="@Url.Action("Info", "Service", new { cataId = cat.Id })">@cat.Name <span>›</span></a></li>
+                    }
+                }
+            </ul>
+        </div>
+
+    </div><!-- /sidebar -->
+</div><!-- /about-wrap -->

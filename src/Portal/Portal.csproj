@@ -1517,6 +1517,41 @@
     <Content Include="Views\Contact\Index.cshtml" />
     <Content Include="Views\Quote\Index.cshtml" />
     <Content Include="Views\Service\Info.cshtml" />
+    <Content Include="Views-en\_ViewStart.cshtml" />
+    <Content Include="Views-en\About\Calendar.cshtml" />
+    <Content Include="Views-en\About\Chairman.cshtml" />
+    <Content Include="Views-en\About\Constitution.cshtml" />
+    <Content Include="Views-en\About\Contact.cshtml" />
+    <Content Include="Views-en\About\Download.cshtml" />
+    <Content Include="Views-en\About\Index.cshtml" />
+    <Content Include="Views-en\About\Info.cshtml" />
+    <Content Include="Views-en\About\Link.cshtml" />
+    <Content Include="Views-en\About\Member.cshtml" />
+    <Content Include="Views-en\Contact\Index.cshtml" />
+    <Content Include="Views-en\Home\Index-bk.cshtml" />
+    <Content Include="Views-en\Home\Index.cshtml" />
+    <Content Include="Views-en\Home\Result.cshtml" />
+    <Content Include="Views-en\Home\Search.cshtml" />
+    <Content Include="Views-en\Info\Detail.cshtml" />
+    <Content Include="Views-en\Info\Index.cshtml" />
+    <Content Include="Views-en\Member\Detail.cshtml" />
+    <Content Include="Views-en\Member\Index.cshtml" />
+    <Content Include="Views-en\Member\Join.cshtml" />
+    <Content Include="Views-en\Member\ProductDetail.cshtml" />
+    <Content Include="Views-en\News\Detail.cshtml" />
+    <Content Include="Views-en\News\Index.cshtml" />
+    <Content Include="Views-en\News\IndexActive.cshtml" />
+    <Content Include="Views-en\News\IndexIndustry.cshtml" />
+    <Content Include="Views-en\News\IndexNotice.cshtml" />
+    <Content Include="Views-en\News\IndexPhoto.cshtml" />
+    <Content Include="Views-en\News\IndexVideo.cshtml" />
+    <Content Include="Views-en\Product\Index.cshtml" />
+    <Content Include="Views-en\Quote\Index.cshtml" />
+    <Content Include="Views-en\Service\index.cshtml" />
+    <Content Include="Views-en\Service\Info.cshtml" />
+    <Content Include="Views-en\Shared\_Layout.cshtml" />
+    <Content Include="Views-en\Shared\Error.cshtml" />
+    <Content Include="Views-en\Web.config" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

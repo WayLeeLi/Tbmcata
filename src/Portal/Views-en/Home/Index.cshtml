@@ -1,0 +1,299 @@
+﻿@{
+    ViewBag.Title = "G-Wise Design | Transportation & Product Design";
+
+    // 转换数据为 List
+    var bannerList = ViewBag.BannerList as IEnumerable<dynamic> ?? new List<dynamic>();
+    var productList = ViewBag.ProductList as IEnumerable<dynamic> ?? new List<dynamic>();
+    var serversList = ViewBag.ServersList as IEnumerable<dynamic> ?? new List<dynamic>();
+    var newsList = ViewBag.NewsList as IEnumerable<dynamic> ?? new List<dynamic>();
+}
+
+@section Styles {
+    <link href="~/css/index.css" rel="stylesheet" />
+}
+
+@section Scripts {
+    <script src="~/js/index.js" type="text/javascript"></script>
+}
+
+<div class="main">
+    <div class="minner">
+        <!-- HERO -->
+        <section class="hero">
+            <div class="hero-slides" id="heroSlides">
+                @{
+                    var bannerIndex = 0;
+                }
+                @foreach (var item in bannerList)
+                {
+                    <div class="hero-slide @(bannerIndex == 0 ? "active" : "")"
+                         style="background-image:url('@item.Photo')"
+                         data-link="@item.LinkURL"
+                         data-open-type="@item.OpenType">
+                    </div>
+                    bannerIndex++;
+                }
+            </div>
+            <div class="hero-bg"></div>
+            <div class="hero-grid-lines"></div>
+
+            <div class="hero-content">
+                <div class="hero-eyebrow">
+                    <div class="hero-eyebrow-line"></div>
+                    <span class="hero-eyebrow-text">Professional Design Studio · Since 2009</span>
+                </div>
+                <h1 class="hero-title">
+                    Design<br>
+                    <span class="accent">Beyond</span><br>
+                    Limits
+                </h1>
+                <p class="hero-subtitle">
+                    G-Wise Design is a full-service exterior design company specializing in transportation and vehicle accessories.<br>
+                    Using modern digital methods, we create maximum value for you from concept to engineering development.
+                </p>
+                <div class="hero-actions">
+                    <a href="#" class="btn-primary">
+                        Explore Portfolio
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                    </a>
+                    <a href="#" class="btn-outline">Learn More</a>
+                </div>
+            </div>
+
+            <div class="hero-slide-dots" id="heroDots">
+                @for (var i = 0; i < bannerList.Count(); i++)
+                {
+                    <div class="hero-dot @(i == 0 ? "active" : "")" onclick="goSlide(@i)"></div>
+                }
+            </div>
+
+            <div class="hero-scroll">
+                <div class="hero-scroll-line"></div>
+                <span class="hero-scroll-text">SCROLL</span>
+            </div>
+
+            <div class="hero-stats">
+                <div class="stat">
+                    <div class="stat-num" data-target="15"><span class="count">0</span><span class="red">+</span></div>
+                    <div class="stat-label">Years Experience</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-num" data-target="300"><span class="count">0</span><span class="red">+</span></div>
+                    <div class="stat-label">Projects Done</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-num" data-target="50"><span class="count">0</span><span class="red">+</span></div>
+                    <div class="stat-label">Awards Won</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SERVICES -->
+        <section class="svc-section" id="svcSection">
+            <div style="padding: 0 48px 40px; display:flex; align-items:flex-end; justify-content:space-between; flex-wrap:wrap; gap:16px;">
+                <h2 class="section-title">Our<br>Services</h2>
+                <div class="svc-arrows">
+                    <button class="svc-arrow" id="svcPrev" disabled>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <path d="M15 18l-6-6 6-6" />
+                        </svg>
+                    </button>
+                    <button class="svc-arrow" id="svcNext">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <path d="M9 18l6-6-6-6" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <div class="svc-viewport" id="svcViewport">
+                <div class="svc-track" id="svcTrack">
+                    @{
+                        // 将 serversList 数据分组，每组5个（1个大卡片 + 4个小卡片）
+                        var groupedActivities = new List<List<dynamic>>();
+                        var tempList = new List<dynamic>();
+                        var idx = 0;
+
+                        foreach (var item in serversList)
+                        {
+                            tempList.Add(item);
+                            idx++;
+                            if (idx % 5 == 0 || idx == serversList.Count())
+                            {
+                                groupedActivities.Add(new List<dynamic>(tempList));
+                                tempList.Clear();
+                            }
+                        }
+                    }
+
+                    @for (var slideIndex = 0; slideIndex < groupedActivities.Count; slideIndex++)
+                    {
+                        var group = groupedActivities[slideIndex];
+                        <div class="svc-slide">
+                            <div class="svc-layout">
+                                <!-- 左侧大卡片：取每组的第一个 -->
+                                @if (group.Count > 0)
+                                {
+                                    var featureItem = group[0];
+                                    <div class="svc-feature-card">
+                                        <div class="svc-feature-img" style="background-image:url('@featureItem.ImagePath')"></div>
+                                        <div class="svc-feature-overlay"></div>
+                                        <div class="svc-feature-content">
+                                            <div class="svc-tags">@(featureItem.Note ?? "Event Highlights")</div>
+                                            <h3 class="svc-feature-title">@featureItem.Title</h3>
+                                            <a href="@Url.Action("Info", "Service", new { cataId = featureItem.CataID })" class="svc-link">View Details →</a>
+                                        </div>
+                                    </div>
+                                }
+
+                                <!-- 右侧网格卡片 -->
+                                <div class="svc-grid-right">
+                                    @for (var i = 1; i < group.Count; i++)
+                                    {
+                                        var cardItem = group[i];
+                                        <div class="svc-card">
+                                            <div class="svc-card-img" style="background-image:url('@cardItem.ImagePath')"></div>
+                                            <div class="svc-card-overlay"></div>
+                                            <div class="svc-card-content">
+                                                <h4 class="svc-card-title">@(cardItem.Title)</h4>
+                                                <p class="svc-card-desc">@cardItem.Note</p>
+                                                <a href="@Url.Action("Info", "Service", new { cataId = cardItem.CataID })" class="svc-link">View Details →</a>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <div style="display:flex;justify-content:center;gap:8px;margin-top:24px;" id="svcDots">
+                @for (var i = 0; i < groupedActivities.Count; i++)
+                {
+                    <button class="slider-dot @(i == 0 ? "active" : "")" onclick="svcGoTo(@i)"></button>
+                }
+            </div>
+        </section>
+
+        <!-- FEATURED WORK -->
+        <div class="work-section">
+            <div class="section-header">
+                <div>
+                    <div class="section-label">
+                        <div class="section-label-line"></div>
+                        <span class="section-label-text">Portfolio</span>
+                    </div>
+                    <h2 class="section-title" style="color:var(--black)">Featured<br>Work</h2>
+                </div>
+                <p class="section-desc" style="color: #777;">From transportation to consumer products, each piece reflects G-Wise Design's commitment to excellence.</p>
+            </div>
+
+            <div class="work-grid">
+                @foreach (var item in ViewBag.ProductList)
+                {
+                    <div class="work-item">
+                        <img class="work-thumb" src="@item.ImagePath" alt="@item.Title">
+                        <div class="work-overlay">
+                            <div class="work-info">
+                                <div class="work-category">@item.Category</div>
+                                <div class="work-title">@item.Title</div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <div style="text-align:center; margin-top:48px;">
+                <a href="@Url.Action("Index", "Product")" class="btn-primary" style="background:var(--red)">
+                    View Full Portfolio
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+
+        <!-- ABOUT -->
+        <div class="about-section">
+            <div class="about-visual">
+                <div class="about-visual-pattern"></div>
+                <div class="about-visual-text">DESIGN</div>
+                <div class="about-visual-logo">
+                    <span class="big-g">G</span>
+                    <span class="big-w">G-WISE DESIGN</span>
+                </div>
+            </div>
+
+            <div class="about-content">
+                <div class="section-label">
+                    <div class="section-label-line"></div>
+                    <span class="section-label-text">About Us</span>
+                </div>
+                <h2 class="section-title">About<br>G-Wise Design</h2>
+                <p class="about-body">
+                    G-Wise Design Co., Ltd. is a full-service product design company dedicated to creating maximum value for our clients.
+                    We focus on transportation design and general product design, providing complete services from concept to engineering development using modern digital methods.
+                </p>
+                <div class="about-features">
+                    <div class="about-feature">
+                        <div class="about-feature-dot"></div>
+                        <span class="about-feature-text">Professional Transportation Design Team</span>
+                    </div>
+                    <div class="about-feature">
+                        <div class="about-feature-dot"></div>
+                        <span class="about-feature-text">Extensive OEM Parts Development Experience</span>
+                    </div>
+                    <div class="about-feature">
+                        <div class="about-feature-dot"></div>
+                        <span class="about-feature-text">Complete Engineering Development Services</span>
+                    </div>
+                    <div class="about-feature">
+                        <div class="about-feature-dot"></div>
+                        <span class="about-feature-text">Multiple Domestic & International Design Awards</span>
+                    </div>
+                    <div class="about-feature">
+                        <div class="about-feature-dot"></div>
+                        <span class="about-feature-text">Class-A Surface Expertise</span>
+                    </div>
+                    <div class="about-feature">
+                        <div class="about-feature-dot"></div>
+                        <span class="about-feature-text">3D Reverse Engineering Services</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- NEWS -->
+        <section class="news-section">
+            <div class="section-header">
+                <div>
+                    <div class="section-label">
+                        <div class="section-label-line"></div>
+                        <span class="section-label-text">Latest News</span>
+                    </div>
+                    <h2 class="section-title">News<br>Events</h2>
+                </div>
+                <a href="@Url.Action("Index", "News")" class="btn-outline" style="align-self:flex-end">All News →</a>
+            </div>
+
+            <div class="news-grid">
+                @foreach (var item in newsList)
+                {
+                    <div class="news-card">
+                        <div style="overflow:hidden;">
+                            <img class="news-card-img" src="@item.ImagePath" alt="@item.Title">
+                        </div>
+                        <div class="news-card-body">
+                            <div class="news-date">@item.PubDate</div>
+                            <div class="news-title">@item.Title</div>
+                            <p class="news-excerpt">@item.Note</p>
+                        </div>
+                    </div>
+                }
+            </div>
+        </section>
+    </div>
+</div>

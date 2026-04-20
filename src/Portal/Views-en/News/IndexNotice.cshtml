@@ -1,0 +1,93 @@
+﻿@using PagedList
+@using PagedList.Mvc
+@model IEnumerable<Academy.Models.News>
+
+@{
+    var ModelName = "相關公告";
+    ViewBag.Title = ModelName;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Styles {
+    <link href="~/Content/pager.css" rel="stylesheet" />
+}
+@section Scripts {
+}
+
+<div class="main">
+    <div class="minner">
+        <div class="row col1 row_0">
+            <div class="mrow">
+                <div class="col col_02">
+                    <div class="mcol">
+                        <div id="Dyn_2_1" class="M19461">
+                            <div class="module module-um md_style1">
+                                <header class="mt mthide">
+                                </header>
+
+                                <section class="mb">
+                                    <div class="minner">
+                                        <script src="/js/tmcata.js"></script>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                        <div id="Dyn_2_2" class="M19465">
+                            <div class="usermodoutter">
+                                <div class="container-inner page media">
+                                    <h1 class="index-title"><span class="en">NEWS</span><span class="ch">@ModelName</span></h1>
+                                    <div class="row">
+                                        <div class="module module-rcglist ">
+                                            <header class="mt mthide">
+                                            </header>
+                                            <section class="mb">
+                                                <div id="pageptlist">
+                                                    @if (Model.Count() == 0)
+                                                    {
+                                                        <div class="row listBS">
+                                                            <h3 class="empty-text">
+                                                                暫無資料！
+                                                            </h3>
+                                                        </div>
+                                                    }
+                                                    @foreach (var item in Model)
+                                                    {
+                                                        <div class="row listBS">
+                                                            <div class="d-item d-title col-sm-12">
+                                                                <div class="mbox">
+                                                                    <div class="d-txt">
+                                                                        <h5>
+                                                                            <i class="mdate before">@item.PubDate.Value.ToString("yyyy-MM-dd") </i>
+                                                                            <a href="/news/detail?id=@item.ID">
+                                                                                @item.Title
+                                                                            </a>
+                                                                        </h5>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                </div>
+                                                @{
+                                                    var data = Model as IPagedList<Academy.Models.News>;
+                                                }
+                                                @if (data.TotalItemCount > 5)
+                                                {
+                                                    <div class="mpgbar pagebar">
+                                                        <ul>
+                                                            @Html.PagedListPager(data, page => Url.Action("IndexNotice", new { page = page }), new PagedListRenderOptions() { LinkToFirstPageFormat = "最前一頁", LinkToNextPageFormat = "下一頁", LinkToPreviousPageFormat = "上一頁", LinkToLastPageFormat = "最後一頁", DisplayItemSliceAndTotal = true, ItemSliceAndTotalFormat = "共有 {2} 筆", MaximumPageNumbersToDisplay = 5 })
+                                                        </ul>
+                                                    </div>
+                                                }
+                                            </section>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

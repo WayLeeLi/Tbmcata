@@ -17,7 +17,7 @@ $(function () {
         entries.forEach(function (e, i) {
             if (e.isIntersecting) {
                 setTimeout(function () {
-                    $(e.target).css({ opacity: 1, transform: 'translateY(0)' });
+                    $(e.target).css({ opacity: 1, transform: 'translateY(20px)' });
                 }, 60 * i);
                 obs.unobserve(e.target);
             }

@@ -110,12 +110,14 @@
         <div class="sidebar-box">
             <h4>設計服務</h4>
             <ul class="sub-menu-list">
-                <li><a href="@Url.Action("Index", "Service")#auto">汽車零配件設計 <span>›</span></a></li>
-                <li><a href="@Url.Action("Index", "Service")#moto">摩托車設計服務 <span>›</span></a></li>
-                <li><a href="@Url.Action("Index", "Service")#bike">自行車設計服務 <span>›</span></a></li>
-                <li><a href="@Url.Action("Index", "Service")#marine">船舶外形設計 <span>›</span></a></li>
-                <li><a href="@Url.Action("Index", "Service")#3c">3C 家電設計 <span>›</span></a></li>
-                <li><a href="@Url.Action("Index", "Service")#reverse">逆向工程服務 <span>›</span></a></li>
+                @if (ViewBag.CategoryList != null)
+                {
+                    var categories = ViewBag.CategoryList as List<Academy.Models.Category> ?? new List<Academy.Models.Category>();
+                    foreach (var cat in categories)
+                    {
+                        <li><a href="@Url.Action("Info", "Service", new { cataId = cat.Id })">@cat.Name <span>›</span></a></li>
+                    }
+                }
             </ul>
         </div>
 

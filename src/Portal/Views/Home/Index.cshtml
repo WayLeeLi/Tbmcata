@@ -142,8 +142,8 @@
                                         <div class="svc-feature-overlay"></div>
                                         <div class="svc-feature-content">
                                             <div class="svc-tags">@(featureItem.Note ?? "活動集錦")</div>
-                                            <h3 class="svc-feature-title">@featureItem.Title?.ToUpper()</h3>
-                                            <a href="/news/detail?id=@featureItem.ID" class="svc-link" target="_blank">View Details →</a>
+                                            <h3 class="svc-feature-title">@featureItem.Title</h3>
+                                            <a href="@Url.Action("Info", "Service", new { cataId = featureItem.CataID })" class="svc-link">View Details →</a>
                                         </div>
                                     </div>
                                 }
@@ -159,21 +159,7 @@
                                             <div class="svc-card-content">
                                                 <h4 class="svc-card-title">@(cardItem.Title)</h4>
                                                 <p class="svc-card-desc">@cardItem.Note</p>
-                                                <a href="/news/detail?id=@cardItem.ID" class="svc-link" target="_blank">View Details →</a>
-                                            </div>
-                                        </div>
-                                    }
-
-                                    <!-- 如果不足4个，用默认卡片补齐 -->
-                                    @for (var i = group.Count; i < 5; i++)
-                                    {
-                                        <div class="svc-card">
-                                            <div class="svc-card-img" style="background-image:url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=500&q=80')"></div>
-                                            <div class="svc-card-overlay"></div>
-                                            <div class="svc-card-content">
-                                                <h4 class="svc-card-title">更多服務</h4>
-                                                <p class="svc-card-desc">歡迎聯繫我們了解更多設計服務項目。</p>
-                                                <a href="/home/contact" class="svc-link">Contact Us →</a>
+                                                <a href="@Url.Action("Info", "Service", new { cataId = cardItem.CataID })" class="svc-link">View Details →</a>
                                             </div>
                                         </div>
                                     }
@@ -221,7 +207,7 @@
             </div>
 
             <div style="text-align:center; margin-top:48px;">
-                <a href="#" class="btn-primary" style="background:var(--red)">
+                <a href="@Url.Action("Index", "Product")" class="btn-primary" style="background:var(--red)">
                     查看完整作品集
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M5 12h14M12 5l7 7-7 7" />
@@ -290,7 +276,7 @@
                     </div>
                     <h2 class="section-title">新聞活動<br>News</h2>
                 </div>
-                <a href="#" class="btn-outline" style="align-self:flex-end">所有消息 →</a>
+                <a href="@Url.Action("Index", "News")" class="btn-outline" style="align-self:flex-end">所有消息 →</a>
             </div>
 
             <div class="news-grid">
@@ -309,18 +295,5 @@
                 }
             </div>
         </section>
-
-        <!-- CONTACT BAR -->
-        <div class="contact-bar">
-            <div class="contact-bar-title">
-                有設計需求？<br>歡迎與我們聯繫合作
-            </div>
-            <a href="#" class="btn-white">
-                立即詢價
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M5 12h14M12 5l7 7-7 7" />
-                </svg>
-            </a>
-        </div>
     </div>
 </div>

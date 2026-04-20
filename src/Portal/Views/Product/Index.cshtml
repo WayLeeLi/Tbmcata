@@ -112,6 +112,7 @@
         var currentLBItems = [];
 
         function openLB(index) {
+            debugger
             currentLBIndex = index;
             currentLBItems = window.currentPortfolioItems || [];
 
@@ -122,7 +123,7 @@
             for (var i = 0; i < currentLBItems.length; i++) {
                 var item = currentLBItems[i];
                 var activeClass = i === index ? 'active' : '';
-                thumbs.append('<img class="viewer-thumb ' + activeClass + '" src="' + escapeHtml(item.ImagePath) + '" alt="' + escapeHtml(item.Title) + '" onclick="vGoTo(' + i + ')">');
+                thumbs.append('<img class="viewer-thumb ' + activeClass + '" src="' + escapeHtml(item.ImageUrl) + '" alt="' + escapeHtml(item.Title) + '" onclick="vGoTo(' + i + ')">');
             }
 
             showViewerItem();
@@ -137,7 +138,7 @@
 
             var big = $('#vBig');
             big.css('opacity', '0');
-            big.attr('src', item.ImagePath);
+            big.attr('src', item.ImageUrl);
             big.on('load', function() { big.css('opacity', '1'); });
 
             $('#vCat').text(item.CategoryName);

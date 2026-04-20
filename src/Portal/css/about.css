@@ -780,7 +780,12 @@ nav {
         max-width: 100%;
         overflow-x: hidden;
     }
-
+    .about-content img,
+    .mission-block img,
+    .value-card img {
+        max-width: 100% !important;
+        height: auto !important;
+    }
     nav {
         padding: 0 24px;
     }
@@ -847,14 +852,7 @@ nav {
         box-sizing: border-box;
     }
 
-    /* 所有图片自适应宽度 */
-    .about-img,
-    .mission-img,
-    .value-card img {
-        max-width: 100%;
-        height: auto;
-    }
-
+ 
     .value-cards {
         grid-template-columns: 1fr;
     }

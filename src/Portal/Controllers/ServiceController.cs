@@ -31,6 +31,25 @@ namespace Academy.Controllers
             return View(pagedData);
         }
         /// <summary>
+        /// 跳转显示
+        /// </summary>
+        /// <param name="page"></param>
+        /// <returns></returns>
+        public ActionResult Info(int page = 1)
+        {
+            DateTime dtNow = DateTime.Now;
+
+            var data = db.Newss
+                .Where(a => a.Status == 1 && a.Menu == 3)
+                .OrderByDescending(a => a.PubDate);
+
+            var pagedData = data.ToPagedList(pageNumber: page, pageSize: 5);
+
+            var categories = db.Categories.Where(s => s.Menu == 3 && s.Status == 1).OrderBy(c => c.Path).ToList();
+            ViewBag.CategoryList = categories;
+            return View(pagedData);
+        }
+        /// <summary>
         /// 產業訊息
         /// </summary>
         /// <param name="page"></param>

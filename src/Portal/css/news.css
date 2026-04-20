@@ -598,12 +598,4 @@
     }
 }
 
-/* Fade-in animation */
-.news-featured,
-.news-card,
-.hiring-section,
-.hiring-info-card {
-    opacity: 0;
-    transform: translateY(16px);
-    transition: opacity 0.5s ease, transform 0.5s ease;
-}
+

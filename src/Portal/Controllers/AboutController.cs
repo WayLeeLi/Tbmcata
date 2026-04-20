@@ -20,7 +20,7 @@ namespace Academy.Controllers
         public ActionResult Index()
         {
             ViewBag.CategoryList = db.Categories
-                .Where(c => c.Menu == 3 && c.ParentId == null && c.Status == 1)
+                .Where(c => c.Menu == 3 && c.ParentId != null && c.Status == 1)
                 .OrderBy(c => c.SortOrder)
                 .ToList();
 
@@ -46,6 +46,10 @@ namespace Academy.Controllers
         /// </summary>
         public ActionResult Chairman()
         {
+            ViewBag.CategoryList = db.Categories
+                .Where(c => c.Menu == 3 && c.ParentId != null && c.Status == 1)
+                .OrderBy(c => c.SortOrder)
+                .ToList();
             var model = db.DictSets.FirstOrDefault(a => a.Code == "AboutChairman");
             return View(model);
         }
@@ -56,7 +60,7 @@ namespace Academy.Controllers
         public ActionResult Member()
         {
             ViewBag.CategoryList = db.Categories
-                .Where(c => c.Menu == 3 && c.ParentId == null && c.Status == 1)
+                .Where(c => c.Menu == 3 && c.ParentId != null && c.Status == 1)
                 .OrderBy(c => c.SortOrder)
                 .ToList();
             var model = db.DictSets.FirstOrDefault(a => a.Code == "AboutMember");

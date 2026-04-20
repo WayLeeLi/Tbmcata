@@ -57,7 +57,6 @@ nav {
 }
 
     .logo-area img {
-        width: 80px;
         height: 80px;
         object-fit: contain;
         display: block;
@@ -1114,7 +1113,24 @@ nav {
     color: var(--gray);
     line-height: 1.7;
 }
+/* ©¤©¤ CTA BAR ©¤©¤ */
+.cta-bar {
+    background: var(--green);
+    padding: 56px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 24px;
+}
 
+.cta-bar-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: clamp(24px, 3vw, 40px);
+    text-transform: uppercase;
+    line-height: 1.1;
+}
 /* ©¤©¤©¤ CONTACT BAR ©¤©¤©¤ */
 .contact-bar {
     background: var(--green);

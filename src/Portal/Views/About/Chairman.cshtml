@@ -98,7 +98,6 @@
             </div>
         </div>
 
-        <!-- 設計服務侧边栏 - 简化版 -->
         <div class="sidebar-box">
             <h4>設計服務</h4>
             <ul class="sub-menu-list">
@@ -107,7 +106,7 @@
                     var categories = ViewBag.CategoryList as List<Academy.Models.Category> ?? new List<Academy.Models.Category>();
                     foreach (var cat in categories)
                     {
-                        <li><a href="@Url.Action("Index", "Service")?category=@cat.Id">@cat.Name <span>›</span></a></li>
+                        <li><a href="@Url.Action("Info", "Service", new { cataId = cat.Id })">@cat.Name <span>›</span></a></li>
                     }
                 }
             </ul>

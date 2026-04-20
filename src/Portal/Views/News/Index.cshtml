@@ -8,6 +8,10 @@
 
 @section Scripts {
     <script src="/js/news.js"></script>
+    <script>
+        // 全局变量：详情页基础 URL（用于 openDetail）
+        var newsDetailBase = '@Url.Action("Detail", "News")';
+    </script>
 }
 
 <!-- HERO -->
@@ -27,28 +31,71 @@
 <div class="breadcrumb">
     <a href="@Url.Action("Index", "Home")">首頁</a>
     <span>›</span>
-    <span style="color:#fff" id="bcText">新聞消息</span>
+    <span style="color:#fff" id="bcText">@(ViewBag.CurrentCategoryName ?? "新聞消息")</span>
 </div>
 
 <!-- TAB NAV - 从后端数据绑定 -->
 <div class="tab-nav">
-    <button class="tab-btn active" data-cat-id="0" onclick="loadNewsList(0, '新聞消息')">全部新聞</button>
+    <a href="@Url.Action("Index", "News")" class="tab-btn @(ViewBag.CurrentCategoryId == 0 ? "active" : "")">全部新聞</a>
     @if (ViewBag.CategoryList != null)
     {
         var categories = ViewBag.CategoryList as List<Academy.Models.Category> ?? new List<Academy.Models.Category>();
         foreach (var cat in categories)
         {
-            <button class="tab-btn" data-cat-id="@cat.Id" onclick="loadNewsList(@cat.Id, '@cat.Name')">@cat.Name</button>
+            <a href="@Url.Action("Index", "News", new { categoryId = cat.Id })" class="tab-btn @(ViewBag.CurrentCategoryId == cat.Id ? "active" : "")">@cat.Name</a>
         }
     }
 </div>
 
-<!-- NEWS LIST TAB -->
+<!-- NEWS LIST -->
 <div id="panelNews">
-    <div style="text-align:center;padding:100px;">
-        <div class="loading-spinner"></div>
-        <p>載入中...</p>
-    </div>
+    @if (ViewBag.NewsList == null || ((IEnumerable<dynamic>)ViewBag.NewsList).Count() == 0)
+    {
+        <div style="text-align:center;padding:100px;color:var(--gray);">暫無新聞</div>
+    }
+    else
+    {
+        var newsList = ViewBag.NewsList as List<Academy.Models.News> ?? new List<Academy.Models.News>();
+        var featured = newsList.FirstOrDefault();
+        
+        <div class="news-wrap">
+            @if (featured != null)
+            {
+                <div class="news-featured" onclick="openDetail(@featured.ID)">
+                    <div class="news-featured-img">
+                        <img src="@(featured.ImagePath ?? featured.ImagePath)" alt="@featured.Title" loading="lazy">
+                    </div>
+                    <div class="news-featured-body">
+                        <div class="news-featured-tag">@(featured.Title ?? "")</div>
+                        <div class="news-featured-date">@(featured.CDate)</div>
+                        <p class="news-featured-text">@featured.Note</p>
+                        <a href="@Url.Action("Detail", "News", new { id = featured.ID })" class="news-read-more" >閱讀更多 →</a>
+                    </div>
+                </div>
+            }
+
+            @if (newsList.Count > 1)
+            {
+                <div class="news-grid">
+                    @for (int i = 1; i < newsList.Count; i++)
+                    {
+                        var item = newsList[i];
+                        <div class="news-card" onclick="openDetail(@item.ID)">
+                            <div class="news-card-img">
+                                <img src="@(item.ImagePath ?? item.ImagePath)" alt="@item.Title" loading="lazy">
+                            </div>
+                            <div class="news-card-body">
+                                <div class="news-card-tag">@(item.Title ?? "")</div>
+                                <div class="news-card-date">@(item.CDate)</div>
+                                <p class="news-card-text">@item.Note</p>
+                                <a href="@Url.Action("Detail", "News", new { id = item.ID })">閱讀更多 →</a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    }
 </div>
 
 <!-- HIRING TAB -->
@@ -95,16 +142,4 @@
     </div>
 </div>
 
-<!-- NEWS DETAIL MODAL -->
-<div class="detail-modal" id="detailModal">
-    <div class="detail-inner">
-        <button class="detail-back" onclick="closeDetail()">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7" /></svg>
-            返回新聞列表
-        </button>
-        <div class="detail-tag" id="dTag">新聞消息 · News</div>
-        <div class="detail-date" id="dDate"></div>
-        <img class="detail-img" id="dImg" src="" alt="">
-        <div class="detail-body" id="dBody"></div>
-    </div>
-</div>
+<!-- CTA BAR（已在 Layout 中，可省略） -->

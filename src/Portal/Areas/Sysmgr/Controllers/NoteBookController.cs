@@ -61,6 +61,7 @@ namespace Academy.Areas.Sysmgr.Controllers
                     // 保留原始提交信息
                     model.UserName = old.UserName;
                     model.CompanyName = old.CompanyName;
+                    model.CategoryName = old.CategoryName;
                     model.Phone = old.Phone;
                     model.Email = old.Email;
                     model.Content = old.Content;

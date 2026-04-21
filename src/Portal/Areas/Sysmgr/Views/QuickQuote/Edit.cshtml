@@ -7,23 +7,19 @@
 @section Scripts {
     <script>
         $(function () {
-            // binds form submission and fields to the validation engine
             $.validationEngine.defaults.scroll = false;
             $("#formcontent").validationEngine();
-
         });
     </script>
-    <!--CK 套件-->
     <script type="text/javascript" src="~/Scripts/ckeditor/ckeditor.js"></script>
     <script type="text/javascript" src="~/Scripts/ckfinder/ckfinder.js"></script>
 }
 
-<!--主要內容-->
 <article class="contentArea" id="content">
-    @using (Html.BeginForm("Edit", "Quote", FormMethod.Post, new { id = "formcontent", enctype = "multipart/form-data" }))
+    @using (Html.BeginForm("Edit", "QuickQuote", FormMethod.Post, new { id = "formcontent", enctype = "multipart/form-data" }))
     {
         <h1>
-            線上 Q&A<span>/ 回覆</span><span class="tip">
+            快速報價<span>/ 回覆</span><span class="tip">
                 <section class="tipBox">
                     <span>&nbsp;</span>
                     <ul>
@@ -36,8 +32,22 @@
         @Html.ValidationSummary(true)
         @Html.HiddenFor(model => model.Id)
         @Html.HiddenFor(model => model.FormType, new { Value = "QuickQuote" })
+
+        <!-- 客戶提交資訊（只讀）- 仅快速询价相关字段 -->
         <section class="detailGroup">
-            <h3>基本資料</h3>
+            <h3>客戶提交資訊</h3>
+            <ul>
+                <li><span class="title">姓名：</span> @(string.IsNullOrEmpty(Model.UserName) ? "—" : Model.UserName)</li>
+                <li><span class="title">公司名稱：</span> @(string.IsNullOrEmpty(Model.CompanyName) ? "—" : Model.CompanyName)</li>
+                <li><span class="title">電話：</span> @(string.IsNullOrEmpty(Model.Phone) ? "—" : Model.Phone)</li>
+                <li><span class="title">電子信箱：</span> @(string.IsNullOrEmpty(Model.Email) ? "—" : Model.Email)</li>
+                <li><span class="title">服務項目：</span> @(string.IsNullOrEmpty(Model.CategoryName) ? "—" : Model.CategoryName)</li>
+                <li><span class="title">需求說明：</span> @(string.IsNullOrEmpty(Model.Content) ? "—" : Model.Content)</li>
+            </ul>
+        </section>
+
+        <section class="detailGroup">
+            <h3>回覆內容</h3>
             <ul>
                 <li>
                     <p class="title">回覆內容 : <mark class="mark">(*最多1000個中英文字元)</mark></p>
@@ -47,14 +57,12 @@
             </ul>
         </section>
 
-        <!--功能操作-->
         <section class="openArea">
             <span class="open" title="開啟執行列">開啟執行列</span>
         </section>
         <section class="functionArea">
             <span class="close" title="關閉執行列">關閉執行列</span>
             <span class="close" title="關閉執行列" id="closeShort"></span>
-
             <div>
                 <input name="按鈕" type="button" class="btnBack" value="x 回上一頁">
                 <input name="送出" type="submit" class="btnAdd" value="B 確定回覆">
@@ -62,3 +70,17 @@
         </section>
     }
 </article>
+
+<style>
+    .detailGroup ul li {
+        list-style: none;
+        margin-bottom: 12px;
+        line-height: 1.8;
+    }
+
+    .detailGroup .title {
+        font-weight: bold;
+        color: #6DB82A;
+        margin-right: 8px;
+    }
+</style>

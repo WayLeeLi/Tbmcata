@@ -53,6 +53,7 @@ namespace Academy.Controllers
                     FormType = "QuickQuote",
                     UserName = name,
                     CompanyName = company,
+                    CategoryName=service,
                     Phone = phone,
                     Email = email,
                     Content = content,
@@ -126,9 +127,10 @@ namespace Academy.Controllers
                 string category = form["Category"];
                 string requirement = form["Requirement"];
                 string deadline = form["Deadline"];
-                // 复选框可能传多个值，需自行处理拼接
+                // 复选框可能传多个值，此处直接取字符串（默认逗号分隔）
                 string services = form["Services"];
 
+                // 必填项验证
                 if (string.IsNullOrWhiteSpace(company) || string.IsNullOrWhiteSpace(contact) ||
                     string.IsNullOrWhiteSpace(phone) || string.IsNullOrWhiteSpace(email) ||
                     string.IsNullOrWhiteSpace(productName) || string.IsNullOrWhiteSpace(requirement))
@@ -140,25 +142,22 @@ namespace Academy.Controllers
                     return Json(new { success = false, msg = "請輸入有效的電子信箱！" });
                 }
 
-                var extra = new
-                {
-                    Fax = fax,
-                    Address = address,
-                    ProductName = productName,
-                    Size = size,
-                    Category = category,
-                    Services = services,
-                    Deadline = deadline
-                };
+                // 直接创建记录，不使用 ExtraData
                 var record = new InquiryRecord
                 {
                     FormType = "ProductInfo",
                     UserName = contact,
                     CompanyName = company,
+                    CategoryName = category,
                     Phone = phone,
                     Email = email,
                     Content = requirement,
-                    ExtraData = JsonConvert.SerializeObject(extra),
+                    Fax = fax,
+                    Address = address,
+                    ProductName = productName,
+                    Size = size,
+                    Services = services,
+                    Deadline = deadline,
                     Status = 0,
                     CDate = DateTime.Now
                 };

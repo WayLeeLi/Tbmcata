@@ -20,10 +20,10 @@
 
 <!--主要內容-->
 <article class="contentArea" id="content">
-    @using (Html.BeginForm("Edit", "Quote", FormMethod.Post, new { id = "formcontent", enctype = "multipart/form-data" }))
+    @using (Html.BeginForm("Edit", "NoteBook", FormMethod.Post, new { id = "formcontent", enctype = "multipart/form-data" }))
     {
         <h1>
-            線上 Q&A<span>/ 回覆</span><span class="tip">
+            留言管理<span>/ 回覆</span><span class="tip">
                 <section class="tipBox">
                     <span>&nbsp;</span>
                     <ul>
@@ -36,8 +36,47 @@
         @Html.ValidationSummary(true)
         @Html.HiddenFor(model => model.Id)
         @Html.HiddenFor(model => model.FormType, new { Value = "QA" })
+
+        <!-- 客戶提交資訊（只讀） -->
         <section class="detailGroup">
-            <h3>基本資料</h3>
+            <h3>客戶提交資訊</h3>
+            <ul>
+                <li><span class="title">姓名：</span> @(string.IsNullOrEmpty(Model.UserName) ? "—" : Model.UserName)</li>
+                <li><span class="title">公司名稱：</span> @(string.IsNullOrEmpty(Model.CompanyName) ? "—" : Model.CompanyName)</li>
+                <li><span class="title">電話：</span> @(string.IsNullOrEmpty(Model.Phone) ? "—" : Model.Phone)</li>
+                <li><span class="title">電子信箱：</span> @(string.IsNullOrEmpty(Model.Email) ? "—" : Model.Email)</li>
+                <li><span class="title">服務項目：</span> @(string.IsNullOrEmpty(Model.CategoryName) ? "—" : Model.CategoryName)</li>
+                <li><span class="title">諮詢內容：</span> @(string.IsNullOrEmpty(Model.Content) ? "—" : Model.Content)</li>
+                <!-- 如果还有产品资讯相关字段，可以继续添加 -->
+                @if (!string.IsNullOrEmpty(Model.ProductName))
+                {
+                    <li><span class="title">產品名稱：</span> @Model.ProductName</li>
+                }
+                @if (!string.IsNullOrEmpty(Model.Size))
+                {
+                    <li><span class="title">概略尺寸：</span> @Model.Size</li>
+                }
+                @if (!string.IsNullOrEmpty(Model.Services))
+                {
+                    <li><span class="title">委託服務項目：</span> @Model.Services</li>
+                }
+                @if (!string.IsNullOrEmpty(Model.Deadline))
+                {
+                    <li><span class="title">預期時程：</span> @Model.Deadline</li>
+                }
+                @if (!string.IsNullOrEmpty(Model.Address))
+                {
+                    <li><span class="title">公司地址：</span> @Model.Address</li>
+                }
+                @if (!string.IsNullOrEmpty(Model.Fax))
+                {
+                    <li><span class="title">傳真：</span> @Model.Fax</li>
+                }
+            </ul>
+        </section>
+
+        <section class="detailGroup">
+            <h3>回覆內容</h3>
             <ul>
                 <li>
                     <p class="title">回覆內容 : <mark class="mark">(*最多1000個中英文字元)</mark></p>
@@ -62,3 +101,18 @@
         </section>
     }
 </article>
+
+<style>
+    /* 保持与系统原有样式一致，只做微调确保同行显示 */
+    .detailGroup ul li {
+        list-style: none;
+        margin-bottom: 12px;
+        line-height: 1.8;
+    }
+
+    .detailGroup .title {
+        font-weight: bold;
+        color: #6DB82A;
+        margin-right: 8px;
+    }
+</style>

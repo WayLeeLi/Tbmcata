@@ -16,7 +16,7 @@
 
             // 更新侧边栏高亮
             $('.sidebar-sub a').removeClass('active');
-            $('.sidebar-sub a').each(function() {
+            $('.sidebar-sub a').each(function () {
                 if ($(this).data('cat-id') == categoryId) {
                     $(this).addClass('active');
                 }
@@ -31,14 +31,20 @@
                 type: 'POST',
                 data: { categoryId: categoryId },
                 dataType: 'json',
-                success: function(response) {
+                success: function (response) {
                     if (response.success) {
                         renderServiceContent(response.data);
+                        // 手机版自动滚动到内容区
+                        if ($(window).width() <= 768) {
+                            $('html, body').animate({
+                                scrollTop: $('#serviceContent').offset().top - 80
+                            }, 300);
+                        }
                     } else {
                         $('#serviceContent').html('<div style="text-align:center;padding:100px;color:red;">Failed to load: ' + response.message + '</div>');
                     }
                 },
-                error: function() {
+                error: function () {
                     $('#serviceContent').html('<div style="text-align:center;padding:100px;color:red;">Failed to load, please try again later!</div>');
                 }
             });
@@ -112,7 +118,7 @@
         }
 
         // 初始化 - 根据 cataId 或默认加载第一个二级菜单
-        $(function() {
+        $(function () {
             var cataId = getUrlParameter('cataId');
             if (cataId !== '') {
                 var targetLink = $('.sidebar-sub a[data-cat-id="' + cataId + '"]');
@@ -200,7 +206,6 @@
 
 <!-- BODY -->
 <div class="page-body">
-
     <!-- SIDEBAR -->
     <div class="sidebar">
         @{
@@ -242,7 +247,7 @@
             <h5>Contact Us</h5>
             <p>
                 3F-2, No.9, Jingguo Rd., Taoyuan Dist., Taoyuan City 330, Taiwan<br>
-                Tel: (03)358-2500<br>
+                TEL：(03)358-2500<br>
                 <a href="mailto:service@g-wise.com">service@g-wise.com</a>
             </p>
         </div>

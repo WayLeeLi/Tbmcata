@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "G-Wise Design | Transportation & Product Design";
+    ViewBag.Title = "G-Wise Design｜Transportation & Product Design";
 
     // 转换数据为 List
     var bannerList = ViewBag.BannerList as IEnumerable<dynamic> ?? new List<dynamic>();
@@ -52,13 +52,13 @@
                     Using modern digital methods, we create maximum value for you from concept to engineering development.
                 </p>
                 <div class="hero-actions">
-                    <a href="#" class="btn-primary">
+                    <a href="@Url.Action("Index", "Product")" class="btn-primary">
                         Explore Portfolio
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M5 12h14M12 5l7 7-7 7" />
                         </svg>
                     </a>
-                    <a href="#" class="btn-outline">Learn More</a>
+                    <a href="@Url.Action("Index", "Service")" class="btn-outline">Learn More</a>
                 </div>
             </div>
 
@@ -93,7 +93,7 @@
         <!-- SERVICES -->
         <section class="svc-section" id="svcSection">
             <div style="padding: 0 48px 40px; display:flex; align-items:flex-end; justify-content:space-between; flex-wrap:wrap; gap:16px;">
-                <h2 class="section-title">Our<br>Services</h2>
+                <h2 class="section-title">Design<br>Services</h2>
                 <div class="svc-arrows">
                     <button class="svc-arrow" id="svcPrev" disabled>
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">

@@ -36,7 +36,7 @@
     <span>›</span>
     <a href="@Url.Action("Index", "News")">News & Events</a>
     <span>›</span>
-    <span style="color:#fff">@Model.Title</span>
+    <span style="color:#fff">@ViewBag.CategoryName</span>
 </div>
 
 <!-- BODY -->
@@ -87,20 +87,21 @@
     <!-- SIDEBAR -->
     <div class="sidebar">
         <div class="sidebar-section">
-            <div class="sidebar-section-title">News & Events</div>
+            <div class="sidebar-section-title">@ViewBag.CategoryName</div>
+            @using Academy.ViewModels
+            @{
+                var sidebarList = ViewBag.SidebarNewsList as List<SidebarNewsItem> ?? new List<SidebarNewsItem>();
+            }
             <div class="news-list">
-                @if (ViewBag.SidebarNewsList != null)
+                @foreach (var item in sidebarList)
                 {
-                    foreach (dynamic item in ViewBag.SidebarNewsList)
-                    {
-                        <div class="news-list-item @(item.ID == Model.ID ? "active" : "")" onclick="location.href='@Url.Action("Detail", "News", new { id = item.ID })'">
-                            <img class="news-list-thumb" src="@item.Thumb" alt="@item.Title">
-                            <div class="news-list-info">
-                                <div class="news-list-date">@item.Title</div>
-                                <div class="news-list-excerpt">@item.Summary</div>
-                            </div>
+                    <div class="news-list-item @(item.ID == Model.ID ? "active" : "")" onclick="location.href='@Url.Action("Detail", "News", new { id = item.ID })'">
+                        <img class="news-list-thumb" src="@item.Thumb" alt="@item.Title">
+                        <div class="news-list-info">
+                            <div class="news-list-date">@item.Date</div>
+                            <div class="news-list-excerpt">@item.Summary</div>
                         </div>
-                    }
+                    </div>
                 }
             </div>
         </div>

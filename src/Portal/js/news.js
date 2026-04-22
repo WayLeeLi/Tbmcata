@@ -1,11 +1,3 @@
-// 打开新闻详情 - 跳转到详情页面
-function openDetail(id) {
-    if (typeof newsDetailBase !== 'undefined') {
-        window.location.href = newsDetailBase + '/' + id;
-    } else {
-        window.location.href = '/News/Detail/' + id;
-    }
-}
 
 // 切换 Tab（新闻/徵才）
 function switchTab(tab) {

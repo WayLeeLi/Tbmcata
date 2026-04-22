@@ -1,3 +1,8 @@
+/* =========================================
+   G-wise Design - 公司簡介頁面樣式 (about.css)
+   包含基礎佈局 + 移動端適配 + 富文本內容自適應
+   ========================================= */
+
 :root {
     --red: #C8171A;
     --red-dark: #9E1012;
@@ -287,35 +292,40 @@ nav {
     padding: 72px 48px;
 }
 
-/* ── CONTENT AREA ── */
-.about-content h2 {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700;
-    font-size: clamp(28px, 3vw, 40px);
-    text-transform: uppercase;
-    letter-spacing: -0.01em;
-    margin-bottom: 8px;
+/* ── CONTENT AREA (含富文本自適應) ── */
+.about-content {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
-.about-content .sub-en {
-    font-family: 'Barlow', sans-serif;
-    font-size: 13px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--green);
-    margin-bottom: 36px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-    .about-content .sub-en::before {
-        content: '';
-        display: inline-block;
-        width: 24px;
-        height: 2px;
-        background: var(--green);
+    .about-content h2 {
+        font-family: 'Barlow Condensed', sans-serif;
+        font-weight: 700;
+        font-size: clamp(28px, 3vw, 40px);
+        text-transform: uppercase;
+        letter-spacing: -0.01em;
+        margin-bottom: 8px;
     }
+
+    .about-content .sub-en {
+        font-family: 'Barlow', sans-serif;
+        font-size: 13px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--green);
+        margin-bottom: 36px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+        .about-content .sub-en::before {
+            content: '';
+            display: inline-block;
+            width: 24px;
+            height: 2px;
+            background: var(--green);
+        }
 
 .about-body {
     font-size: 15px;
@@ -328,6 +338,85 @@ nav {
         margin-bottom: 20px;
     }
 
+/* ── 富文本內容自適應 (圖片/表格/影片) ── */
+.about-content img {
+    max-width: 100% !important;
+    height: auto !important;
+    display: block;
+    margin: 1.5em 0;
+}
+
+.about-content table {
+    display: block;
+    width: 100% !important;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border-collapse: collapse;
+    margin: 1.5em 0;
+}
+
+.about-content td,
+.about-content th {
+    padding: 8px 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    word-break: break-word;
+}
+
+.about-content iframe,
+.about-content video,
+.about-content embed,
+.about-content object {
+    max-width: 100% !important;
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 16/9;
+    display: block;
+    margin: 1.5em 0;
+}
+
+.about-content * {
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.about-content div,
+.about-content p,
+.about-content h1,
+.about-content h2,
+.about-content h3,
+.about-content h4,
+.about-content h5,
+.about-content h6 {
+    word-break: break-word;
+}
+
+.about-content ul,
+.about-content ol {
+    padding-left: 1.5em;
+    margin: 1em 0;
+}
+
+.about-content li {
+    word-break: break-word;
+}
+
+.about-content .alignleft,
+.about-content .alignright {
+    max-width: 50% !important;
+    height: auto;
+}
+
+@media (max-width: 768px) {
+    .about-content .alignleft,
+    .about-content .alignright {
+        float: none !important;
+        display: block;
+        margin: 1em auto !important;
+        max-width: 100% !important;
+    }
+}
+
+/* ── 原有模塊樣式 (value-cards, mission-block 等) ── */
 .about-img {
     width: 100%;
     aspect-ratio: 4/3;
@@ -337,7 +426,6 @@ nav {
     filter: brightness(0.9);
 }
 
-/* Value cards */
 .value-cards {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -374,7 +462,6 @@ nav {
         line-height: 1.7;
     }
 
-/* Mission blocks */
 .mission-block {
     margin-bottom: 48px;
     opacity: 0;
@@ -764,10 +851,7 @@ nav {
     margin-top: calc(88px + 30px) !important;
 }
 
-/* ─── RESPONSIVE (Mobile) ─── */
-/* 省略原有基础样式... (保留之前的 :root, nav, hero 等，只修改媒体查询部分) */
-
-/* ─── 媒体查询：平板与手机 ─── */
+/* ─── 響應式 (平板與手機) ─── */
 @media (max-width: 1024px) {
     .footer-top {
         grid-template-columns: 1fr 1fr;
@@ -775,17 +859,18 @@ nav {
 }
 
 @media (max-width: 768px) {
-    /* 基础防溢出 */
     html, body {
         max-width: 100%;
         overflow-x: hidden;
     }
+
     .about-content img,
     .mission-block img,
     .value-card img {
         max-width: 100% !important;
         height: auto !important;
     }
+
     nav {
         padding: 0 24px;
     }
@@ -821,10 +906,9 @@ nav {
         padding: 16px 24px;
     }
 
-    /* ★★★ 核心修复：确保主容器和侧边栏左右内边距一致且不溢出 ★★★ */
     .about-wrap {
-        display: block; /* 改为 block，避免 grid 额外影响 */
-        padding: 48px 20px; /* 统一左右内边距 20px */
+        display: block;
+        padding: 48px 20px;
         max-width: 100%;
         width: 100%;
         box-sizing: border-box;
@@ -832,19 +916,18 @@ nav {
 
     .about-content {
         width: 100%;
-        padding: 0; /* 内边距由父级 .about-wrap 统一提供，这里清零 */
+        padding: 0;
         box-sizing: border-box;
     }
 
     .sidebar {
         width: 100%;
-        padding: 0; /* 同上，内边距由父级提供 */
+        padding: 0;
         margin-top: 40px;
-        order: -1; /* 侧边栏显示在主内容上方（可选） */
+        order: -1;
         box-sizing: border-box;
     }
 
-    /* 侧边栏内部盒子也需要完整宽度 */
     .sidebar-box {
         width: 100%;
         padding: 28px;
@@ -852,7 +935,6 @@ nav {
         box-sizing: border-box;
     }
 
- 
     .value-cards {
         grid-template-columns: 1fr;
     }
@@ -873,9 +955,7 @@ nav {
     .page-hero {
         margin-top: calc(88px + 30px) !important;
     }
-}
 
-@media (max-width: 768px) {
     .lang-bar {
         padding: 0 24px;
     }

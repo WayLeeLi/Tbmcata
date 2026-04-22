@@ -29,6 +29,10 @@ namespace Academy.Models
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            modelBuilder.Entity<News>()
+                .HasRequired(n => n.Category)
+                .WithMany()
+                .HasForeignKey(n => n.CataID);
         }
 
         public MyDbContext()

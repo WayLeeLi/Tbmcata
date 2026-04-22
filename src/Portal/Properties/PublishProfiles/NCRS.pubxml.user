@@ -9,7 +9,7 @@
     <LastUsedPlatform>Any CPU</LastUsedPlatform>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
     <_PublishTargetUrl>E:\mine\publish</_PublishTargetUrl>
-    <History>True|2026-04-20T05:06:10.3499724Z||;True|2026-04-20T11:28:02.4311968+08:00||;True|2026-04-20T11:11:14.9634903+08:00||;True|2026-04-19T21:56:19.4430234+08:00||;True|2026-04-18T23:30:51.9198152+08:00||;True|2026-04-13T22:43:15.7636415+08:00||;True|2026-04-13T15:19:23.7067271+08:00||;True|2026-04-13T15:17:54.5920147+08:00||;True|2026-04-13T12:26:07.9944687+08:00||;True|2026-04-13T11:27:23.7822714+08:00||;True|2026-04-13T10:14:20.0323587+08:00||;True|2026-04-11T16:58:33.7760408+08:00||;True|2026-04-10T16:27:27.2950864+08:00||;True|2026-03-18T10:38:52.6153994+08:00||;True|2026-03-16T18:23:57.7695908+08:00||;False|2026-03-16T18:23:29.6319774+08:00||;False|2026-03-16T18:23:07.4676349+08:00||;False|2026-03-16T18:22:15.5953615+08:00||;False|2026-03-16T18:16:01.8858832+08:00||;False|2026-03-16T18:15:05.1831783+08:00||;False|2026-03-16T18:14:05.7809083+08:00||;False|2026-03-16T18:13:11.2052083+08:00||;False|2026-03-16T18:11:47.9816902+08:00||;False|2026-03-16T18:09:53.9056903+08:00||;False|2026-03-16T18:09:28.8183758+08:00||;False|2026-03-16T17:51:39.3342080+08:00||;</History>
+    <History>True|2026-04-22T04:58:50.8989230Z||;True|2026-04-22T12:38:54.4037051+08:00||;True|2026-04-21T15:01:58.6318586+08:00||;True|2026-04-20T13:06:10.3499724+08:00||;True|2026-04-20T11:28:02.4311968+08:00||;True|2026-04-20T11:11:14.9634903+08:00||;True|2026-04-19T21:56:19.4430234+08:00||;True|2026-04-18T23:30:51.9198152+08:00||;True|2026-04-13T22:43:15.7636415+08:00||;True|2026-04-13T15:19:23.7067271+08:00||;True|2026-04-13T15:17:54.5920147+08:00||;True|2026-04-13T12:26:07.9944687+08:00||;True|2026-04-13T11:27:23.7822714+08:00||;True|2026-04-13T10:14:20.0323587+08:00||;True|2026-04-11T16:58:33.7760408+08:00||;True|2026-04-10T16:27:27.2950864+08:00||;True|2026-03-18T10:38:52.6153994+08:00||;True|2026-03-16T18:23:57.7695908+08:00||;False|2026-03-16T18:23:29.6319774+08:00||;False|2026-03-16T18:23:07.4676349+08:00||;False|2026-03-16T18:22:15.5953615+08:00||;False|2026-03-16T18:16:01.8858832+08:00||;False|2026-03-16T18:15:05.1831783+08:00||;False|2026-03-16T18:14:05.7809083+08:00||;False|2026-03-16T18:13:11.2052083+08:00||;False|2026-03-16T18:11:47.9816902+08:00||;False|2026-03-16T18:09:53.9056903+08:00||;False|2026-03-16T18:09:28.8183758+08:00||;False|2026-03-16T17:51:39.3342080+08:00||;</History>
     <LastFailureDetails />
   </PropertyGroup>
   <ItemGroup>
@@ -125,7 +125,7 @@
       <publishTime>04/09/2026 09:56:46</publishTime>
     </File>
     <File Include="Areas/Sysmgr/Views/NoteBook/Edit.cshtml">
-      <publishTime>04/18/2026 23:28:02</publishTime>
+      <publishTime>04/21/2026 14:58:05</publishTime>
     </File>
     <File Include="Areas/Sysmgr/Views/NoteBook/Index.cshtml">
       <publishTime>04/18/2026 22:40:24</publishTime>
@@ -164,13 +164,13 @@
       <publishTime>04/27/2016 07:24:10</publishTime>
     </File>
     <File Include="Areas/Sysmgr/Views/QuickQuote/Edit.cshtml">
-      <publishTime>04/18/2026 23:27:42</publishTime>
+      <publishTime>04/21/2026 14:50:36</publishTime>
     </File>
     <File Include="Areas/Sysmgr/Views/QuickQuote/Index.cshtml">
       <publishTime>04/18/2026 22:40:03</publishTime>
     </File>
     <File Include="Areas/Sysmgr/Views/Quote/Edit.cshtml">
-      <publishTime>04/18/2026 23:24:35</publishTime>
+      <publishTime>04/21/2026 14:31:02</publishTime>
     </File>
     <File Include="Areas/Sysmgr/Views/Quote/Index.cshtml">
       <publishTime>04/18/2026 22:53:26</publishTime>
@@ -218,10 +218,10 @@
       <publishTime>04/09/2026 09:56:46</publishTime>
     </File>
     <File Include="bin/Academy.dll">
-      <publishTime>04/20/2026 13:40:15</publishTime>
+      <publishTime>04/22/2026 12:58:37</publishTime>
     </File>
     <File Include="bin/Academy.pdb">
-      <publishTime>04/20/2026 13:40:15</publishTime>
+      <publishTime>04/22/2026 12:58:37</publishTime>
     </File>
     <File Include="bin/Antlr3.Runtime.dll">
       <publishTime>04/09/2026 09:56:51</publishTime>
@@ -452,7 +452,7 @@
       <publishTime>04/09/2026 09:56:46</publishTime>
     </File>
     <File Include="css/about.css">
-      <publishTime>04/20/2026 11:47:51</publishTime>
+      <publishTime>04/21/2026 16:33:53</publishTime>
     </File>
     <File Include="css/contact.css">
       <publishTime>04/13/2026 10:22:50</publishTime>
@@ -461,7 +461,7 @@
       <publishTime>04/20/2026 12:00:10</publishTime>
     </File>
     <File Include="css/news-detail.css">
-      <publishTime>04/20/2026 12:09:44</publishTime>
+      <publishTime>04/22/2026 12:57:59</publishTime>
     </File>
     <File Include="css/news.css">
       <publishTime>04/20/2026 12:56:29</publishTime>
@@ -944,7 +944,7 @@
       <publishTime>04/11/2026 16:15:45</publishTime>
     </File>
     <File Include="js/contact.js">
-      <publishTime>04/13/2026 12:17:17</publishTime>
+      <publishTime>04/20/2026 22:41:59</publishTime>
     </File>
     <File Include="js/flexslider.css">
       <publishTime>04/09/2026 09:56:49</publishTime>
@@ -965,7 +965,7 @@
       <publishTime>04/20/2026 12:10:15</publishTime>
     </File>
     <File Include="js/news.js">
-      <publishTime>04/20/2026 12:46:34</publishTime>
+      <publishTime>04/22/2026 12:24:40</publishTime>
     </File>
     <File Include="js/product.js">
       <publishTime>04/20/2026 10:36:19</publishTime>
@@ -4180,6 +4180,111 @@
     <File Include="UploadHandler.ashx">
       <publishTime>04/09/2026 09:56:49</publishTime>
     </File>
+    <File Include="Views-en/About/Calendar.cshtml">
+      <publishTime>04/20/2026 23:07:24</publishTime>
+    </File>
+    <File Include="Views-en/About/Chairman.cshtml">
+      <publishTime>04/20/2026 23:30:26</publishTime>
+    </File>
+    <File Include="Views-en/About/Constitution.cshtml">
+      <publishTime>04/20/2026 23:07:24</publishTime>
+    </File>
+    <File Include="Views-en/About/Contact.cshtml">
+      <publishTime>04/20/2026 23:07:24</publishTime>
+    </File>
+    <File Include="Views-en/About/Download.cshtml">
+      <publishTime>04/20/2026 23:07:24</publishTime>
+    </File>
+    <File Include="Views-en/About/Index.cshtml">
+      <publishTime>04/20/2026 23:29:27</publishTime>
+    </File>
+    <File Include="Views-en/About/Info.cshtml">
+      <publishTime>04/20/2026 23:07:24</publishTime>
+    </File>
+    <File Include="Views-en/About/Link.cshtml">
+      <publishTime>04/20/2026 23:07:24</publishTime>
+    </File>
+    <File Include="Views-en/About/Member.cshtml">
+      <publishTime>04/20/2026 23:31:11</publishTime>
+    </File>
+    <File Include="Views-en/Contact/Index.cshtml">
+      <publishTime>04/20/2026 23:34:19</publishTime>
+    </File>
+    <File Include="Views-en/Home/Index-bk.cshtml">
+      <publishTime>04/20/2026 23:07:24</publishTime>
+    </File>
+    <File Include="Views-en/Home/Index.cshtml">
+      <publishTime>04/20/2026 23:10:40</publishTime>
+    </File>
+    <File Include="Views-en/Home/Result.cshtml">
+      <publishTime>04/20/2026 23:07:24</publishTime>
+    </File>
+    <File Include="Views-en/Home/Search.cshtml">
+      <publishTime>04/20/2026 23:07:24</publishTime>
+    </File>
+    <File Include="Views-en/Info/Detail.cshtml">
+      <publishTime>04/20/2026 23:07:24</publishTime>
+    </File>
+    <File Include="Views-en/Info/Index.cshtml">
+      <publishTime>04/20/2026 23:07:24</publishTime>
+    </File>
+    <File Include="Views-en/Member/Detail.cshtml">
+      <publishTime>04/20/2026 23:07:24</publishTime>
+    </File>
+    <File Include="Views-en/Member/Index.cshtml">
+      <publishTime>04/20/2026 23:07:24</publishTime>
+    </File>
+    <File Include="Views-en/Member/Join.cshtml">
+      <publishTime>04/20/2026 23:07:24</publishTime>
+    </File>
+    <File Include="Views-en/Member/ProductDetail.cshtml">
+      <publishTime>04/20/2026 23:07:24</publishTime>
+    </File>
+    <File Include="Views-en/News/Detail.cshtml">
+      <publishTime>04/20/2026 23:33:18</publishTime>
+    </File>
+    <File Include="Views-en/News/Index.cshtml">
+      <publishTime>04/20/2026 23:32:21</publishTime>
+    </File>
+    <File Include="Views-en/News/IndexActive.cshtml">
+      <publishTime>04/20/2026 23:07:24</publishTime>
+    </File>
+    <File Include="Views-en/News/IndexIndustry.cshtml">
+      <publishTime>04/20/2026 23:07:24</publishTime>
+    </File>
+    <File Include="Views-en/News/IndexNotice.cshtml">
+      <publishTime>04/20/2026 23:07:24</publishTime>
+    </File>
+    <File Include="Views-en/News/IndexPhoto.cshtml">
+      <publishTime>04/20/2026 23:07:24</publishTime>
+    </File>
+    <File Include="Views-en/News/IndexVideo.cshtml">
+      <publishTime>04/20/2026 23:07:24</publishTime>
+    </File>
+    <File Include="Views-en/Product/Index.cshtml">
+      <publishTime>04/20/2026 23:21:56</publishTime>
+    </File>
+    <File Include="Views-en/Quote/Index.cshtml">
+      <publishTime>04/20/2026 23:36:57</publishTime>
+    </File>
+    <File Include="Views-en/Service/index.cshtml">
+      <publishTime>04/20/2026 23:17:57</publishTime>
+    </File>
+    <File Include="Views-en/Service/Info.cshtml">
+      <publishTime>04/20/2026 23:20:36</publishTime>
+    </File>
+    <File Include="Views-en/Shared/Error.cshtml">
+      <publishTime>04/20/2026 23:07:24</publishTime>
+    </File>
+    <File Include="Views-en/Shared/_Layout.cshtml">
+      <publishTime>04/21/2026 16:54:21</publishTime>
+    </File>
+    <File Include="Views-en/Web.config">
+      <publishTime>04/20/2026 23:07:24</publishTime>
+    </File>
+    <File Include="Views-en/_ViewStart.cshtml">
+      <publishTime>04/20/2026 23:07:24</publishTime>
+    </File>
     <File Include="Views/About/Calendar.cshtml">
       <publishTime>04/09/2026 09:56:49</publishTime>
     </File>
@@ -4241,7 +4346,7 @@
       <publishTime>04/21/2016 11:03:43</publishTime>
     </File>
     <File Include="Views/Contact/Index.cshtml">
-      <publishTime>04/13/2026 12:19:51</publishTime>
+      <publishTime>04/20/2026 22:49:22</publishTime>
     </File>
     <File Include="Views/Content/Create.cshtml">
       <publishTime>01/16/2016 12:00:45</publishTime>
@@ -4286,10 +4391,10 @@
       <publishTime>04/09/2026 09:56:49</publishTime>
     </File>
     <File Include="Views/News/Detail.cshtml">
-      <publishTime>04/20/2026 13:30:50</publishTime>
+      <publishTime>04/22/2026 12:55:16</publishTime>
     </File>
     <File Include="Views/News/Index.cshtml">
-      <publishTime>04/20/2026 12:59:42</publishTime>
+      <publishTime>04/22/2026 12:24:18</publishTime>
     </File>
     <File Include="Views/News/IndexActive.cshtml">
       <publishTime>04/09/2026 09:56:49</publishTime>
@@ -4334,7 +4439,7 @@
       <publishTime>04/09/2026 09:56:49</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>04/13/2026 15:41:30</publishTime>
+      <publishTime>04/21/2026 16:54:31</publishTime>
     </File>
     <File Include="Views/Shared/_LayoutWeb.cshtml">
       <publishTime>09/22/2015 07:49:51</publishTime>

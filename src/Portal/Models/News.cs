@@ -63,5 +63,7 @@ namespace Academy.Models
         public Nullable<System.DateTime> LDate { get; set; }
 
         public int Menu { get; set; } = 0;
+
+        public virtual Category Category { get; set; }
     }
 }

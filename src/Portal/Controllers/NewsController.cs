@@ -144,23 +144,31 @@ namespace Academy.Controllers
         {
             // 获取当前新闻
             var news = db.Newss
+                .Include("Category")   // 或者 .Include(n => n.Category)
                 .FirstOrDefault(n => n.ID == id && n.Status == 1 && n.Menu == 5);
             if (news == null)
                 return RedirectToAction("Index");
 
-            // 获取上一篇、下一篇
+            // 获取分类名称（可通过 news.Category.Name 访问，或存入 ViewBag）
+            ViewBag.CategoryName = news.Category?.Name;
+
+            int currentCataId = news.CataID;
+
+            // 获取同一分类下的上一篇（比当前新闻时间更早且最近的一条）
             var prevNews = db.Newss
-                .Where(n => n.Status == 1 && n.Menu == 5 && n.CDate < news.CDate)
+                .Where(n => n.Status == 1 && n.Menu == 5 && n.CataID == currentCataId && n.CDate < news.CDate)
                 .OrderByDescending(n => n.CDate)
                 .FirstOrDefault();
+
+            // 获取同一分类下的下一篇
             var nextNews = db.Newss
-                .Where(n => n.Status == 1 && n.Menu == 5 && n.CDate > news.CDate)
+                .Where(n => n.Status == 1 && n.Menu == 5 && n.CataID == currentCataId && n.CDate > news.CDate)
                 .OrderBy(n => n.CDate)
                 .FirstOrDefault();
 
-            // 获取侧边栏新闻列表（先查询到内存，再格式化）
+            // 获取同一分类下的侧边栏新闻列表
             var rawList = db.Newss
-                .Where(n => n.Status == 1 && n.Menu == 5)
+                .Where(n => n.Status == 1 && n.Menu == 5 && n.CataID == currentCataId)
                 .OrderByDescending(n => n.CDate)
                 .Select(n => new {
                     n.ID,

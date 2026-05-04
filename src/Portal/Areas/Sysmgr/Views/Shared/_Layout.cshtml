@@ -206,11 +206,12 @@
                     <li class="mainLink">
                         <span class="icon-files">聯絡我們</span>
                         <ul>
-                            <li><a href="/Sysmgr/Setting/Contact?menu=6&amp;sub=2">聯絡我們</a></li>
+                            @*<li><a href="/Sysmgr/Setting/Contact?menu=6&amp;sub=1">聯絡我們</a></li>*@
+                            <li><a href="/Sysmgr/ContactConfig/Edit?menu=6&amp;sub=1">聯絡我們</a></li>
                         </ul>
                     </li>
                 }
-                @if (ViewBag.LoginUser != null && (((Academy.Models.User)ViewBag.LoginUser).IsSuper == 1 || ((Academy.Models.User)ViewBag.LoginUser).Auths.Contains("600")))
+                @if (ViewBag.LoginUser != null && (((Academy.Models.User)ViewBag.LoginUser).IsSuper == 1 || ((Academy.Models.User)ViewBag.LoginUser).Auths.Contains("700")))
         {
             <li class="mainLink">
                 <span class="icon-mail-1">其他訊息</span>

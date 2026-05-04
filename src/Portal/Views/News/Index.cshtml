@@ -4,6 +4,33 @@
 
 @section Styles {
     <link href="/css/news.css" rel="stylesheet" />
+    <style>
+        /* 保留所有链接的可点击性，但隐藏大部分链接的默认样式 */
+        .news-featured a:not(.more-link),
+        .news-card a:not(.more-link) {
+            text-decoration: none !important;
+            color: inherit !important;
+            background-color: transparent !important;
+            cursor: pointer; /* 保留手形图标，表明可点击（或不保留可改为 default） */
+        }
+            /* 如果需要完全看不出是链接，可将 cursor 设为 default */
+            .news-featured a:not(.more-link):hover,
+            .news-card a:not(.more-link):hover {
+                text-decoration: none !important;
+                color: inherit !important;
+                background-color: transparent !important;
+            }
+        /* “阅读更多”链接保留正常链接样式 */
+        .more-link {
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+            .more-link:hover {
+                text-decoration: underline;
+                opacity: 0.8;
+            }
+    </style>
 }
 
 @section Scripts {
@@ -30,7 +57,7 @@
     <span style="color:#fff" id="bcText">@(ViewBag.CurrentCategoryName ?? "新聞消息")</span>
 </div>
 
-<!-- TAB NAV - 从后端数据绑定 -->
+<!-- TAB NAV -->
 <div class="tab-nav">
     <a href="@Url.Action("Index", "News")" class="tab-btn @(ViewBag.CurrentCategoryId == 0 ? "active" : "")">全部新聞</a>
     @if (ViewBag.CategoryList != null)
@@ -53,19 +80,22 @@
     {
         var newsList = ViewBag.NewsList as List<Academy.Models.News> ?? new List<Academy.Models.News>();
         var featured = newsList.FirstOrDefault();
-        
+
         <div class="news-wrap">
             @if (featured != null)
             {
                 <div class="news-featured">
                     <div class="news-featured-img">
-                        <img src="@(featured.ImagePath ?? featured.ImagePath)" alt="@featured.Title" loading="lazy">
+                        <a href="@Url.Action("Detail", "News", new { id = featured.ID })"><img src="@(featured.ImagePath ?? featured.ImagePath)" alt="@featured.Title" loading="lazy"></a>
                     </div>
                     <div class="news-featured-body">
-                        <div class="news-featured-tag">@(featured.Title ?? "")</div>
-                        <div class="news-featured-date">@(featured.CDate)</div>
-                        <p class="news-featured-text">@featured.Note</p>
-                        <a href="@Url.Action("Detail", "News", new { id = featured.ID })" class="news-read-more" >閱讀更多 →</a>
+                        <a href="@Url.Action("Detail", "News", new { id = featured.ID })" class="news-featured-tag">
+                            @featured.Title
+                        </a>
+                        <a href="@Url.Action("Detail", "News", new { id = featured.ID })">
+                            <p class="news-featured-text">@featured.Note</p>
+                        </a>
+                        <a href="@Url.Action("Detail", "News", new { id = featured.ID })" class="more-link">閱讀更多 →</a>
                     </div>
                 </div>
             }
@@ -78,13 +108,16 @@
                         var item = newsList[i];
                         <div class="news-card">
                             <div class="news-card-img">
-                                <img src="@(item.ImagePath ?? item.ImagePath)" alt="@item.Title" loading="lazy">
+                                <a href="@Url.Action("Detail", "News", new { id = item.ID })"><img src="@(item.ImagePath ?? item.ImagePath)" alt="@item.Title" loading="lazy"></a>
                             </div>
                             <div class="news-card-body">
-                                <div class="news-card-tag">@(item.Title ?? "")</div>
-                                <div class="news-card-date">@(item.CDate)</div>
-                                <p class="news-card-text">@item.Note</p>
-                                <a href="@Url.Action("Detail", "News", new { id = item.ID })">閱讀更多 →</a>
+                                <a href="@Url.Action("Detail", "News", new { id = item.ID })" class="news-card-tag">
+                                    @item.Title
+                                </a>
+                                <a href="@Url.Action("Detail", "News", new { id = item.ID })">
+                                    <p class="news-card-text">@item.Note</p>
+                                </a>
+                                <a href="@Url.Action("Detail", "News", new { id = item.ID })" class="more-link">閱讀更多 →</a>
                             </div>
                         </div>
                     }

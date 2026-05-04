@@ -193,7 +193,25 @@ namespace Academy.Controllers
             ViewBag.NextNews = nextNews;
             ViewBag.SidebarNewsList = sidebarNews;
 
+            // 從 DictSets 讀取各項設定
+            ViewBag.Address = GetDictValue("Contact_Address");
+            ViewBag.Phone = GetDictValue("Contact_Phone");
+            ViewBag.Email = GetDictValue("Contact_Email");
+            ViewBag.Fax = GetDictValue("Contact_Fax");
+            ViewBag.MapLongitude = GetDictValue("Contact_MapLongitude");
+            ViewBag.MapLatitude = GetDictValue("Contact_MapLatitude");
+            ViewBag.OnlineBookingText = GetDictValue("Contact_OnlineBookingText");
+            ViewBag.BookingInquiry = GetDictValue("Contact_BookingInquiry");
+            ViewBag.BusinessHours = GetDictValue("Contact_BusinessHours");
+            ViewBag.TrafficGuide = GetDictValue("Contact_TrafficGuide");
+            ViewBag.MapUrl = GetDictValue("Contact_MapUrl");
+
             return View(news);
+        }
+        private string GetDictValue(string code)
+        {
+            var dict = db.DictSets.FirstOrDefault(d => d.Code == code);
+            return dict?.Value ?? "";
         }
 
         // 获取侧边栏新闻列表（AJAX）

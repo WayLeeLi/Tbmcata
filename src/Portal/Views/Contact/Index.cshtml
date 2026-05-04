@@ -28,8 +28,49 @@
 
 <div class="contact-wrap">
     <div class="contact-left">
-        @if (Model != null)
-        {@Html.Raw(Model.Value)}
+        <!-- 3 Info Cards -->
+        <div class="info-cards">
+            <div class="info-card">
+                <div class="info-card-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" /><circle cx="12" cy="10" r="3" /></svg>
+                </div>
+                <h4>公司地址</h4>
+                <p>@ViewBag.Address</p>
+            </div>
+            <div class="info-card">
+                <div class="info-card-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.69 12 19.79 19.79 0 011.62 3.38 2 2 0 013.6 1.21h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.91 8.91a16 16 0 006.16 6.16l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" /></svg>
+                </div>
+                <h4>電話 / 傳真</h4>
+                <p>TEL：<a href="tel:033582500">@ViewBag.Phone</a><br>FAX：@ViewBag.Fax</p>
+            </div>
+            <div class="info-card">
+                <div class="info-card-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" /><polyline points="22,6 12,13 2,6" /></svg>
+                </div>
+                <h4>電子信箱</h4>
+                <p>@ViewBag.Email</p>
+            </div>
+        </div>
+
+        <!-- Map -->
+        <div class="map-section">
+            <div class="map-label">公司位置</div>
+            <h3>地圖導覽</h3>
+            <div class="map-frame">
+                <iframe src="@ViewBag.MapUrl" style="border:0;width:100%;height:100%;min-height:420px;display:block;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="智匯創新股份有限公司位置"></iframe>
+            </div>
+        </div>
+
+        <!-- Route -->
+        <div class="route-box">
+            <h4>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M12 3l9 9-9 9" /></svg>
+                駕車前往
+            </h4>
+            @Html.Raw(ViewBag.TrafficGuide)
+        </div>
+
     </div>
 
     <div class="contact-right">
@@ -81,7 +122,7 @@
             </div>
 
             <button type="submit" class="form-submit">送出訊息</button>
-            <p class="form-note">* 為必填欄位。我們將在 1–2 個工作日內與您聯繫。<br>您也可以直接來信：<a href="mailto:service@g-wise.com" style="color:var(--green)">service@g-wise.com</a></p>
+            <p class="form-note">* 為必填欄位。我們將在 1–2 個工作日內與您聯繫。<br>您也可以直接來信：@ViewBag.Email</p>
         </form>
 
         <div class="form-success" id="formSuccess" style="display:none;">

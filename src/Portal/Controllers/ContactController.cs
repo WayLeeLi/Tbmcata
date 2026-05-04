@@ -24,6 +24,19 @@ namespace Academy.Controllers
                 .OrderBy(c => c.SortOrder)
                 .ToList();
 
+            // 從 DictSets 讀取各項設定
+            ViewBag.Address = GetDictValue("Contact_Address");
+            ViewBag.Phone = GetDictValue("Contact_Phone");
+            ViewBag.Email = GetDictValue("Contact_Email");
+            ViewBag.Fax = GetDictValue("Contact_Fax");
+            ViewBag.MapLongitude = GetDictValue("Contact_MapLongitude");
+            ViewBag.MapLatitude = GetDictValue("Contact_MapLatitude");
+            ViewBag.OnlineBookingText = GetDictValue("Contact_OnlineBookingText");
+            ViewBag.BookingInquiry = GetDictValue("Contact_BookingInquiry");
+            ViewBag.BusinessHours = GetDictValue("Contact_BusinessHours");
+            ViewBag.TrafficGuide = GetDictValue("Contact_TrafficGuide");
+            ViewBag.MapUrl = GetDictValue("Contact_MapUrl");
+
             var model = db.DictSets.FirstOrDefault(a => a.Code == "SettingContact");
             return View(model);
         }
@@ -89,6 +102,12 @@ namespace Academy.Controllers
             {
                 return Json(new { success = false, msg = "系統錯誤：" + ex.Message });
             }
+        }
+
+        private string GetDictValue(string code)
+        {
+            var dict = db.DictSets.FirstOrDefault(d => d.Code == code);
+            return dict?.Value ?? "";
         }
     }
 }

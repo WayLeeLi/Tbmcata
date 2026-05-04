@@ -1,0 +1,100 @@
+﻿@model Academy.ViewModels.ContactConfigViewModel
+@{
+    Layout = "~/Areas/Sysmgr/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "聯絡我們配置";
+}
+
+@section Scripts {
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript" src="~/Scripts/ckfinder/ckfinder.js"></script>
+    <script>
+        $(function () {
+            if (typeof CKEDITOR !== 'undefined') {
+                var editorBooking = CKEDITOR.replace('BookingInquiry');
+                CKFinder.setupCKEditor(editorBooking, '/Scripts/ckfinder/');
+                var editorTraffic = CKEDITOR.replace('TrafficGuide');
+                CKFinder.setupCKEditor(editorTraffic, '/Scripts/ckfinder/');
+                var editorBusiness = CKEDITOR.replace('BusinessHours');
+                CKFinder.setupCKEditor(editorBusiness, '/Scripts/ckfinder/');
+            }
+        });
+    </script>
+}
+
+<article class="contentArea" id="content">
+    @using (Html.BeginForm("Edit", "ContactConfig", FormMethod.Post, new { id = "formcontent" }))
+    {
+        <h1>
+            聯絡我們配置<span class="tip">
+                <section class="tipBox">
+                    <span>&nbsp;</span>
+                    <ul>
+                        <li>此頁面設定前台「聯絡我們」區塊顯示的所有資訊。</li>
+                        <li>若欄位為空白，前台將不顯示該項目。</li>
+                        <li>經度/緯度格式：小數點後六位（例如 121.449, 25.034）。</li>
+                    </ul>
+                </section>
+            </span>
+        </h1>
+
+        if (TempData["SuccessMsg"] != null)
+        {
+            <div class="successMsg">@TempData["SuccessMsg"]</div>
+        }
+
+        <section class="detailGroup">
+            <h3>基本聯絡資訊</h3>
+            <ul>
+                <li>
+                    <p class="title">地址 :</p>
+                    @Html.TextBoxFor(m => m.Address, new { @class = "text-input long", maxlength = "500" })
+                </li>
+                <li>
+                    <p class="title">電話 :</p>
+                    @Html.TextBoxFor(m => m.Phone, new { @class = "text-input medium", maxlength = "100" })
+                </li>
+                <li>
+                    <p class="title">電子信箱 :</p>
+                    @Html.TextBoxFor(m => m.Email, new { @class = "text-input medium", maxlength = "200" })
+                </li>
+                <li>
+                    <p class="title">傳真 :</p>
+                    @Html.TextBoxFor(m => m.Fax, new { @class = "text-input medium", maxlength = "100" })
+                </li>
+                <li>
+                    <p class="title">地圖嵌入網址 :</p>
+                    @Html.TextBoxFor(m => m.MapUrl, new { @class = "text-input long", maxlength = "1000", placeholder = "https://www.google.com/maps/embed?..." })
+                    <mark class="mark">(請貼上 Google Maps 的「嵌入地圖」完整網址，例如 https://maps.google.com/...&output=embed)</mark>
+                </li>
+            </ul>
+        </section>
+
+        <section class="detailGroup">
+            <h3>詳細文字內容（支援HTML）</h3>
+            <ul>
+                <li>
+                    <p class="title">營業時間 :</p>
+                    @Html.TextAreaFor(m => m.BusinessHours, new { @class = "ckeditor", rows = 6, cols = 80 })
+                </li>
+                <li>
+                    <p class="title">交通指引 :</p>
+                    @Html.TextAreaFor(m => m.TrafficGuide, new { @class = "ckeditor", rows = 10, cols = 80 })
+                </li>
+            </ul>
+        </section>
+
+        <section class="openArea">
+            <span class="open" title="開啟執行列">開啟執行列</span>
+        </section>
+        <section class="functionArea">
+            <span class="close" title="關閉執行列">關閉執行列</span>
+            <span class="close" title="關閉執行列" id="closeShort"></span>
+            <div>
+                <input name="按鈕" type="button" class="btnBack" value="x 回上一頁" onclick="history.back();">
+                <input name="送出" type="submit" class="btnAdd" value="B 確定儲存">
+            </div>
+        </section>
+    }
+</article>

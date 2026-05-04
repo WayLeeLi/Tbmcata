@@ -309,6 +309,7 @@
     <Content Include="Images\web\mobilead_7622_6972958_22473.png" />
     <Content Include="Images\web\mobilead_8133_733504_67059.jpg" />
     <Content Include="Images\web\mobilead_8134_9323453_12992.jpg" />
+    <Content Include="Images\web\qr-code.jpg" />
     <Content Include="Images\web\search.png" />
     <Content Include="Images\web\top.png" />
     <Content Include="js\about.js" />
@@ -1267,9 +1268,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="UploadHandler.ashx" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Home\Index-bk.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\News\Index.cshtml" />

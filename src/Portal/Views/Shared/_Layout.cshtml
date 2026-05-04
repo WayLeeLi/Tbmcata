@@ -18,6 +18,96 @@
     <link href="~/css/index.css" rel="stylesheet" />
 
     @RenderSection("Styles", required: false)
+
+    <style>
+        /* ========== 模态框样式 ========== */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            overflow: auto;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 10% auto;
+            padding: 20px 20px 30px;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 360px;
+            text-align: center;
+            position: relative;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        .modal-header {
+            margin-bottom: 15px;
+        }
+
+            .modal-header h2 {
+                font-size: 1.5rem;
+                margin: 0;
+                color: #333;
+            }
+
+        .close {
+            position: absolute;
+            right: 18px;
+            top: 12px;
+            font-size: 28px;
+            font-weight: bold;
+            color: #aaa;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+            .close:hover {
+                color: #000;
+            }
+
+        .modal-body p {
+            margin: 12px 0;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .modal-body a {
+            color: #c00;
+            text-decoration: none;
+        }
+
+            .modal-body a:hover {
+                text-decoration: underline;
+            }
+
+        #qrcode-container {
+            display: flex;
+            justify-content: center;
+            margin: 15px 0;
+        }
+
+            #qrcode-container img {
+                max-width: 200px;
+                height: auto;
+            }
+
+        @@keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
 </head>
 <body>
 
@@ -62,11 +152,13 @@
     <main>
         @RenderBody()
     </main>
+
     <!-- CTA BAR -->
     <div class="cta-bar">
         <div class="cta-title">有設計需求？<br>歡迎與我們聯繫合作</div>
         <a href="@Url.Action("Index", "Quote")" class="btn-white">立即詢價 →</a>
     </div>
+
     <!-- FOOTER -->
     <footer>
         <div class="footer-top">
@@ -123,13 +215,16 @@
         </div>
     </footer>
 
-    <!-- FLOATING BUTTONS -->
+    <!-- ========== 浮動按鈕 + LINE 弹窗 ========== -->
     <div class="float-btns">
-        <a href="https://line.me/R/" target="_blank" class="float-btn float-line" title="LINE 聯繫我們">
+        <!-- LINE 按钮：点击弹出模态框，不跳转 -->
+        <a href="javascript:void(0);" onclick="openLineModal()" class="float-btn float-line" title="LINE 聯繫我們">
             <svg width="26" height="26" viewBox="0 0 48 48" fill="white">
-                <path d="M24 4C12.95 4 4 11.82 4 21.4c0 5.8 3.27 10.96 8.37 14.32-.37 1.38-1.35 4.97-1.54 5.74-.24.98.36 .96 .75 .7 .31-.21 4.96-3.27 6.97-4.6.79.11 1.6.17 2.45.17 11.05 0 20-7.82 20-17.4C44 11.82 35.05 4 24 4zm-6 22H14v-10h2v8h2v2zm4 0h-2V16h2v10zm10 0h-2l-4-6v6h-2V16h2l4 6v-6h2v10z" />
+                <path d="M24 4C12.95 4 4 11.82 4 21.4c0 5.8 3.27 10.96 8.37 14.32-.37 1.38-1.35 4.97-1.54 5.74-.24.98.36 .96 .75 .7.31-.21 4.96-3.27 6.97-4.6.79.11 1.6.17 2.45.17 11.05 0 20-7.82 20-17.4C44 11.82 35.05 4 24 4zm-6 22H14v-10h2v8h2v2zm4 0h-2V16h2v10zm10 0h-2l-4-6v6h-2V16h2l4 6v-6h2v10z" />
             </svg>
         </a>
+
+        <!-- 回到顶部按钮 -->
         <div class="float-btn float-top" id="backTop" style="opacity:0;pointer-events:none;" onclick="window.scrollTo({top:0,behavior:'smooth'});" title="回到頂部">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5">
                 <path d="M18 15l-6-6-6 6" />
@@ -137,14 +232,31 @@
         </div>
     </div>
 
-    <!-- Site Scripts -->
+    <!-- 模态框 (Modal) - 显示 LINE 二维码（图片请自行替换） -->
+    <div id="lineModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeLineModal()">&times;</span>
+            <div class="modal-header">
+                <h2>加入 LINE 好友</h2>
+            </div>
+            <div class="modal-body">
+                <p>請使用 LINE 掃描下方 QR Code 加入好友</p>
+                <!-- 二维码图片容器，请将您的图片路径替换到 src 中，或者直接放置 img 标签 -->
+                <div id="qrcode-container">
+                    <!-- 在这里放置您的二维码图片，例如： -->
+                    <img src="~/images/web/qr-code.jpg" alt="LINE QR Code" />
+                    <!-- 如果没有图片，可以留空注释，用户自行添加 -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== 全域 JavaScript ========== -->
     <script src="~/js/index.js"></script>
     <script>
-        // 导航高亮 - 根据当前 URL 设置 active 状态
+        // 导航高亮
         $(function () {
             var currentUrl = window.location.pathname;
-
-            // 定义菜单与 URL 的映射关系
             var navMap = {
                 'navHome': ['/Home', '/Home/Index'],
                 'navAbout': ['/About', '/About/Index', '/About/Info', '/About/Chairman', '/About/Member', '/About/Constitution', '/About/Calendar', '/About/Contact'],
@@ -153,8 +265,6 @@
                 'navNews': ['/News', '/News/Index'],
                 'navContact': ['/Home/Contact', '/Contact']
             };
-
-            // 遍历映射，设置 active 类
             for (var navId in navMap) {
                 var urls = navMap[navId];
                 for (var i = 0; i < urls.length; i++) {
@@ -164,8 +274,6 @@
                     }
                 }
             }
-
-            // 如果没有匹配到任何菜单，默认首页高亮
             if ($('.nav-links a.active').length === 0) {
                 $('#navHome').addClass('active');
             }
@@ -179,22 +287,51 @@
         // 回到顶部
         var btn = document.getElementById('backTop');
         if (btn) {
-            setInterval(function () {
-                var st = window.pageYOffset || document.documentElement.scrollTop || 0;
+            window.addEventListener('scroll', function () {
+                var st = window.pageYOffset || document.documentElement.scrollTop;
                 btn.style.opacity = st > 300 ? '1' : '0';
                 btn.style.pointerEvents = st > 300 ? 'auto' : 'none';
-            }, 300);
+            });
         }
 
         // Navbar 背景
         window.addEventListener('scroll', function () {
             var nav = document.getElementById('navbar');
-            var st = window.pageYOffset || 0;
             if (nav) {
-                nav.style.background = st > 50 ? 'rgba(17,17,17,0.98)' : 'rgba(17,17,17,0.95)';
+                nav.style.background = window.pageYOffset > 50 ? 'rgba(17,17,17,0.98)' : 'rgba(17,17,17,0.95)';
             }
         });
+
+        // ---------- LINE 弹窗 ----------
+        var modal = document.getElementById('lineModal');
+        var lineLink = document.getElementById('lineLink');
+        var lineInviteUrl = 'https://lin.ee/xxxxxxx'; // 请替换为您的真实 LINE 邀请连结
+
+        if (lineLink) {
+            lineLink.href = lineInviteUrl;
+            lineLink.innerText = lineInviteUrl;
+        }
+
+        window.openLineModal = function () {
+            if (!modal) return;
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        };
+
+        window.closeLineModal = function () {
+            if (modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = '';
+            }
+        };
+
+        window.onclick = function (event) {
+            if (event.target === modal) {
+                closeLineModal();
+            }
+        };
     </script>
+
     @RenderSection("Scripts", required: false)
 </body>
 </html>

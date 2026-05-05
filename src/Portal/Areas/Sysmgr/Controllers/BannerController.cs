@@ -15,18 +15,24 @@ namespace Academy.Areas.Sysmgr.Controllers
 {
     public class BannerController : BaseController
     {
-        //
-        // GET: /Sysmgr/Banner/
-
-        public ActionResult Index(int page = 1, string status = "", string ordery = "")
+        // GET: /Sysmgr/Banner/Index
+        public ActionResult Index(int page = 1, string status = "", string ordery = "", string menu = "")
         {
-            var data = from a in db.Banners select a;
+            var data = db.Banners.AsQueryable();
 
-            if (status != "")
+            // 按 menu 筛选（如果传入且能解析为整数）
+            if (!string.IsNullOrEmpty(menu) && int.TryParse(menu, out int menuValue))
             {
-                int nstatus = int.Parse(status);
+                data = data.Where(b => b.Menu == menuValue);
+            }
+
+            // 按状态筛选
+            if (!string.IsNullOrEmpty(status) && int.TryParse(status, out int nstatus))
+            {
                 data = data.Where(a => a.Status == nstatus);
             }
+
+            // 排序
             switch (ordery)
             {
                 case "timeasc":
@@ -47,36 +53,54 @@ namespace Academy.Areas.Sysmgr.Controllers
             }
 
             var pagedData = data.ToPagedList(pageNumber: page, pageSize: 12);
-
+            ViewBag.Menu = menu;   // 传递到视图，用于生成后续链接
             return View(pagedData);
         }
 
-        public ActionResult Add()
+        // GET: /Sysmgr/Banner/Add
+        public ActionResult Add(string menu = "")
         {
+            ViewBag.Menu = menu;
             return View();
         }
 
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult Add(Banner model, HttpPostedFileBase file)
+        public ActionResult Add(Banner model, HttpPostedFileBase file, string menu = "")
         {
-            if (file != null && file.FileName != null && file.FileName.LastIndexOf(".") > 0)
+            // 处理文件上传
+            if (file != null && file.FileName.LastIndexOf(".") > 0)
             {
-                string ext = file.FileName.Substring(file.FileName.LastIndexOf(".") + 1).ToLower();
-                if (ext != "jpg" && ext != "jpeg" && ext != "png" && ext != "gif" && ext != "bmp")
+                string ext = Path.GetExtension(file.FileName).ToLower().TrimStart('.');
+                string[] allowed = { "jpg", "jpeg", "png", "gif", "bmp" };
+                if (!allowed.Contains(ext))
                 {
-                    ModelState.AddModelError("", "請請選擇縮略圖(僅支持jpg|jpeg|png|gif|bmp格式)!");
+                    ModelState.AddModelError("", "請選擇縮略圖(僅支持jpg|jpeg|png|gif|bmp格式)!");
                 }
                 else
                 {
-                    var filePath = "/Upload/Home/" + DateTime.Now.ToString("yyyyMMddHHmmss") + file.FileName;
-                    file.SaveAs(Request.MapPath("~") + filePath);
-                    model.Photo = filePath;
+                    string fileName = DateTime.Now.ToString("yyyyMMddHHmmss") + "_" + Guid.NewGuid().ToString() + "." + ext;
+                    string virtualPath = "/Upload/Home/" + fileName;
+                    string physicalPath = Server.MapPath("~" + virtualPath);
+                    string dir = Path.GetDirectoryName(physicalPath);
+                    if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
+                    file.SaveAs(physicalPath);
+                    model.Photo = virtualPath;
                 }
             }
             else
             {
                 ModelState.AddModelError("", "請選擇電腦主圖!");
+            }
+
+            // 保存 menu 参数到数据库
+            if (!string.IsNullOrEmpty(menu) && int.TryParse(menu, out int menuValue))
+            {
+                model.Menu = menuValue;
+            }
+            else
+            {
+                model.Menu = 0;   // 默认值
             }
 
             if (ModelState.IsValid)
@@ -89,7 +113,7 @@ namespace Academy.Areas.Sysmgr.Controllers
                     db.Banners.Add(model);
                     db.SaveChanges();
 
-                    return RedirectToAction("Index", "Banner", new { success = true });
+                    return RedirectToAction("Index", new { menu = menu, success = true });
                 }
                 catch
                 {
@@ -103,70 +127,89 @@ namespace Academy.Areas.Sysmgr.Controllers
             }
         }
 
-        public ActionResult Edit(int id)
+        // GET: /Sysmgr/Banner/Edit
+        public ActionResult Edit(int id, string menu = "")
         {
-            Banner model = db.Banners.Where(p => p.ID == id).FirstOrDefault();
-            if (model != null)
+            Banner model = db.Banners.FirstOrDefault(p => p.ID == id);
+            if (model == null)
             {
-                return View(model);
+                return RedirectToAction("Index", new { menu = menu });
             }
-            else
-            {
-                return RedirectToAction("Index", "Banner");
-            }
+            ViewBag.Menu = menu;
+            return View(model);
         }
 
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult Edit(Banner model, HttpPostedFileBase file)
+        public ActionResult Edit(Banner model, HttpPostedFileBase file, string menu = "")
         {
-            bool hasFile = false;
-            if (file != null && file.FileName != null && file.FileName.LastIndexOf(".") > 0)
+            bool hasNewFile = false;
+            // 处理新文件上传
+            if (file != null && file.FileName.LastIndexOf(".") > 0)
             {
-                string ext = file.FileName.Substring(file.FileName.LastIndexOf(".") + 1).ToLower();
-                if (ext != "jpg" && ext != "jpeg" && ext != "png" && ext != "gif" && ext != "bmp")
+                string ext = Path.GetExtension(file.FileName).ToLower().TrimStart('.');
+                string[] allowed = { "jpg", "jpeg", "png", "gif", "bmp" };
+                if (!allowed.Contains(ext))
                 {
-                    ModelState.AddModelError("", "請請選擇縮略圖(僅支持jpg|jpeg|png|gif|bmp格式)!");
+                    ModelState.AddModelError("", "請選擇縮略圖(僅支持jpg|jpeg|png|gif|bmp格式)!");
                 }
                 else
                 {
-                    if (System.IO.File.Exists(model.Photo))
+                    // 删除旧文件（如果存在）
+                    var old = db.Banners.AsNoTracking().FirstOrDefault(b => b.ID == model.ID);
+                    if (old != null && !string.IsNullOrEmpty(old.Photo) && System.IO.File.Exists(Server.MapPath(old.Photo)))
                     {
-                        System.IO.File.Delete(model.Photo);
+                        System.IO.File.Delete(Server.MapPath(old.Photo));
                     }
-                    var filePath = "/Upload/Home/" + DateTime.Now.ToString("yyyyMMddHHmmss") + file.FileName;
-                    file.SaveAs(Request.MapPath("~") + filePath);
-                    model.Photo = filePath;
-                    hasFile = true;
+                    string fileName = DateTime.Now.ToString("yyyyMMddHHmmss") + "_" + Guid.NewGuid().ToString() + "." + ext;
+                    string virtualPath = "/Upload/Home/" + fileName;
+                    string physicalPath = Server.MapPath("~" + virtualPath);
+                    string dir = Path.GetDirectoryName(physicalPath);
+                    if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
+                    file.SaveAs(physicalPath);
+                    model.Photo = virtualPath;
+                    hasNewFile = true;
                 }
+            }
+
+            // 处理图片删除标记
+            bool needDelete = Request["delimg"] == "1";
+            if (needDelete && !hasNewFile)
+            {
+                var old = db.Banners.AsNoTracking().FirstOrDefault(b => b.ID == model.ID);
+                if (old != null && !string.IsNullOrEmpty(old.Photo) && System.IO.File.Exists(Server.MapPath(old.Photo)))
+                {
+                    System.IO.File.Delete(Server.MapPath(old.Photo));
+                }
+                model.Photo = null;
             }
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    var modelOld = db.Banners.Where(a => a.ID == model.ID).FirstOrDefault();
-                    if (modelOld != null)
+                    var oldEntity = db.Banners.AsNoTracking().FirstOrDefault(b => b.ID == model.ID);
+                    if (oldEntity == null) return HttpNotFound();
+
+                    // 保留不可变字段
+                    model.ReadCount = oldEntity.ReadCount;
+                    model.Sort = oldEntity.Sort;
+                    model.CUser = oldEntity.CUser;
+                    model.CDate = oldEntity.CDate;
+                    if (!hasNewFile && !needDelete)
                     {
-                        db.Entry(modelOld).State = System.Data.EntityState.Detached;
-                        model.ReadCount = modelOld.ReadCount;
-                        model.Sort = modelOld.Sort;
-                        model.CUser = modelOld.CUser;
-                        model.CDate = modelOld.CDate;
-                        if (!hasFile)
-                        {
-                            if (Request["delimg"] == "1")
-                            {
-                                model.Photo = modelOld.Photo;
-                            }
-                            else
-                            {
-                                if (System.IO.File.Exists(modelOld.Photo))
-                                {
-                                    System.IO.File.Delete(modelOld.Photo);
-                                }
-                            }
-                        }
+                        // 没有更新图片也没有删除，保留原图路径
+                        model.Photo = oldEntity.Photo;
+                    }
+
+                    // 更新 menu（来自请求参数）
+                    if (!string.IsNullOrEmpty(menu) && int.TryParse(menu, out int menuValue))
+                    {
+                        model.Menu = menuValue;
+                    }
+                    else
+                    {
+                        model.Menu = oldEntity.Menu; // 保留原值或设为0
                     }
 
                     model.LUser = this.LoginUser.ID;
@@ -175,12 +218,13 @@ namespace Academy.Areas.Sysmgr.Controllers
                     db.Entry(model).State = EntityState.Modified;
                     db.SaveChanges();
 
+                    // 处理返回地址
                     if (Session["ret"] != null)
                     {
                         Response.Redirect(Session["ret"].ToString());
                         return null;
                     }
-                    return RedirectToAction("Index", "Banner", new { success = true });
+                    return RedirectToAction("Index", new { menu = menu, success = true });
                 }
                 catch
                 {
@@ -202,24 +246,30 @@ namespace Academy.Areas.Sysmgr.Controllers
             {
                 int id = Convert.ToInt32(item["ID"].ToString());
                 int sort = Convert.ToInt32(item["Sort"].ToString());
-
-                var model = db.Banners.Where(a => a.ID == id).FirstOrDefault();
-                model.Sort = sort;
-
-                db.SaveChanges();
+                var model = db.Banners.FirstOrDefault(a => a.ID == id);
+                if (model != null)
+                {
+                    model.Sort = sort;
+                }
             }
-
+            db.SaveChanges();
             return Json(true);
         }
 
         [HttpPost]
         public ActionResult Delete(int id)
         {
-            var model = db.Banners.Where(a => a.ID == id).FirstOrDefault();
-
-            db.Banners.Remove(model);
-            db.SaveChanges();
-
+            var model = db.Banners.FirstOrDefault(a => a.ID == id);
+            if (model != null)
+            {
+                // 删除物理图片文件
+                if (!string.IsNullOrEmpty(model.Photo) && System.IO.File.Exists(Server.MapPath(model.Photo)))
+                {
+                    System.IO.File.Delete(Server.MapPath(model.Photo));
+                }
+                db.Banners.Remove(model);
+                db.SaveChanges();
+            }
             return Json(true);
         }
 
@@ -230,15 +280,18 @@ namespace Academy.Areas.Sysmgr.Controllers
             foreach (JObject item in dataItems)
             {
                 int id = Convert.ToInt32(item["ID"].ToString());
-
-                var model = db.Banners.Where(a => a.ID == id).FirstOrDefault();
-
-                db.Banners.Remove(model);
-                db.SaveChanges();
+                var model = db.Banners.FirstOrDefault(a => a.ID == id);
+                if (model != null)
+                {
+                    if (!string.IsNullOrEmpty(model.Photo) && System.IO.File.Exists(Server.MapPath(model.Photo)))
+                    {
+                        System.IO.File.Delete(Server.MapPath(model.Photo));
+                    }
+                    db.Banners.Remove(model);
+                }
             }
-
+            db.SaveChanges();
             return Json(true);
         }
-
     }
 }

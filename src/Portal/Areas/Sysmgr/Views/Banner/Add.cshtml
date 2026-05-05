@@ -2,24 +2,26 @@
 
 @{
     Layout = "~/Areas/Sysmgr/Views/Shared/_Layout.cshtml";
+    var menu = ViewBag.Menu ?? "";   // 从 ViewBag 获取
 }
 
 @section Scripts {
     <script>
         $(function () {
-            // binds form submission and fields to the validation engine
             $.validationEngine.defaults.scroll = false;
             $("#formcontent").validationEngine();
-
         });
     </script>
 }
 
-<!--主要內容-->
 <article class="contentArea" id="content">
     @using (Html.BeginForm("Add", "Banner", FormMethod.Post, new { id = "formcontent", enctype = "multipart/form-data" }))
-    {       
-        <h1>首頁管理<span>/ 新增輪播圖</span>
+    {
+        <!-- 隐藏字段：menu -->
+        <input type="hidden" name="menu" value="@menu" />
+
+        <h1>
+            首頁管理<span>/ 新增輪播圖</span>
             <span class="tip">
                 <section class="tipBox">
                     <span>&nbsp;</span>
@@ -67,11 +69,6 @@
                     <input type="file" name="file" class="validate[required] limmainBanner">
                     <mark class="mark">(寬1200px * 高600px)</mark>
                 </li>
-                @*<li>
-                    <p class="title">手機輪播圖上傳<span class="mark"> *</span> :</p>
-                    <input type="file" name="file2" class="validate[required]">
-                    <mark class="mark">(寬600px * 高700px)</mark>
-                </li>*@
             </ul>
         </section>
 
@@ -82,7 +79,6 @@
         <section class="functionArea">
             <span class="close" title="關閉執行列">關閉執行列</span>
             <span class="close" title="關閉執行列" id="closeShort"></span>
-
             <div>
                 <input name="按鈕" type="button" class="btnBack" value="x 回上一頁">
                 <input name="送出" type="submit" class="btnAdd" value="B 確定新增">

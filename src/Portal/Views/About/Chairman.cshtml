@@ -65,18 +65,6 @@
 
 <!-- MAIN -->
 <div class="about-wrap">
-
-    <div class="about-content">
-        @if (Model != null)
-        {
-            @Html.Raw(Model.Value)
-        }
-        else
-        {
-            <div style="text-align:center;padding:100px;color:var(--gray);">暫無內容</div>
-        }
-    </div>
-
     <div class="sidebar">
         <div class="sidebar-box">
             <h4>公司簡介</h4>
@@ -111,4 +99,16 @@
             </ul>
         </div>
     </div>
+    <div class="about-content">
+        @if (Model != null)
+        {
+            @Html.Raw(Model.Value)
+        }
+        else
+        {
+            <div style="text-align:center;padding:100px;color:var(--gray);">暫無內容</div>
+        }
+    </div>
+
+
 </div>

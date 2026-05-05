@@ -1637,3 +1637,38 @@ nav {
     .nav-links a.active::after {
         width: 100%;
     }
+/* 图片链接容器（保持块级，去除默认装饰） */
+.svc-feature-img-link,
+.svc-card-img-link {
+    display: block;
+    text-decoration: none;
+    overflow: hidden;
+}
+/* 让图片链接上方的覆盖层不拦截点击 */
+.svc-feature-overlay,
+.svc-feature-content {
+    pointer-events: none;
+}
+
+/* 但链接本身需要可点击，并恢复内部可点击元素（如文字链接） */
+.svc-feature-img-link,
+.svc-feature-title-link,
+.svc-link {
+    pointer-events: auto;
+}
+
+/* 确保图片链接有足够的尺寸 */
+.svc-feature-img-link {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.svc-feature-img {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+}

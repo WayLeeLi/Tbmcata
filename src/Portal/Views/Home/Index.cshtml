@@ -111,11 +111,9 @@
             <div class="svc-viewport" id="svcViewport">
                 <div class="svc-track" id="svcTrack">
                     @{
-                        // 将 serversList 数据分组，每组5个（1个大卡片 + 4个小卡片）
                         var groupedActivities = new List<List<dynamic>>();
                         var tempList = new List<dynamic>();
                         var idx = 0;
-
                         foreach (var item in serversList)
                         {
                             tempList.Add(item);
@@ -133,16 +131,22 @@
                         var group = groupedActivities[slideIndex];
                         <div class="svc-slide">
                             <div class="svc-layout">
-                                <!-- 左侧大卡片：取每组的第一个 -->
+                                <!-- 左侧大卡片 -->
                                 @if (group.Count > 0)
                                 {
                                     var featureItem = group[0];
                                     <div class="svc-feature-card">
-                                        <div class="svc-feature-img" style="background-image:url('@featureItem.ImagePath')"></div>
+                                        <!-- 图片加链接 -->
+                                        <a href="@Url.Action("Info", "Service", new { cataId = featureItem.CataID })" class="svc-feature-img-link">
+                                            <div class="svc-feature-img" style="background-image:url('@featureItem.ImagePath')"></div>
+                                        </a>
                                         <div class="svc-feature-overlay"></div>
                                         <div class="svc-feature-content">
                                             <div class="svc-tags">@(featureItem.Note ?? "活動集錦")</div>
-                                            <h3 class="svc-feature-title">@featureItem.Title</h3>
+                                            <!-- 标题加链接 -->
+                                            <a href="@Url.Action("Info", "Service", new { cataId = featureItem.CataID })" class="svc-feature-title-link">
+                                                <h3 class="svc-feature-title">@featureItem.Title</h3>
+                                            </a>
                                             <a href="@Url.Action("Info", "Service", new { cataId = featureItem.CataID })" class="svc-link">View Details →</a>
                                         </div>
                                     </div>
@@ -154,10 +158,16 @@
                                     {
                                         var cardItem = group[i];
                                         <div class="svc-card">
-                                            <div class="svc-card-img" style="background-image:url('@cardItem.ImagePath')"></div>
+                                            <!-- 图片加链接 -->
+                                            <a href="@Url.Action("Info", "Service", new { cataId = cardItem.CataID })" class="svc-card-img-link">
+                                                <div class="svc-card-img" style="background-image:url('@cardItem.ImagePath')"></div>
+                                            </a>
                                             <div class="svc-card-overlay"></div>
                                             <div class="svc-card-content">
-                                                <h4 class="svc-card-title">@(cardItem.Title)</h4>
+                                                <!-- 标题加链接 -->
+                                                <a href="@Url.Action("Info", "Service", new { cataId = cardItem.CataID })" class="svc-card-title-link">
+                                                    <h4 class="svc-card-title">@(cardItem.Title)</h4>
+                                                </a>
                                                 <p class="svc-card-desc">@cardItem.Note</p>
                                                 <a href="@Url.Action("Info", "Service", new { cataId = cardItem.CataID })" class="svc-link">View Details →</a>
                                             </div>

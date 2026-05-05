@@ -2,35 +2,38 @@
 
 @{
     Layout = "~/Areas/Sysmgr/Views/Shared/_Layout.cshtml";
+    var menu = ViewBag.Menu ?? "";
 }
 
 @section Scripts {
     <script>
         $(function () {
-            // binds form submission and fields to the validation engine
             $.validationEngine.defaults.scroll = false;
             $("#formcontent").validationEngine();
-
         });
     </script>
 }
 
-<!--主要內容-->
 <article class="contentArea" id="content">
     @using (Html.BeginForm("Edit", "Banner", FormMethod.Post, new { id = "formcontent", enctype = "multipart/form-data" }))
-    {       
-        <h1>首頁管理<span>/ 編輯輪播圖</span>
+    {
+        <!-- 隐藏字段：menu -->
+        <input type="hidden" name="menu" value="@menu" />
+
+        <h1>
+            首頁管理<span>/ 編輯輪播圖</span>
             <span class="tip">
                 <section class="tipBox">
                     <span>&nbsp;</span>
                     <ul>
-                        <li>填入您要新增的資訊。 *為必填欄位。</li>
+                        <li>填入您要編輯的資訊。 *為必填欄位。</li>
                     </ul>
                 </section>
             </span>
         </h1>
         @Html.ValidationSummary(true)
         @Html.HiddenFor(model => model.ID)
+
         <section class="detailGroup">
             <h3>基本資料</h3>
             <ul>
@@ -51,72 +54,58 @@
                 </li>
                 <li>
                     <p class="title">開啟視窗<span class="mark"> *</span> :</p>
-                    @Html.RadioButtonFor(model => model.OpenType, 1, new { @id = "OpenTypeYes", @class = "validate[required] radio", @checked = "checked" })
+                    @Html.RadioButtonFor(model => model.OpenType, 1, new { @id = "OpenTypeYes", @class = "validate[required] radio", @checked = Model.OpenType == 1 })
                     <span for="OpenTypeYes" title="">新視窗</span>
-                    @Html.RadioButtonFor(model => model.OpenType, 0, new { @id = "OpenTypeNo", value = 0, @class = "validate[required] radio" })
+                    @Html.RadioButtonFor(model => model.OpenType, 0, new { @id = "OpenTypeNo", value = 0, @class = "validate[required] radio", @checked = Model.OpenType == 0 })
                     <span for="OpenTypeNo" title="">本視窗</span>
                 </li>
                 <li>
                     <p class="title">顯示狀態<span class="mark"> *</span> : </p>
-                    @Html.RadioButtonFor(model => model.Status, 1, new { @id = "StatusYes", @class = "validate[required] radio", @checked = "checked" })
+                    @Html.RadioButtonFor(model => model.Status, 1, new { @id = "StatusYes", @class = "validate[required] radio", @checked = Model.Status == 1 })
                     <span class="icon-on" for="StatusYes" title="是"></span>
-                    @Html.RadioButtonFor(model => model.Status, 0, new { @id = "StatusNo", value = 0, @class = "validate[required] radio" })
+                    @Html.RadioButtonFor(model => model.Status, 0, new { @id = "StatusNo", value = 0, @class = "validate[required] radio", @checked = Model.Status == 0 })
                     <span class="icon-off" for="StatusNo" title="否"></span>
                 </li>
                 <li>
                     <p class="title">電腦輪播圖上傳<span class="mark"> *</span> :</p>
-                    @if (Model.Photo != null && Model.Photo != "")
+                    @if (!string.IsNullOrEmpty(Model.Photo))
                     {
                         <div id="hasImg">
                             目前圖片 :<br>
                             <img src="@Model.Photo" width="400"><br>
-                            <a href="javascript:$('#hasImg').remove()">刪除目前圖片</a>
-                            <input type="hidden" value="1" name="delimg" />
+                            <a href="javascript:$('#hasImg').remove(); $('<input>').attr({type:'hidden', name:'delimg', value:'1'}).appendTo('#formcontent');">刪除目前圖片</a>
                         </div>
                     }
                     <p class="title">重新上傳 :</p>
                     <input type="file" name="file" class="limmainBanner">
                     <mark class="mark">(寬1200px * 高600px)</mark>
                 </li>
-                @*<li>
-                    <p class="title">手機輪播圖上傳<span class="mark"> *</span> :</p>
-                    @if (Model.Photo2 != null && Model.Photo2 != "")
-                    {
-                        <div id="hasImg2">
-                            目前圖片 :
-                        <mark class="mark">(寬600px * 高700px)</mark><br>
-                            <img src="@Model.Photo2" width="400"><br>
-                            <a href="javascript:$('#hasImg2').remove()">刪除目前圖片</a>
-                            <input type="hidden" value="1" name="delimg2" />
-                        </div>
-                    }
-                    <p class="title">重新上傳 :</p>
-                    <input type="file" name="file2">
-                    <mark class="mark">(寬600px * 高700px)</mark>
-                </li>*@
             </ul>
         </section>
-        if (Model != null)
+
         {
-        <section class="detailGroup">
-            <h3>更新記錄</h3>
-            <ul>
-                @if (Model.LUser != null)
-                {
-                    <li>
-                        <p class="title">修改資訊 : </p>
-                        <p class="info">@Model.LDate.Value.ToString("yyyy-MM-dd HH:mm:ss") | @Academy.Common.GetData.GetUserNameByID(Model.LUser)</p>
-                    </li>
-                }
-                @if (Model.CUser != null)
-                {
-                    <li>
-                        <p class="title">建立資訊 : </p>
-                        <p class="info">@Model.CDate.Value.ToString("yyyy-MM-dd HH:mm:ss") | @Academy.Common.GetData.GetUserNameByID(Model.CUser)</p>
-                    </li>
-                }
-            </ul>
-        </section>
+            if (Model != null)
+            {
+                <section class="detailGroup">
+                    <h3>更新記錄</h3>
+                    <ul>
+                        @if (Model.LUser != null)
+                        {
+                            <li>
+                                <p class="title">修改資訊 : </p>
+                                <p class="info">@Model.LDate.Value.ToString("yyyy-MM-dd HH:mm:ss") | @Academy.Common.GetData.GetUserNameByID(Model.LUser)</p>
+                            </li>
+                        }
+                        @if (Model.CUser != null)
+                        {
+                            <li>
+                                <p class="title">建立資訊 : </p>
+                                <p class="info">@Model.CDate.Value.ToString("yyyy-MM-dd HH:mm:ss") | @Academy.Common.GetData.GetUserNameByID(Model.CUser)</p>
+                            </li>
+                        }
+                    </ul>
+                </section>
+            }
         }
 
         <!--功能操作-->

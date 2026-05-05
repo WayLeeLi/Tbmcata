@@ -39,8 +39,9 @@
 }
 
 <!-- HERO -->
+<!-- HERO -->
 <div class="page-hero">
-    <div class="page-hero-bg"></div>
+    <div class="page-hero-bg"><img src="@ViewBag.HeroImage" /></div>
     <div class="page-hero-gradient"></div>
     <div class="page-hero-content">
         <div class="page-hero-eyebrow">
@@ -71,19 +72,6 @@
 
 <!-- MAIN -->
 <div class="about-wrap">
-
-    <!-- ── LEFT CONTENT ── -->
-    <div class="about-content">
-        @if (Model != null)
-        {
-            @Html.Raw(Model.Value)
-        }
-        else
-        {
-            <div style="text-align:center;padding:100px;color:var(--gray);">暫無內容</div>
-        }
-    </div>
-
     <!-- ── SIDEBAR ── -->
     <div class="sidebar">
 
@@ -121,4 +109,17 @@
         </div>
 
     </div><!-- /sidebar -->
+    <!-- ── LEFT CONTENT ── -->
+    <div class="about-content">
+        @if (Model != null)
+        {
+            @Html.Raw(Model.Value)
+        }
+        else
+        {
+            <div style="text-align:center;padding:100px;color:var(--gray);">暫無內容</div>
+        }
+    </div>
+
+
 </div><!-- /about-wrap -->

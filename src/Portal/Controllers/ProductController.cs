@@ -32,6 +32,15 @@ namespace Academy.Controllers
             ViewBag.TrafficGuide = GetDictValue("Contact_TrafficGuide");
             ViewBag.MapUrl = GetDictValue("Contact_MapUrl");
 
+            var banner = db.Banners
+                     .Where(b => b.Menu == 4 && b.Status == 1)
+                     .OrderBy(b => b.Sort)
+                     .FirstOrDefault();
+
+            ViewBag.HeroImage = banner != null && !string.IsNullOrEmpty(banner.Photo)
+                ? banner.Photo
+                : "/images/default-about-hero.jpg";   // 請確保此預設圖片存在
+
             return View();
         }
 

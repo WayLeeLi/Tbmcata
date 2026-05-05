@@ -23,7 +23,7 @@ namespace Academy.Controllers
         {
             // Banner 数据 - 立即执行 ToList()
             ViewBag.BannerList = db.Banners
-                .Where(a => a.Status == 1)
+                .Where(a => a.Status == 1 && a.Menu == 1)
                 .OrderBy(a => a.Sort)
                 .ToList();  // 添加 ToList()
 
@@ -67,7 +67,7 @@ namespace Academy.Controllers
             ViewBag.Address = GetDictValue("Contact_Address");
             ViewBag.Phone = GetDictValue("Contact_Phone");
             ViewBag.Email = GetDictValue("Contact_Email");
-            
+
             ViewBag.MapLongitude = GetDictValue("Contact_MapLongitude");
             ViewBag.MapLatitude = GetDictValue("Contact_MapLatitude");
             ViewBag.OnlineBookingText = GetDictValue("Contact_OnlineBookingText");

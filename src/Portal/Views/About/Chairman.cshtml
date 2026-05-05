@@ -29,12 +29,48 @@
                 obs.observe(this);
             });
         });
+        $(function () {
+            var slides = $('.hero-slide');
+            if (slides.length <= 1) return;
+            var current = 0;
+            var total = slides.length;
+            var dotsContainer = $('#heroDots');
+            // 產生指示點
+            for (var i = 0; i < total; i++) {
+                dotsContainer.append('<div class="hero-dot' + (i === 0 ? ' active' : '') + '" data-index="' + i + '"></div>');
+            }
+            function showSlide(index) {
+                slides.removeClass('active');
+                $(slides[index]).addClass('active');
+                $('.hero-dot').removeClass('active');
+                $('.hero-dot[data-index="' + index + '"]').addClass('active');
+            }
+            $('.hero-dot').on('click', function () {
+                var idx = $(this).data('index');
+                current = idx;
+                showSlide(current);
+            });
+            // 自動輪播（每 5 秒）
+            var interval = setInterval(function () {
+                current = (current + 1) % total;
+                showSlide(current);
+            }, 5000);
+            // 滑鼠移入暫停
+            $('#heroSlider').on('mouseenter', function () { clearInterval(interval); });
+            $('#heroSlider').on('mouseleave', function () {
+                interval = setInterval(function () {
+                    current = (current + 1) % total;
+                    showSlide(current);
+                }, 5000);
+            });
+            showSlide(0);
+        });
     </script>
 }
 
 <!-- HERO -->
 <div class="page-hero">
-    <div class="page-hero-bg"></div>
+    <div class="page-hero-bg"><img src="@ViewBag.HeroImage" /></div>
     <div class="page-hero-gradient"></div>
     <div class="page-hero-content">
         <div class="page-hero-eyebrow">

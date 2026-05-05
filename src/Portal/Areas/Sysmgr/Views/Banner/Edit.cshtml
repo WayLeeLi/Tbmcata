@@ -54,16 +54,16 @@
                 </li>
                 <li>
                     <p class="title">開啟視窗<span class="mark"> *</span> :</p>
-                    @Html.RadioButtonFor(model => model.OpenType, 1, new { @id = "OpenTypeYes", @class = "validate[required] radio", @checked = Model.OpenType == 1 })
+                    @Html.RadioButtonFor(model => model.OpenType, 1, new { @id = "OpenTypeYes", @class = "validate[required] radio" })
                     <span for="OpenTypeYes" title="">新視窗</span>
-                    @Html.RadioButtonFor(model => model.OpenType, 0, new { @id = "OpenTypeNo", value = 0, @class = "validate[required] radio", @checked = Model.OpenType == 0 })
+                    @Html.RadioButtonFor(model => model.OpenType, 0, new { @id = "OpenTypeNo", @class = "validate[required] radio" })
                     <span for="OpenTypeNo" title="">本視窗</span>
                 </li>
                 <li>
-                    <p class="title">顯示狀態<span class="mark"> *</span> : </p>
-                    @Html.RadioButtonFor(model => model.Status, 1, new { @id = "StatusYes", @class = "validate[required] radio", @checked = Model.Status == 1 })
+                    <p class="title">顯示狀態<span class="mark"> *</span> :</p>
+                    @Html.RadioButtonFor(model => model.Status, 1, new { @id = "StatusYes", @class = "validate[required] radio" })
                     <span class="icon-on" for="StatusYes" title="是"></span>
-                    @Html.RadioButtonFor(model => model.Status, 0, new { @id = "StatusNo", value = 0, @class = "validate[required] radio", @checked = Model.Status == 0 })
+                    @Html.RadioButtonFor(model => model.Status, 0, new { @id = "StatusNo", @class = "validate[required] radio" })
                     <span class="icon-off" for="StatusNo" title="否"></span>
                 </li>
                 <li>

@@ -27,6 +27,12 @@
     filter: brightness(0.5);
 }
 
+    .page-hero-bg img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
 .page-hero-gradient {
     position: absolute;
     inset: 0;

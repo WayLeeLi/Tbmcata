@@ -39,7 +39,7 @@
 
 <!-- HERO -->
 <div class="page-hero">
-    <div class="page-hero-bg" style="background-image:url('https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=1600&q=80');"></div>
+    <div class="page-hero-bg"><img src="@ViewBag.HeroImage" /></div>
     <div class="page-hero-grad"></div>
     <div class="page-hero-content">
         <div class="eyebrow">
@@ -89,7 +89,7 @@
                         <a href="@Url.Action("Detail", "News", new { id = featured.ID })"><img src="@(featured.ImagePath ?? featured.ImagePath)" alt="@featured.Title" loading="lazy"></a>
                     </div>
                     <div class="news-featured-body">
-                        <a href="@Url.Action("Detail", "News", new { id = featured.ID })" class="news-featured-tag">
+                        <a href="@Url.Action("Detail", "News", new { id = featured.ID })" class="news-featured-date">
                             @featured.Title
                         </a>
                         <a href="@Url.Action("Detail", "News", new { id = featured.ID })">
@@ -111,7 +111,7 @@
                                 <a href="@Url.Action("Detail", "News", new { id = item.ID })"><img src="@(item.ImagePath ?? item.ImagePath)" alt="@item.Title" loading="lazy"></a>
                             </div>
                             <div class="news-card-body">
-                                <a href="@Url.Action("Detail", "News", new { id = item.ID })" class="news-card-tag">
+                                <a href="@Url.Action("Detail", "News", new { id = item.ID })" class="news-featured-date">
                                     @item.Title
                                 </a>
                                 <a href="@Url.Action("Detail", "News", new { id = item.ID })">

@@ -36,6 +36,14 @@ namespace Academy.Controllers
             ViewBag.BusinessHours = GetDictValue("Contact_BusinessHours");
             ViewBag.TrafficGuide = GetDictValue("Contact_TrafficGuide");
             ViewBag.MapUrl = GetDictValue("Contact_MapUrl");
+            var banner = db.Banners
+                       .Where(b => b.Menu == 2 && b.Status == 1)
+                       .OrderBy(b => b.Sort)
+                       .FirstOrDefault();
+
+            ViewBag.HeroImage = banner != null && !string.IsNullOrEmpty(banner.Photo)
+                ? banner.Photo
+                : "/images/default-about-hero.jpg";   // 請確保此預設圖片存在
 
             var model = db.DictSets.FirstOrDefault(a => a.Code == "AboutInfo");
             return View(model);
@@ -50,6 +58,19 @@ namespace Academy.Controllers
                 .Where(c => c.Menu == 3 && c.ParentId == null && c.Status == 1)
                 .OrderBy(c => c.SortOrder)
                 .ToList();
+
+            ViewBag.Address = GetDictValue("Contact_Address");
+            ViewBag.Phone = GetDictValue("Contact_Phone");
+            ViewBag.Email = GetDictValue("Contact_Email");
+
+            var banner = db.Banners
+                        .Where(b => b.Menu == 2 && b.Status == 1)
+                        .OrderBy(b => b.Sort)
+                        .FirstOrDefault();
+
+            ViewBag.HeroImage = banner != null && !string.IsNullOrEmpty(banner.Photo)
+                ? banner.Photo
+                : "/images/default-about-hero.jpg";   // 請確保此預設圖片存在
             var model = db.DictSets.FirstOrDefault(a => a.Code == "AboutInfo");
             return View(model);
         }
@@ -75,7 +96,14 @@ namespace Academy.Controllers
             ViewBag.BusinessHours = GetDictValue("Contact_BusinessHours");
             ViewBag.TrafficGuide = GetDictValue("Contact_TrafficGuide");
             ViewBag.MapUrl = GetDictValue("Contact_MapUrl");
+            var banner = db.Banners
+                        .Where(b => b.Menu == 2 && b.Status == 1)
+                        .OrderBy(b => b.Sort)
+                        .FirstOrDefault();
 
+            ViewBag.HeroImage = banner != null && !string.IsNullOrEmpty(banner.Photo)
+                ? banner.Photo
+                : "/images/default-about-hero.jpg";   // 請確保此預設圖片存在
             var model = db.DictSets.FirstOrDefault(a => a.Code == "AboutChairman");
             return View(model);
         }
@@ -103,6 +131,15 @@ namespace Academy.Controllers
             ViewBag.TrafficGuide = GetDictValue("Contact_TrafficGuide");
             ViewBag.MapUrl = GetDictValue("Contact_MapUrl");
             var model = db.DictSets.FirstOrDefault(a => a.Code == "AboutMember");
+            var banner = db.Banners
+                        .Where(b => b.Menu == 2 && b.Status == 1)
+                        .OrderBy(b => b.Sort)
+                        .FirstOrDefault();
+
+            ViewBag.HeroImage = banner != null && !string.IsNullOrEmpty(banner.Photo)
+                ? banner.Photo
+                : "/images/default-about-hero.jpg";   // 請確保此預設圖片存在
+
             return View(model);
         }
 

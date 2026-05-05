@@ -13,6 +13,15 @@ namespace Academy.Controllers
 
         public ActionResult Index()
         {
+            var banner = db.Banners
+                     .Where(b => b.Menu == 7 && b.Status == 1)
+                     .OrderBy(b => b.Sort)
+                     .FirstOrDefault();
+
+            ViewBag.HeroImage = banner != null && !string.IsNullOrEmpty(banner.Photo)
+                ? banner.Photo
+                : "/images/default-about-hero.jpg";   // 請確保此預設圖片存在
+
             ViewBag.Address = GetDictValue("Contact_Address");
             ViewBag.Phone = GetDictValue("Contact_Phone");
             ViewBag.Email = GetDictValue("Contact_Email");

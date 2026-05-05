@@ -41,6 +41,16 @@ namespace Academy.Controllers
 
             var categories = db.Categories.Where(s => s.Menu == 3 && s.Status == 1).OrderBy(c => c.Path).ToList();
             ViewBag.CategoryList = categories;
+
+            var banner = db.Banners
+                     .Where(b => b.Menu == 3 && b.Status == 1)
+                     .OrderBy(b => b.Sort)
+                     .FirstOrDefault();
+
+            ViewBag.HeroImage = banner != null && !string.IsNullOrEmpty(banner.Photo)
+                ? banner.Photo
+                : "/images/default-about-hero.jpg";   // 請確保此預設圖片存在
+
             return View(pagedData);
         }
         /// <summary>
@@ -73,6 +83,16 @@ namespace Academy.Controllers
 
             var categories = db.Categories.Where(s => s.Menu == 3 && s.Status == 1).OrderBy(c => c.Path).ToList();
             ViewBag.CategoryList = categories;
+
+            var banner = db.Banners
+                     .Where(b => b.Menu == 3 && b.Status == 1)
+                     .OrderBy(b => b.Sort)
+                     .FirstOrDefault();
+
+            ViewBag.HeroImage = banner != null && !string.IsNullOrEmpty(banner.Photo)
+                ? banner.Photo
+                : "/images/default-about-hero.jpg";   // 請確保此預設圖片存在
+
             return View(pagedData);
         }
         /// <summary>

@@ -13,6 +13,10 @@ namespace Academy.Controllers
 
         public ActionResult Index()
         {
+            ViewBag.Address = GetDictValue("Contact_Address");
+            ViewBag.Phone = GetDictValue("Contact_Phone");
+            ViewBag.Email = GetDictValue("Contact_Email");
+
             ViewBag.CategoryList = db.Categories
                 .Where(c => c.Menu == 3 && c.ParentId != null && c.Status == 1)
                 .OrderBy(c => c.SortOrder)
@@ -21,7 +25,11 @@ namespace Academy.Controllers
             var qaList = db.Messages.Where(a => a.Status == 1).ToList();
             return View(qaList);
         }
-
+        private string GetDictValue(string code)
+        {
+            var dict = db.DictSets.FirstOrDefault(d => d.Code == code);
+            return dict?.Value ?? "";
+        }
         [HttpPost]
         public JsonResult QuickQuote(FormCollection form)
         {

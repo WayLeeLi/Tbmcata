@@ -67,7 +67,7 @@ namespace Academy.Controllers
             ViewBag.Address = GetDictValue("Contact_Address");
             ViewBag.Phone = GetDictValue("Contact_Phone");
             ViewBag.Email = GetDictValue("Contact_Email");
-            ViewBag.Fax = GetDictValue("Contact_Fax");
+            
             ViewBag.MapLongitude = GetDictValue("Contact_MapLongitude");
             ViewBag.MapLatitude = GetDictValue("Contact_MapLatitude");
             ViewBag.OnlineBookingText = GetDictValue("Contact_OnlineBookingText");

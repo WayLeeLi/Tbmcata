@@ -60,10 +60,6 @@
                     @Html.TextBoxFor(m => m.Email, new { @class = "text-input medium", maxlength = "200" })
                 </li>
                 <li>
-                    <p class="title">傳真 :</p>
-                    @Html.TextBoxFor(m => m.Fax, new { @class = "text-input medium", maxlength = "100" })
-                </li>
-                <li>
                     <p class="title">地圖嵌入網址 :</p>
                     @Html.TextBoxFor(m => m.MapUrl, new { @class = "text-input long", maxlength = "1000", placeholder = "https://www.google.com/maps/embed?..." })
                     <mark class="mark">(請貼上 Google Maps 的「嵌入地圖」完整網址，例如 https://maps.google.com/...&output=embed)</mark>

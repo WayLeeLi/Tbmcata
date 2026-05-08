@@ -1,9 +1,36 @@
 ﻿@{
-    ViewBag.Title = "News & Events｜G-Wise Design";
+    ViewBag.Title = "News｜G-Wise Design";
 }
 
 @section Styles {
     <link href="/css/news.css" rel="stylesheet" />
+    <style>
+        /* Keep all links clickable, but hide most link default styles */
+        .news-featured a:not(.more-link),
+        .news-card a:not(.more-link) {
+            text-decoration: none !important;
+            color: inherit !important;
+            background-color: transparent !important;
+            cursor: pointer;
+        }
+
+            .news-featured a:not(.more-link):hover,
+            .news-card a:not(.more-link):hover {
+                text-decoration: none !important;
+                color: inherit !important;
+                background-color: transparent !important;
+            }
+        /* "Read More" link retains normal link style */
+        .more-link {
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+            .more-link:hover {
+                text-decoration: underline;
+                opacity: 0.8;
+            }
+    </style>
 }
 
 @section Scripts {
@@ -12,14 +39,14 @@
 
 <!-- HERO -->
 <div class="page-hero">
-    <div class="page-hero-bg" style="background-image:url('https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=1600&q=80');"></div>
+    <div class="page-hero-bg"><img src="@ViewBag.HeroImage" /></div>
     <div class="page-hero-grad"></div>
     <div class="page-hero-content">
         <div class="eyebrow">
             <div class="eyebrow-line"></div>
             <span class="eyebrow-label">News &amp; Events</span>
         </div>
-        <h1 class="page-title">News<br>&amp; Events</h1>
+        <h1 class="page-title">News</h1>
     </div>
 </div>
 
@@ -27,10 +54,10 @@
 <div class="breadcrumb">
     <a href="@Url.Action("Index", "Home")">Home</a>
     <span>›</span>
-    <span style="color:#fff" id="bcText">@(ViewBag.CurrentCategoryName ?? "News")</span>
+    <span style="color:#fff" id="bcText">@(ViewBag.CurrentCategoryName ?? "Latest News")</span>
 </div>
 
-<!-- TAB NAV - 从后端数据绑定 -->
+<!-- TAB NAV -->
 <div class="tab-nav">
     <a href="@Url.Action("Index", "News")" class="tab-btn @(ViewBag.CurrentCategoryId == 0 ? "active" : "")">All News</a>
     @if (ViewBag.CategoryList != null)
@@ -59,13 +86,16 @@
             {
                 <div class="news-featured">
                     <div class="news-featured-img">
-                        <img src="@(featured.ImagePath ?? featured.ImagePath)" alt="@featured.Title" loading="lazy">
+                        <a href="@Url.Action("Detail", "News", new { id = featured.ID })"><img src="@(featured.ImagePath ?? featured.ImagePath)" alt="@featured.Title" loading="lazy"></a>
                     </div>
                     <div class="news-featured-body">
-                        <div class="news-featured-tag">@(featured.Title ?? "")</div>
-                        <div class="news-featured-date">@(featured.CDate)</div>
-                        <p class="news-featured-text">@featured.Note</p>
-                        <a href="@Url.Action("Detail", "News", new { id = featured.ID })" class="news-read-more">Read More →</a>
+                        <a href="@Url.Action("Detail", "News", new { id = featured.ID })" class="news-featured-date">
+                            @featured.Title
+                        </a>
+                        <a href="@Url.Action("Detail", "News", new { id = featured.ID })">
+                            <p class="news-featured-text">@featured.Note</p>
+                        </a>
+                        <a href="@Url.Action("Detail", "News", new { id = featured.ID })" class="more-link">Read More →</a>
                     </div>
                 </div>
             }
@@ -78,13 +108,16 @@
                         var item = newsList[i];
                         <div class="news-card">
                             <div class="news-card-img">
-                                <img src="@(item.ImagePath ?? item.ImagePath)" alt="@item.Title" loading="lazy">
+                                <a href="@Url.Action("Detail", "News", new { id = item.ID })"><img src="@(item.ImagePath ?? item.ImagePath)" alt="@item.Title" loading="lazy"></a>
                             </div>
                             <div class="news-card-body">
-                                <div class="news-card-tag">@(item.Title ?? "")</div>
-                                <div class="news-card-date">@(item.CDate)</div>
-                                <p class="news-card-text">@item.Note</p>
-                                <a href="@Url.Action("Detail", "News", new { id = item.ID })">Read More →</a>
+                                <a href="@Url.Action("Detail", "News", new { id = item.ID })" class="news-featured-date">
+                                    @item.Title
+                                </a>
+                                <a href="@Url.Action("Detail", "News", new { id = item.ID })">
+                                    <p class="news-card-text">@item.Note</p>
+                                </a>
+                                <a href="@Url.Action("Detail", "News", new { id = item.ID })" class="more-link">Read More →</a>
                             </div>
                         </div>
                     }
@@ -99,43 +132,43 @@
     <div class="hiring-wrap">
         <div class="hiring-section">
             <h3>Corporate Spirit</h3>
-            <p>Addressing diverse market needs and creating products of maximum brand value for our clients is the guiding spirit of G-Wise Design. We design with the mindset of creating maximum value for our customers. These core capabilities start with talent, combine collective wisdom, and result in products with beautiful appearance and excellent quality.</p>
+            <p>Creating the highest brand value for customers based on different market needs is the corporate spirit of G-Wise Design. We are committed to designing with the mindset of creating maximum value for our customers. These core capabilities start with talent, combining collective wisdom to design products with beautiful appearance and excellent quality.</p>
         </div>
 
         <div class="hiring-section">
             <h3>Corporate Culture</h3>
-            <p>G-Wise Design places special emphasis on the professional competence and character development of our people, featuring an open management style that values self-management and an innovative spirit.</p>
+            <p>G-Wise Design focuses on nurturing professional competence and character in our talents, with an open management style that emphasizes self-management and an innovative spirit.</p>
         </div>
 
         <div class="hiring-section">
-            <h3>Challenges & Opportunities</h3>
-            <p>G-Wise Design continuously engages in planned product design, covering product concept, exterior design, mechanical design, and prototyping — all within our professional scope. We sincerely welcome highly adaptable individuals who aspire to become well-rounded professionals to join us.</p>
+            <h3>Challenges &amp; Opportunities</h3>
+            <p>G-Wise Design continuously engages in planned product design, from product concept, product appearance design, mechanism design, to product prototyping. We sincerely welcome individuals with high adaptability who aspire to become well-rounded professionals to join our team.</p>
         </div>
 
         <div class="hiring-info-grid">
             <div class="hiring-info-card">
                 <h4>Working Hours</h4>
-                <p>Two days off per week<br>08:30 — 17:30<br>One hour lunch break</p>
+                <p>Weekends off<br>08:30 — 17:30<br>1-hour lunch break</p>
             </div>
             <div class="hiring-info-card">
                 <h4>Benefits</h4>
-                <p>Year-end bonus (8% profit sharing)<br>Holiday gifts<br>Comprehensive labor & health insurance</p>
+                <p>8% annual bonus distribution<br>Holiday gifts<br>Comprehensive labor and health insurance</p>
             </div>
             <div class="hiring-info-card">
                 <h4>How to Apply</h4>
-                <p>Download the application form, fill it out, and email to:<br><a href="mailto:service@g-wise.com">service@g-wise.com</a></p>
+                <p>Download the application form, fill it out and email to:<br><a href="mailto:service@g-wise.com">service@g-wise.com</a></p>
             </div>
             <div class="hiring-info-card">
                 <h4>Company Address</h4>
-                <p>3F-2, No.9, Jingguo Rd., Taoyuan Dist., Taoyuan City 330, Taiwan<br>TEL: (03)358-2500</p>
+                <p>3F-2, No.9, Jingguo Rd., Taoyuan Dist., Taoyuan City 330, Taiwan<br>TEL：(03)358-2500</p>
             </div>
         </div>
 
         <a href="mailto:service@g-wise.com" class="hiring-cta">
-            Submit Resume Now
+            Submit Resume
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
         </a>
     </div>
 </div>
 
-<!-- CTA BAR（已在 Layout 中，可省略） -->
+<!-- CTA BAR (already in Layout, can be omitted) -->

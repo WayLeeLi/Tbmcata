@@ -11,12 +11,12 @@
 @section Scripts {
     <script src="/js/about.js"></script>
     <script>
-        // Tab 切换 - 直接跳转到对应页面
+        // Tab switching - direct page navigation
         function switchTab(tabUrl) {
             window.location.href = tabUrl;
         }
 
-        // 渐显动画
+        // Fade-in animation
         $(function () {
             $('.value-card, .mission-block').each(function () {
                 $(this).css({ opacity: 0, transform: 'translateY(20px)' });
@@ -40,7 +40,7 @@
 
 <!-- HERO -->
 <div class="page-hero">
-    <div class="page-hero-bg"></div>
+    <div class="page-hero-bg"><img src="@ViewBag.HeroImage" /></div>
     <div class="page-hero-gradient"></div>
     <div class="page-hero-content">
         <div class="page-hero-eyebrow">
@@ -71,19 +71,6 @@
 
 <!-- MAIN -->
 <div class="about-wrap">
-
-    <!-- ── LEFT CONTENT ── -->
-    <div class="about-content">
-        @if (Model != null)
-        {
-            @Html.Raw(Model.Value)
-        }
-        else
-        {
-            <div style="text-align:center;padding:100px;color:var(--gray);">No content available</div>
-        }
-    </div>
-
     <!-- ── SIDEBAR ── -->
     <div class="sidebar">
 
@@ -100,10 +87,9 @@
             <h4>Contact Info</h4>
             <div class="sidebar-info">
                 <p><strong>G-Wise Design Co., Ltd.</strong></p>
-                <p style="margin-top:8px;">3F-2, No.9, Jingguo Rd., Taoyuan Dist., Taoyuan City 330, Taiwan</p>
-                <p style="margin-top:6px;"><strong>TEL：</strong>(03)358-2500</p>
-                <p><strong>FAX：</strong>(03)358-2503</p>
-                <p style="margin-top:6px;"><strong>E-mail：</strong><br><a href="mailto:service@g-wise.com">service@g-wise.com</a></p>
+                <p style="margin-top:8px;">@ViewBag.Address</p>
+                <p style="margin-top:6px;"><strong>TEL：</strong>@ViewBag.Phone</p>
+                <p style="margin-top:6px;"><strong>E-mail：</strong>@ViewBag.Email</p>
             </div>
         </div>
 
@@ -122,4 +108,16 @@
         </div>
 
     </div><!-- /sidebar -->
+    <!-- ── LEFT CONTENT ── -->
+    <div class="about-content">
+        @if (Model != null)
+        {
+            @Html.Raw(Model.Value)
+        }
+        else
+        {
+            <div style="text-align:center;padding:100px;color:var(--gray);">No content available</div>
+        }
+    </div>
+
 </div><!-- /about-wrap -->

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - G-Wise Design</title>
+    <title>@ViewBag.Title - G-wise Design</title>
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -23,9 +23,9 @@
 
     <!-- LANG BAR -->
     <div class="lang-bar" id="langBar">
-        <a href="http://43.129.201.99:9001/" class="active"  id="langZh">Chinese</a>
+        <a href="http://43.129.201.99:9001/" class="active" id="langZh">中文</a>
         <span class="lang-sep">|</span>
-        <a href="http://43.129.201.99:9002/"  id="langEn">English</a>
+        <a href="http://43.129.201.99:9002/" id="langEn">English</a>
     </div>
 
     <!-- NAVBAR -->
@@ -77,8 +77,8 @@
                     <img src="/images/web/templatemo_logo.png" alt="G-Wise Design Logo">
                 </div>
                 <p class="footer-tagline">
-                    We design with the mindset of creating maximum value for our clients,<br>
-                    a full-service product design company.
+                    A comprehensive product design company dedicated<br>
+                    to creating maximum value for our clients.
                 </p>
             </div>
 
@@ -88,7 +88,7 @@
                     <li><a href="@Url.Action("Services", "Home", new { category = "automotive" })">Automotive Parts Design</a></li>
                     <li><a href="@Url.Action("Services", "Home", new { category = "motorcycle" })">Motorcycle Design</a></li>
                     <li><a href="@Url.Action("Services", "Home", new { category = "bicycle" })">Bicycle Design</a></li>
-                    <li><a href="@Url.Action("Services", "Home", new { category = "marine" })">Marine Exterior Design</a></li>
+                    <li><a href="@Url.Action("Services", "Home", new { category = "marine" })">Marine & Yacht Design</a></li>
                     <li><a href="@Url.Action("Services", "Home", new { category = "3c" })">3C & Appliance Design</a></li>
                     <li><a href="@Url.Action("Services", "Home", new { category = "reverse" })">Reverse Engineering</a></li>
                 </ul>
@@ -111,7 +111,7 @@
                 <ul class="footer-links">
                     <li><a href="@Url.Action("Index", "Contact")">Contact Us</a></li>
                     <li><a href="@Url.Action("Index", "Quote")">Quick Quote</a></li>
-                    <li><a href="@Url.Action("Index", "Quote")">Online Q&A</a></li>
+                    <li><a href="@Url.Action("Index", "Quote")">Q&amp;A</a></li>
                 </ul>
             </div>
         </div>
@@ -119,34 +119,27 @@
         <div class="footer-bottom">
             <p class="footer-copy">© @DateTime.Now.Year G-Wise Design Inc. All rights reserved.</p>
             <div class="footer-contact-info">
-                <div>3F-2, No.9, Jingguo Rd., Taoyuan Dist., Taoyuan City 330, Taiwan</div>
-                <div>TEL: (03)358-2500 · <a href="mailto:service@g-wise.com">service@g-wise.com</a></div>
+                <div>@ViewBag.Address</div>
+                <div>TEL: @ViewBag.Phone · @ViewBag.Email</div>
             </div>
         </div>
     </footer>
 
-    <!-- FLOATING BUTTONS -->
+    <!-- ========== 浮動按鈕（僅回頂部） ========== -->
     <div class="float-btns">
-        <a href="https://line.me/R/" target="_blank" class="float-btn float-line" title="Contact us on LINE">
-            <svg width="26" height="26" viewBox="0 0 48 48" fill="white">
-                <path d="M24 4C12.95 4 4 11.82 4 21.4c0 5.8 3.27 10.96 8.37 14.32-.37 1.38-1.35 4.97-1.54 5.74-.24.98.36 .96 .75 .7.31-.21 4.96-3.27 6.97-4.6.79.11 1.6.17 2.45.17 11.05 0 20-7.82 20-17.4C44 11.82 35.05 4 24 4zm-6 22H14v-10h2v8h2v2zm4 0h-2V16h2v10zm10 0h-2l-4-6v6h-2V16h2l4 6v-6h2v10z" />
-            </svg>
-        </a>
-        <div class="float-btn float-top" id="backTop" style="opacity:0;pointer-events:none;" onclick="window.scrollTo({top:0,behavior:'smooth'});" title="Back to Top">
+        <div class="float-btn float-top" id="backTop" style="opacity:0;pointer-events:none;" title="Back to Top">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5">
                 <path d="M18 15l-6-6-6 6" />
             </svg>
         </div>
     </div>
 
-    <!-- Site Scripts -->
+    <!-- ========== 全域 JavaScript ========== -->
     <script src="~/js/index.js"></script>
     <script>
-        // 导航高亮 - 根据当前 URL 设置 active 状态
+        // 导航高亮
         $(function () {
             var currentUrl = window.location.pathname;
-
-            // 定义菜单与 URL 的映射关系
             var navMap = {
                 'navHome': ['/Home', '/Home/Index'],
                 'navAbout': ['/About', '/About/Index', '/About/Info', '/About/Chairman', '/About/Member', '/About/Constitution', '/About/Calendar', '/About/Contact'],
@@ -155,8 +148,6 @@
                 'navNews': ['/News', '/News/Index'],
                 'navContact': ['/Home/Contact', '/Contact']
             };
-
-            // 遍历映射，设置 active 类
             for (var navId in navMap) {
                 var urls = navMap[navId];
                 for (var i = 0; i < urls.length; i++) {
@@ -166,8 +157,6 @@
                     }
                 }
             }
-
-            // 如果没有匹配到任何菜单，默认首页高亮
             if ($('.nav-links a.active').length === 0) {
                 $('#navHome').addClass('active');
             }
@@ -181,22 +170,36 @@
         // 回到顶部
         var btn = document.getElementById('backTop');
         if (btn) {
-            setInterval(function () {
-                var st = window.pageYOffset || document.documentElement.scrollTop || 0;
-                btn.style.opacity = st > 300 ? '1' : '0';
-                btn.style.pointerEvents = st > 300 ? 'auto' : 'none';
-            }, 300);
+            // 初始状态
+            btn.style.opacity = '0';
+            btn.style.pointerEvents = 'none';
+
+            window.addEventListener('scroll', function () {
+                var st = window.pageYOffset || document.documentElement.scrollTop;
+                if (st > 300) {
+                    btn.style.opacity = '1';
+                    btn.style.pointerEvents = 'auto';
+                } else {
+                    btn.style.opacity = '0';
+                    btn.style.pointerEvents = 'none';
+                }
+            });
+
+            btn.addEventListener('click', function (e) {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
         }
 
         // Navbar 背景
         window.addEventListener('scroll', function () {
             var nav = document.getElementById('navbar');
-            var st = window.pageYOffset || 0;
             if (nav) {
-                nav.style.background = st > 50 ? 'rgba(17,17,17,0.98)' : 'rgba(17,17,17,0.95)';
+                nav.style.background = window.pageYOffset > 50 ? 'rgba(17,17,17,0.98)' : 'rgba(17,17,17,0.95)';
             }
         });
     </script>
+
     @RenderSection("Scripts", required: false)
 </body>
 </html>

@@ -11,12 +11,12 @@
 @section Scripts {
     <script src="/js/news-detail.js"></script>
     <script>
-        // 将服务器端数据传递给 JS
+        // Pass server-side data to JavaScript
         window.newsData = {
             currentId: @Model.ID,
             prevId: @(ViewBag.PrevNews != null ? ViewBag.PrevNews.ID : 0),
             nextId: @(ViewBag.NextNews != null ? ViewBag.NextNews.ID : 0)
-        }
+        };
     </script>
 }
 
@@ -26,7 +26,7 @@
     <div class="hero-grad"></div>
     <div class="hero-content">
         <div class="eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-label">@(Model.Title ?? "News")</span></div>
-        <div class="hero-date">@(Model.CDate)</div>
+        <div class="hero-date">@(Model.CDate?.ToString("yyyy年MM月dd日") ?? "")</div>
     </div>
 </div>
 
@@ -34,7 +34,7 @@
 <div class="breadcrumb">
     <a href="@Url.Action("Index", "Home")">Home</a>
     <span>›</span>
-    <a href="@Url.Action("Index", "News")">News & Events</a>
+    <a href="@Url.Action("Index", "News")">News</a>
     <span>›</span>
     <span style="color:#fff">@ViewBag.CategoryName</span>
 </div>
@@ -67,7 +67,7 @@
 
             <a href="@Url.Action("Index", "News")" class="pager-back">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" /><polyline points="9 22 9 12 15 12 15 22" /></svg>
-                Back to News List
+                Back to News
             </a>
 
             @if (ViewBag.NextNews != null)
@@ -107,13 +107,13 @@
         </div>
         <div class="contact-card">
             <h4>G-Wise Design</h4>
-            <p>3F-2, No.9, Jingguo Rd.<br>Taoyuan Dist., Taoyuan City 330, Taiwan</p>
-            <p>TEL：<a href="tel:033582500">03-358-2500</a></p>
-            <p>FAX：03-358-2503</p>
-            <p><a href="mailto:service@g-wise.com">service@g-wise.com</a></p>
+            <p><strong>G-Wise Design Co., Ltd.</strong></p>
+            <p style="margin-top:8px;">@ViewBag.Address</p>
+            <p style="margin-top:6px;"><strong>TEL：</strong>@ViewBag.Phone</p>
+            <p style="margin-top:6px;"><strong>E-mail：</strong>@ViewBag.Email</p>
             <a href="@Url.Action("Index", "Contact")" class="contact-btn">Contact Us →</a>
         </div>
     </div>
 </div>
 
-<!-- CTA BAR（已在 Layout 中，可省略） -->
+<!-- CTA BAR (already in Layout, can be omitted) -->

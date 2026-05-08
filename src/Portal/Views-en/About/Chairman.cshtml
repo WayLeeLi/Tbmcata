@@ -1,6 +1,6 @@
 ﻿@model Academy.Models.DictSet
 @{
-    ViewBag.Title = "Mission｜G-Wise Design";
+    ViewBag.Title = "Our Mission｜G-Wise Design";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -29,12 +29,48 @@
                 obs.observe(this);
             });
         });
+        $(function () {
+            var slides = $('.hero-slide');
+            if (slides.length <= 1) return;
+            var current = 0;
+            var total = slides.length;
+            var dotsContainer = $('#heroDots');
+            // Generate dots
+            for (var i = 0; i < total; i++) {
+                dotsContainer.append('<div class="hero-dot' + (i === 0 ? ' active' : '') + '" data-index="' + i + '"></div>');
+            }
+            function showSlide(index) {
+                slides.removeClass('active');
+                $(slides[index]).addClass('active');
+                $('.hero-dot').removeClass('active');
+                $('.hero-dot[data-index="' + index + '"]').addClass('active');
+            }
+            $('.hero-dot').on('click', function () {
+                var idx = $(this).data('index');
+                current = idx;
+                showSlide(current);
+            });
+            // Auto play every 5 seconds
+            var interval = setInterval(function () {
+                current = (current + 1) % total;
+                showSlide(current);
+            }, 5000);
+            // Pause on hover
+            $('#heroSlider').on('mouseenter', function () { clearInterval(interval); });
+            $('#heroSlider').on('mouseleave', function () {
+                interval = setInterval(function () {
+                    current = (current + 1) % total;
+                    showSlide(current);
+                }, 5000);
+            });
+            showSlide(0);
+        });
     </script>
 }
 
 <!-- HERO -->
 <div class="page-hero">
-    <div class="page-hero-bg"></div>
+    <div class="page-hero-bg"><img src="@ViewBag.HeroImage" /></div>
     <div class="page-hero-gradient"></div>
     <div class="page-hero-content">
         <div class="page-hero-eyebrow">
@@ -51,7 +87,7 @@
     <span>›</span>
     <span style="color:rgba(255,255,255,0.6)">About</span>
     <span>›</span>
-    <span style="color:#fff">Mission</span>
+    <span style="color:#fff">Our Mission</span>
 </div>
 
 <!-- SUB NAV -->
@@ -65,18 +101,6 @@
 
 <!-- MAIN -->
 <div class="about-wrap">
-
-    <div class="about-content">
-        @if (Model != null)
-        {
-            @Html.Raw(Model.Value)
-        }
-        else
-        {
-            <div style="text-align:center;padding:100px;color:var(--gray);">No content available</div>
-        }
-    </div>
-
     <div class="sidebar">
         <div class="sidebar-box">
             <h4>Company Profile</h4>
@@ -91,10 +115,9 @@
             <h4>Contact Info</h4>
             <div class="sidebar-info">
                 <p><strong>G-Wise Design Co., Ltd.</strong></p>
-                <p style="margin-top:8px;">3F-2, No.9, Jingguo Rd., Taoyuan Dist., Taoyuan City 330, Taiwan</p>
-                <p style="margin-top:6px;"><strong>TEL：</strong>(03)358-2500</p>
-                <p><strong>FAX：</strong>(03)358-2503</p>
-                <p style="margin-top:6px;"><strong>E-mail：</strong><br><a href="mailto:service@g-wise.com">service@g-wise.com</a></p>
+                <p style="margin-top:8px;">@ViewBag.Address</p>
+                <p style="margin-top:6px;"><strong>TEL：</strong>@ViewBag.Phone</p>
+                <p style="margin-top:6px;"><strong>E-mail：</strong>@ViewBag.Email</p>
             </div>
         </div>
 
@@ -112,4 +135,15 @@
             </ul>
         </div>
     </div>
+    <div class="about-content">
+        @if (Model != null)
+        {
+            @Html.Raw(Model.Value)
+        }
+        else
+        {
+            <div style="text-align:center;padding:100px;color:var(--gray);">No content available</div>
+        }
+    </div>
+
 </div>

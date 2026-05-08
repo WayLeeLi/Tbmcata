@@ -1,4 +1,5 @@
-﻿@{
+﻿```html
+@{
     ViewBag.Title = "Portfolio｜G-Wise Design";
 }
 
@@ -9,12 +10,12 @@
 @section Scripts {
     <script src="~/js/product.js"></script>
     <script>
-        // 分类映射（用于显示中文名称）
+        // Category mapping (for displaying Chinese names)
         var categoryMap = {};
 
-        // 加载作品列表
+        // Load portfolio list
         function loadPortfolio(categoryId, categoryName) {
-            // 更新 tab 高亮
+            // Update tab highlight
             $('.tab-btn').removeClass('active');
             $('.tab-btn').each(function() {
                 if ($(this).data('cat-id') == categoryId || (categoryId == 0 && $(this).data('cat-id') == 0)) {
@@ -22,13 +23,13 @@
                 }
             });
 
-            // 更新筛选计数显示
+            // Update filter count display
             $('#currentCategory').text(categoryName);
 
-            // 显示加载中
+            // Show loading
             $('#portfolioGrid').html('<div style="text-align:center;padding:100px;"><div class="loading-spinner"></div><p>Loading...</p></div>');
 
-            // AJAX 请求获取作品数据
+            // AJAX request to get portfolio data
             $.ajax({
                 url: '@Url.Action("GetPortfolioList", "Product")',
                 type: 'POST',
@@ -38,16 +39,16 @@
                     if (response.success) {
                         renderPortfolioGrid(response.data);
                     } else {
-                        $('#portfolioGrid').html('<div style="text-align:center;padding:100px;color:red;">Failed to load: ' + response.message + '</div>');
+                        $('#portfolioGrid').html('<div style="text-align:center;padding:100px;color:red;">Load Failed: ' + response.message + '</div>');
                     }
                 },
                 error: function() {
-                    $('#portfolioGrid').html('<div style="text-align:center;padding:100px;color:red;">Failed to load, please try again later!</div>');
+                    $('#portfolioGrid').html('<div style="text-align:center;padding:100px;color:red;">Load Failed. Please try again later!</div>');
                 }
             });
         }
 
-        // 渲染作品网格
+        // Render portfolio grid
         function renderPortfolioGrid(items) {
             var grid = $('#portfolioGrid');
             var empty = $('#gridEmpty');
@@ -80,10 +81,10 @@
 
             grid.html(html);
 
-            // 保存数据供查看器使用
+            // Save data for viewer
             window.currentPortfolioItems = items;
 
-            // 渐显动画
+            // Fade-in animation
             setTimeout(function() {
                 $('.portfolio-item').each(function(i) {
                     var $el = $(this);
@@ -96,7 +97,7 @@
             }, 10);
         }
 
-        // 转义 HTML
+        // Escape HTML
         function escapeHtml(str) {
             if (!str) return '';
             return String(str).replace(/[&<>]/g, function(m) {
@@ -107,16 +108,15 @@
             });
         }
 
-        // 查看器相关
+        // Viewer related
         var currentLBIndex = 0;
         var currentLBItems = [];
 
         function openLB(index) {
-            debugger
             currentLBIndex = index;
             currentLBItems = window.currentPortfolioItems || [];
 
-            // 构建缩略图
+            // Build thumbnail strip
             var thumbs = $('#vThumbs');
             thumbs.empty();
 
@@ -170,7 +170,7 @@
             $('body').css('overflow', '');
         }
 
-        // 键盘事件
+        // Keyboard events
         $(document).on('keydown', function(e) {
             if (!$('#viewer').hasClass('open')) return;
             if (e.key === 'ArrowLeft') vNav(-1);
@@ -178,9 +178,9 @@
             if (e.key === 'Escape') closeViewer();
         });
 
-        // 初始化 - 默认加载全部作品
+        // Initialize - load all works by default
         $(function() {
-            // 获取第一个 tab（全部作品）
+            // Get first tab (All Works)
             var firstTab = $('.tab-btn').first();
             if (firstTab.length > 0) {
                 var categoryId = firstTab.data('cat-id') || 0;
@@ -215,7 +215,7 @@
 
 <!-- HERO -->
 <div class="page-hero">
-    <div class="page-hero-bg" style="background-image:url('https://images.unsplash.com/photo-1580274455191-1c62238fa333?w=1600&q=80');"></div>
+    <div class="page-hero-bg"><img src="@ViewBag.HeroImage" /></div>
     <div class="page-hero-grad"></div>
     <div class="page-hero-content">
         <div class="eyebrow">
@@ -279,3 +279,4 @@
     </div>
     <div class="viewer-thumbs" id="vThumbs"></div>
 </div>
+```

@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Quotation Request｜G-Wise Design";
+    ViewBag.Title = "Request a Quote｜G-wise Design";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -13,14 +13,14 @@
 
 <!-- HERO -->
 <div class="page-hero">
-    <div class="page-hero-bg" style="background-image:url('https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=1600&q=80');"></div>
+    <div class="page-hero-bg"><img src="@ViewBag.HeroImage" /></div>
     <div class="page-hero-grad"></div>
     <div class="page-hero-content">
         <div class="eyebrow">
             <div class="eyebrow-line"></div>
-            <span class="eyebrow-label">Quotation Request</span>
+            <span class="eyebrow-label">Request a Quote</span>
         </div>
-        <h1 class="page-title">Quotation<br>Request</h1>
+        <h1 class="page-title">Request<br>a Quote</h1>
     </div>
 </div>
 
@@ -39,11 +39,11 @@
     </button>
     <button class="tab-btn" onclick="switchTab('qa')">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" /></svg>
-        Online Q&amp;A
+        Q&amp;A
     </button>
     <button class="tab-btn" onclick="switchTab('pinfo')">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" /><polyline points="14 2 14 8 20 8" /><line x1="16" y1="13" x2="8" y2="13" /><line x1="16" y1="17" x2="8" y2="17" /></svg>
-        Product Information
+        Product Info
     </button>
 </div>
 
@@ -56,26 +56,26 @@
             <div class="quote-step">
                 <div class="quote-step-num">01</div>
                 <div class="quote-step-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" /><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" /></svg></div>
-                <h4>Submit Requirements</h4>
+                <h4>Submit Request</h4>
                 <p>Fill out the form below or call us directly. We'll quickly assess your needs.</p>
             </div>
             <div class="quote-step">
                 <div class="quote-step-num">02</div>
                 <div class="quote-step-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 00-3-3.87" /><path d="M16 3.13a4 4 0 010 7.75" /></svg></div>
-                <h4>Professional Evaluation</h4>
-                <p>Our design team will assess the scope and timeline, providing a quotation within 1–2 business days.</p>
+                <h4>Professional Assessment</h4>
+                <p>Our design team will evaluate scope and timeline, providing a quote within 1-2 business days.</p>
             </div>
             <div class="quote-step">
                 <div class="quote-step-num">03</div>
                 <div class="quote-step-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 11.08V12a10 10 0 11-5.93-9.14" /><polyline points="22 4 12 14.01 9 11.01" /></svg></div>
                 <h4>Confirm Collaboration</h4>
-                <p>Once both parties agree on the quote, the project begins with dedicated project tracking.</p>
+                <p>Both parties confirm the quote, then the project begins with dedicated project tracking.</p>
             </div>
             <div class="quote-step">
                 <div class="quote-step-num">04</div>
                 <div class="quote-step-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2" /><path d="M8 21h8M12 17v4" /></svg></div>
                 <h4>Delivery</h4>
-                <p>Complete design files are delivered, with further assistance available for mass production tooling.</p>
+                <p>Complete design files delivered. Further support for mass production available upon request.</p>
             </div>
         </div>
 
@@ -83,13 +83,13 @@
             <div class="quote-cta-card primary">
                 <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" /><polyline points="14 2 14 8 20 8" /><line x1="16" y1="13" x2="8" y2="13" /><line x1="16" y1="17" x2="8" y2="17" /></svg>
                 <h3>Product Information Form</h3>
-                <p>Provide detailed product specifications to help us evaluate more accurately.</p>
-                <span class="cta-btn red">Fill Now →</span>
+                <p>Provide detailed product specifications for a more accurate quote.</p>
+                <span class="cta-btn red">Fill Out →</span>
             </div>
             <div class="quote-cta-card secondary">
                 <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" /></svg>
-                <h3>Online Q&amp;A</h3>
-                <p>Check frequently asked questions or ask us directly – we'll reply promptly.</p>
+                <h3>Q&amp;A</h3>
+                <p>Browse frequently asked questions or ask us directly.</p>
                 <span class="cta-btn green">View Q&A →</span>
             </div>
         </div>
@@ -105,9 +105,9 @@
                 <div class="form-group"><label>Email <span>*</span></label><input class="form-input" name="Email" type="email" placeholder="your@email.com" required></div>
             </div>
             <div class="form-group">
-                <label>Service Interested In <span>*</span></label>
+                <label>Service Category <span>*</span></label>
                 <select class="form-select form-input" name="Service" required>
-                    <option value="" disabled selected>Please select a service</option>
+                    <option value="" disabled selected>Please select a service category</option>
                     @if (ViewBag.CategoryList != null)
                     {
                         foreach (var cat in ViewBag.CategoryList)
@@ -117,17 +117,17 @@
                     }
                 </select>
             </div>
-            <div class="form-group"><label>Requirements Description</label><textarea class="form-textarea" name="Content" placeholder="Briefly describe your design needs..." style="min-height:90px;"></textarea></div>
-            <button type="submit" class="form-submit">Send Inquiry <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7" /></svg></button>
-            <p class="form-note">* Required fields. We will reply within 1–2 business days. You may also call us: <strong style="color:rgba(255,255,255,.5)">03-358-2500</strong></p>
+            <div class="form-group"><label>Project Details</label><textarea class="form-textarea" name="Content" placeholder="Please briefly describe your design requirements..." style="min-height:90px;"></textarea></div>
+            <button type="submit" class="form-submit">Submit Quote <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7" /></svg></button>
+            <p class="form-note">* Required fields. We'll respond within 1-2 business days. You can also call us directly: <strong style="color:rgba(255,255,255,.5)">@ViewBag.Phone</strong></p>
         </form>
         <div class="form-success" id="quickSuccess">
             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#6DB82A" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14" /><polyline points="22 4 12 14.01 9 11.01" /></svg>
-            <p>Your inquiry has been sent! We will contact you shortly. Thank you for reaching out.</p>
+            <p>Quote request sent! We'll contact you shortly. Thank you for reaching out.</p>
         </div>
 
         <div class="quote-note" style="margin-top:32px;">
-            <p><strong>Note:</strong> Quotation amounts depend on product complexity, scope, and timeline. For urgent requests or special needs, please call <strong>03-358-2500</strong> or email <strong><a href="mailto:service@g-wise.com">service@g-wise.com</a></strong></p>
+            <p><strong>Note:</strong> Quotes vary based on product complexity, scope, and timeline. For urgent requests or special requirements, please call <strong>@ViewBag.Phone</strong> or email <strong>@ViewBag.Email</strong></p>
         </div>
     </div>
 </div>
@@ -138,7 +138,7 @@
 <div class="panel" id="panel-qa">
     <div class="panel-wrap">
         <div class="section-label" style="margin-bottom:8px;">Frequently Asked Questions</div>
-        <h2 class="qa-section-title">FAQ</h2>
+        <h2 class="qa-section-title">Q&amp;A</h2>
 
         <div class="qa-list">
             @if (Model != null && Model.Any())
@@ -172,8 +172,8 @@
         </div>
 
         <div class="qa-ask-box">
-            <h4>Still have questions?</h4>
-            <p>Fill out your question below and we will reply as soon as possible.</p>
+            <h4>Have Other Questions?</h4>
+            <p>Fill out the form below and we'll get back to you promptly.</p>
             <form id="qaForm">
                 <div class="form-grid-2">
                     <div class="form-group"><label>Full Name <span>*</span></label><input class="form-input" name="QAName" type="text" placeholder="Your full name" required></div>
@@ -184,7 +184,7 @@
             </form>
             <div class="form-success" id="qaSuccess">
                 <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#6DB82A" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14" /><polyline points="22 4 12 14.01 9 11.01" /></svg>
-                <p>Your question has been submitted! We will get back to you shortly.</p>
+                <p>Question sent! We'll respond as soon as possible.</p>
             </div>
         </div>
     </div>
@@ -197,13 +197,13 @@
         <h2 class="qa-section-title">Product Information</h2>
 
         <div class="pinfo-intro">
-            <p>Please provide detailed product information so we can accurately evaluate your design needs and offer a reasonable quote. Fields marked with <span style="color:var(--green)">*</span> are required.</p>
+            <p>Please provide detailed product information so we can accurately assess your design requirements and provide a reasonable quote. Fields marked with <span style="color:var(--green)">*</span> are required.</p>
         </div>
 
         <form id="pinfoForm">
             <div class="section-label">Client Information</div>
             <div class="form-grid-2">
-                <div class="form-group"><label>Company <span>*</span></label><input class="form-input" name="Company" type="text" placeholder="Company name" required></div>
+                <div class="form-group"><label>Company Name <span>*</span></label><input class="form-input" name="Company" type="text" placeholder="Company name" required></div>
                 <div class="form-group"><label>Contact Person <span>*</span></label><input class="form-input" name="Contact" type="text" placeholder="Full name" required></div>
             </div>
             <div class="form-grid-3">
@@ -218,29 +218,29 @@
 
             <div class="form-grid-2">
                 <div class="form-group"><label>Product Name <span>*</span></label><input class="form-input" name="ProductName" type="text" placeholder="Product or part name" required></div>
-                <div class="form-group"><label>Approx. Dimensions</label><input class="form-input" name="Size" type="text" placeholder="e.g., 500×300×200mm or full vehicle"></div>
+                <div class="form-group"><label>Approximate Dimensions</label><input class="form-input" name="Size" type="text" placeholder="e.g., 500×300×200mm or Full Vehicle"></div>
             </div>
             <div class="form-group">
                 <label>Product Category</label>
                 <select class="form-select form-input" name="Category">
-                    <option value="" disabled selected>Select product category</option>
+                    <option value="" disabled selected>Please select a product category</option>
                     <option>Automotive Parts / Aero Kits</option>
                     <option>Motorcycle Exterior</option>
-                    <option>Bicycle / Electric Bicycle</option>
+                    <option>Bicycle / E-Bike</option>
                     <option>Marine / Yacht</option>
                     <option>3C Consumer Electronics</option>
-                    <option>Lifestyle / Home Goods</option>
-                    <option>Medical Equipment</option>
+                    <option>Lifestyle / Home Products</option>
+                    <option>Medical Devices</option>
                     <option>Industrial Equipment</option>
                     <option>Other</option>
                 </select>
             </div>
 
             <div class="form-divider"></div>
-            <div class="section-label">Services Required</div>
+            <div class="section-label">Services Requested</div>
 
             <div class="form-group">
-                <label>Services Needed (multiple selection allowed)</label>
+                <label>Services Needed (Multiple selections allowed)</label>
                 <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:8px;">
                     @if (ViewBag.CategoryList != null)
                     {
@@ -254,12 +254,12 @@
                 </div>
             </div>
 
-            <div class="form-group"><label>Requirements / Notes <span>*</span></label><textarea class="form-textarea" name="Requirement" placeholder="Please describe your design needs, reference materials, expected timeline, or any special requirements in detail..." style="min-height:140px;" required></textarea></div>
+            <div class="form-group"><label>Requirements / Notes <span>*</span></label><textarea class="form-textarea" name="Requirement" placeholder="Please describe your design requirements, reference materials, expected timeline, or any special requests..." style="min-height:140px;" required></textarea></div>
 
             <div class="form-group">
                 <label>Expected Completion Timeline</label>
                 <select class="form-select form-input" name="Deadline">
-                    <option value="" disabled selected>Select expected timeline</option>
+                    <option value="" disabled selected>Please select expected timeline</option>
                     <option>Within 1 month</option>
                     <option>1–3 months</option>
                     <option>3–6 months</option>
@@ -268,12 +268,12 @@
                 </select>
             </div>
 
-            <button type="submit" class="form-submit">Submit Product Information <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7" /></svg></button>
-            <p class="form-note">* Required fields. The more detailed information you provide, the faster and more accurate our quote will be.</p>
+            <button type="submit" class="form-submit">Submit Product Info <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7" /></svg></button>
+            <p class="form-note">* Required fields. The more detailed information you provide, the faster and more accurately we can provide a quote.</p>
         </form>
         <div class="form-success" id="pinfoSuccess">
             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#6DB82A" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14" /><polyline points="22 4 12 14.01 9 11.01" /></svg>
-            <p>Product information submitted successfully! We will evaluate and provide a quote as soon as possible. Thank you for your inquiry.</p>
+            <p>Product information submitted successfully! We'll evaluate and provide a quote soon. Thank you for your inquiry.</p>
         </div>
     </div>
 </div>

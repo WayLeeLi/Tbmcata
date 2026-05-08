@@ -9,12 +9,12 @@
 @section Scripts {
     <script src="~/js/service.js"></script>
     <script>
-        // 加载服务内容
+        // Load service content
         function loadServiceContent(categoryId, categoryName) {
-            // 更新面包屑
+            // Update breadcrumb
             $('#bcCurrent').text(categoryName);
 
-            // 更新侧边栏高亮
+            // Update sidebar highlight
             $('.sidebar-sub a').removeClass('active');
             $('.sidebar-sub a').each(function () {
                 if ($(this).data('cat-id') == categoryId) {
@@ -22,10 +22,10 @@
                 }
             });
 
-            // 显示加载中
+            // Show loading indicator
             $('#serviceContent').html('<div style="text-align:center;padding:100px;"><div class="loading-spinner"></div><p>Loading...</p></div>');
 
-            // AJAX 请求获取服务内容
+            // AJAX request to get service content
             $.ajax({
                 url: '@Url.Action("GetServiceContent", "Service")',
                 type: 'POST',
@@ -34,18 +34,18 @@
                 success: function (response) {
                     if (response.success) {
                         renderServiceContent(response.data);
-                        // 手机版自动滚动到内容区
+                        // Auto scroll to content area on mobile
                         if ($(window).width() <= 768) {
                             $('html, body').animate({
                                 scrollTop: $('#serviceContent').offset().top - 80
                             }, 300);
                         }
                     } else {
-                        $('#serviceContent').html('<div style="text-align:center;padding:100px;color:red;">Failed to load: ' + response.message + '</div>');
+                        $('#serviceContent').html('<div style="text-align:center;padding:100px;color:red;">Load Failed: ' + response.message + '</div>');
                     }
                 },
                 error: function () {
-                    $('#serviceContent').html('<div style="text-align:center;padding:100px;color:red;">Failed to load, please try again later!</div>');
+                    $('#serviceContent').html('<div style="text-align:center;padding:100px;color:red;">Load Failed. Please try again later!</div>');
                 }
             });
         }
@@ -78,7 +78,7 @@
                 }
             }
 
-            // 分页导航
+            // Pagination navigation
             if (data.prevCategoryId) {
                 html += '<div class="page-pager">';
                 html += '<a href="#" class="pager-btn" onclick="loadServiceContent(' + data.prevCategoryId + ', \'' + escapeHtml(data.prevCategoryName) + '\');return false;">← ' + escapeHtml(data.prevCategoryName) + '</a>';
@@ -98,7 +98,7 @@
             $('#serviceContent').html(html);
         }
 
-        // escapeHtml 只用于转义普通文本，不要用于 content
+        // escapeHtml only for plain text, not for content
         function escapeHtml(str) {
             if (!str) return '';
             return String(str).replace(/[&<>]/g, function (m) {
@@ -109,7 +109,7 @@
             });
         }
 
-        // 初始化 - 默认加载第一个二级菜单
+        // Initialize - load the first sub-menu by default
         $(function () {
             var firstSubMenu = $('.sidebar-sub a').first();
             if (firstSubMenu.length > 0) {
@@ -120,7 +120,7 @@
         });
     </script>
     <style>
-        /* 服务内容样式 */
+        /* Service content styles */
         .svc-content {
             font-size: 15px;
             color: rgba(255, 255, 255, 0.7);
@@ -163,12 +163,12 @@
 
 <!-- HERO -->
 <div class="page-hero" id="pageHero">
-    <div class="page-hero-bg" id="heroBg" style="background-image:url('https://images.unsplash.com/photo-1580274455191-1c62238fa333?w=1600&q=80')"></div>
+    <div class="page-hero-bg"><img src="@ViewBag.HeroImage" /></div>
     <div class="page-hero-gradient"></div>
     <div class="page-hero-content">
         <div class="page-hero-eyebrow">
             <div class="page-hero-line"></div>
-            <span class="page-hero-label">Design Services</span>
+            <span class="page-hero-label">Design Service</span>
         </div>
         <h1 class="page-hero-title">Design<br>Services</h1>
     </div>
@@ -189,13 +189,13 @@
     <div class="sidebar">
         @{
             var categories = ViewBag.CategoryList as List<Academy.Models.Category> ?? new List<Academy.Models.Category>();
-            // 获取一级菜单（ParentId 为 null）
+            // Get top-level menus (ParentId is null)
             var parentCategories = categories.Where(c => c.ParentId == null).OrderBy(c => c.SortOrder).ToList();
         }
 
         @foreach (var parent in parentCategories)
         {
-            // 获取当前一级菜单下的子菜单（Status == 1 表示上线的）
+            // Get child menus under the current top-level menu (Status == 1 means online)
             var childCategories = categories.Where(c => c.ParentId == parent.Id && c.Status == 1).OrderBy(c => c.SortOrder).ToList();
 
             <div class="sidebar-cat @(childCategories.Any() ? "open" : "")" id="cat_@parent.Id">
@@ -221,18 +221,17 @@
             <div class="sidebar-divider"></div>
         }
 
-        <!-- 联络我们卡片 -->
+        <!-- Contact Card -->
         <div class="sidebar-contact">
             <h5>Contact Us</h5>
-            <p>
-                3F-2, No.9, Jingguo Rd., Taoyuan Dist., Taoyuan City 330, Taiwan<br>
-                TEL：(03)358-2500<br>
-                <a href="mailto:service@g-wise.com">service@g-wise.com</a>
-            </p>
+            <p><strong>G-Wise Design Co., Ltd.</strong></p>
+            <p style="margin-top:8px;">@ViewBag.Address</p>
+            <p style="margin-top:6px;"><strong>TEL：</strong>@ViewBag.Phone</p>
+            <p style="margin-top:6px;"><strong>E-mail：</strong>@ViewBag.Email</p>
         </div>
     </div>
 
-    <!-- CONTENT - 动态加载区域 -->
+    <!-- CONTENT - Dynamic loading area -->
     <div class="content-area" id="serviceContent">
         <div style="text-align:center;padding:100px;">
             <div class="loading-spinner"></div>

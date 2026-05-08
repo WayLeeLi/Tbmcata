@@ -1,7 +1,5 @@
 ﻿@{
-    ViewBag.Title = "G-Wise Design｜Transportation & Product Design";
-
-    // 转换数据为 List
+    ViewBag.Title = "G-wise Design｜Vehicle & Product Design";
     var bannerList = ViewBag.BannerList as IEnumerable<dynamic> ?? new List<dynamic>();
     var productList = ViewBag.ProductList as IEnumerable<dynamic> ?? new List<dynamic>();
     var serversList = ViewBag.ServersList as IEnumerable<dynamic> ?? new List<dynamic>();
@@ -48,8 +46,8 @@
                     Limits
                 </h1>
                 <p class="hero-subtitle">
-                    G-Wise Design is a full-service exterior design company specializing in transportation and vehicle accessories.<br>
-                    Using modern digital methods, we create maximum value for you from concept to engineering development.
+                    G-wise Design is a full-service design firm specializing in vehicles and automotive accessories.<br>
+                    From concept to engineering, we create maximum value for you through modern digital methods.
                 </p>
                 <div class="hero-actions">
                     <a href="@Url.Action("Index", "Product")" class="btn-primary">
@@ -111,11 +109,9 @@
             <div class="svc-viewport" id="svcViewport">
                 <div class="svc-track" id="svcTrack">
                     @{
-                        // 将 serversList 数据分组，每组5个（1个大卡片 + 4个小卡片）
                         var groupedActivities = new List<List<dynamic>>();
                         var tempList = new List<dynamic>();
                         var idx = 0;
-
                         foreach (var item in serversList)
                         {
                             tempList.Add(item);
@@ -133,31 +129,39 @@
                         var group = groupedActivities[slideIndex];
                         <div class="svc-slide">
                             <div class="svc-layout">
-                                <!-- 左侧大卡片：取每组的第一个 -->
+                                <!-- Left Feature Card -->
                                 @if (group.Count > 0)
                                 {
                                     var featureItem = group[0];
                                     <div class="svc-feature-card">
-                                        <div class="svc-feature-img" style="background-image:url('@featureItem.ImagePath')"></div>
+                                        <a href="@Url.Action("Info", "Service", new { cataId = featureItem.CataID })" class="svc-feature-img-link">
+                                            <div class="svc-feature-img" style="background-image:url('@featureItem.ImagePath')"></div>
+                                        </a>
                                         <div class="svc-feature-overlay"></div>
                                         <div class="svc-feature-content">
-                                            <div class="svc-tags">@(featureItem.Note ?? "Event Highlights")</div>
-                                            <h3 class="svc-feature-title">@featureItem.Title</h3>
+                                            <div class="svc-tags">@(featureItem.Note ?? "Feature")</div>
+                                            <a href="@Url.Action("Info", "Service", new { cataId = featureItem.CataID })" class="svc-feature-title-link">
+                                                <h3 class="svc-feature-title">@featureItem.Title</h3>
+                                            </a>
                                             <a href="@Url.Action("Info", "Service", new { cataId = featureItem.CataID })" class="svc-link">View Details →</a>
                                         </div>
                                     </div>
                                 }
 
-                                <!-- 右侧网格卡片 -->
+                                <!-- Right Grid Cards -->
                                 <div class="svc-grid-right">
                                     @for (var i = 1; i < group.Count; i++)
                                     {
                                         var cardItem = group[i];
                                         <div class="svc-card">
-                                            <div class="svc-card-img" style="background-image:url('@cardItem.ImagePath')"></div>
+                                            <a href="@Url.Action("Info", "Service", new { cataId = cardItem.CataID })" class="svc-card-img-link">
+                                                <div class="svc-card-img" style="background-image:url('@cardItem.ImagePath')"></div>
+                                            </a>
                                             <div class="svc-card-overlay"></div>
                                             <div class="svc-card-content">
-                                                <h4 class="svc-card-title">@(cardItem.Title)</h4>
+                                                <a href="@Url.Action("Info", "Service", new { cataId = cardItem.CataID })" class="svc-card-title-link">
+                                                    <h4 class="svc-card-title">@(cardItem.Title)</h4>
+                                                </a>
                                                 <p class="svc-card-desc">@cardItem.Note</p>
                                                 <a href="@Url.Action("Info", "Service", new { cataId = cardItem.CataID })" class="svc-link">View Details →</a>
                                             </div>
@@ -188,7 +192,7 @@
                     </div>
                     <h2 class="section-title" style="color:var(--black)">Featured<br>Work</h2>
                 </div>
-                <p class="section-desc" style="color: #777;">From transportation to consumer products, each piece reflects G-Wise Design's commitment to excellence.</p>
+                <p class="section-desc" style="color: #777;">From vehicles to consumer products, each project reflects G-wise Design's commitment to excellence.</p>
             </div>
 
             <div class="work-grid">
@@ -232,15 +236,15 @@
                     <div class="section-label-line"></div>
                     <span class="section-label-text">About Us</span>
                 </div>
-                <h2 class="section-title">About<br>G-Wise Design</h2>
+                <h2 class="section-title">G-Wise<br>Design</h2>
                 <p class="about-body">
-                    G-Wise Design Co., Ltd. is a full-service product design company dedicated to creating maximum value for our clients.
-                    We focus on transportation design and general product design, providing complete services from concept to engineering development using modern digital methods.
+                    G-wise Design is a full-service design firm committed to creating maximum value for our clients.<br>
+                    We specialize in vehicle design and general product design, providing complete services from concept to engineering using modern digital methods.
                 </p>
                 <div class="about-features">
                     <div class="about-feature">
                         <div class="about-feature-dot"></div>
-                        <span class="about-feature-text">Professional Transportation Design Team</span>
+                        <span class="about-feature-text">Professional Vehicle Design Team</span>
                     </div>
                     <div class="about-feature">
                         <div class="about-feature-dot"></div>
@@ -252,11 +256,11 @@
                     </div>
                     <div class="about-feature">
                         <div class="about-feature-dot"></div>
-                        <span class="about-feature-text">Multiple Domestic & International Design Awards</span>
+                        <span class="about-feature-text">Multiple International Design Awards</span>
                     </div>
                     <div class="about-feature">
                         <div class="about-feature-dot"></div>
-                        <span class="about-feature-text">Class-A Surface Expertise</span>
+                        <span class="about-feature-text">Professional Class-A Surface Modeling</span>
                     </div>
                     <div class="about-feature">
                         <div class="about-feature-dot"></div>
@@ -274,7 +278,7 @@
                         <div class="section-label-line"></div>
                         <span class="section-label-text">Latest News</span>
                     </div>
-                    <h2 class="section-title">News<br>Events</h2>
+                    <h2 class="section-title">News &<br>Events</h2>
                 </div>
                 <a href="@Url.Action("Index", "News")" class="btn-outline" style="align-self:flex-end">All News →</a>
             </div>

@@ -84,16 +84,6 @@
         </div>
 
         <div class="sidebar-box">
-            <h4>Contact Info</h4>
-            <div class="sidebar-info">
-                <p><strong>G-Wise Design Co., Ltd.</strong></p>
-                <p style="margin-top:8px;">@ViewBag.Address</p>
-                <p style="margin-top:6px;"><strong>TEL：</strong>@ViewBag.Phone</p>
-                <p style="margin-top:6px;"><strong>E-mail：</strong>@ViewBag.Email</p>
-            </div>
-        </div>
-
-        <div class="sidebar-box">
             <h4>Design Services</h4>
             <ul class="sub-menu-list">
                 @if (ViewBag.CategoryList != null)
@@ -105,6 +95,16 @@
                     }
                 }
             </ul>
+        </div>
+
+        <div class="sidebar-box">
+            <h4>Contact Info</h4>
+            <div class="sidebar-info">
+                <p><strong>G-Wise Design Co., Ltd.</strong></p>
+                <p style="margin-top:8px;">@ViewBag.Address</p>
+                <p style="margin-top:6px;"><strong>TEL：</strong>@ViewBag.Phone</p>
+                <p style="margin-top:6px;"><strong>E-mail：</strong>@ViewBag.Email</p>
+            </div>
         </div>
 
     </div><!-- /sidebar -->

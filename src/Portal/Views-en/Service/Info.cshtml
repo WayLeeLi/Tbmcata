@@ -34,6 +34,23 @@
                 success: function (response) {
                     if (response.success) {
                         renderServiceContent(response.data);
+
+                        // ========== Scroll to content area top ==========
+                        var $contentArea = $('#serviceContent');
+                        if ($contentArea.length) {
+                            // Get navbar height
+                            var navHeight = $('#navbar').outerHeight() || 88;
+                            // Get breadcrumb height
+                            var breadcrumbHeight = $('.breadcrumb').outerHeight() || 0;
+                            // Calculate target scroll position: content top - navbar - breadcrumb - extra spacing
+                            var offsetTop = $contentArea.offset().top - navHeight - breadcrumbHeight - 20;
+
+                            $('html, body').animate({
+                                scrollTop: Math.max(0, offsetTop)
+                            }, 300);
+                        }
+                        // ==============================================
+
                         // Auto scroll to content area on mobile
                         if ($(window).width() <= 768) {
                             $('html, body').animate({

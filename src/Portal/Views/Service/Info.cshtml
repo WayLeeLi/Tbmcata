@@ -34,7 +34,24 @@
                 success: function (response) {
                     if (response.success) {
                         renderServiceContent(response.data);
-                        // 手机版自动滚动到内容区
+
+                        // ========== 滚动到内容区域顶部 ==========
+                        var $contentArea = $('#serviceContent');
+                        if ($contentArea.length) {
+                            // 获取导航栏高度
+                            var navHeight = $('#navbar').outerHeight() || 88;
+                            // 获取面包屑高度
+                            var breadcrumbHeight = $('.breadcrumb').outerHeight() || 0;
+                            // 计算目标滚动位置：内容区顶部 - 导航栏高度 - 面包屑高度 - 额外间距
+                            var offsetTop = $contentArea.offset().top - navHeight - breadcrumbHeight - 20;
+
+                            $('html, body').animate({
+                                scrollTop: Math.max(0, offsetTop)
+                            }, 300);
+                        }
+                        // ======================================
+
+                        // 手机版自动滚动到内容区（保持原有逻辑）
                         if ($(window).width() <= 768) {
                             $('html, body').animate({
                                 scrollTop: $('#serviceContent').offset().top - 80
@@ -141,7 +158,7 @@
         });
     </script>
     <style>
-        /* 样式保持不变 */
+        /* 服务内容样式 */
         .svc-content {
             font-size: 15px;
             color: rgba(255, 255, 255, 0.7);

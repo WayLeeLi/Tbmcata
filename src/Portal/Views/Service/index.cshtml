@@ -10,45 +10,54 @@
     <script src="~/js/service.js"></script>
     <script>
         // 加载服务内容
-        function loadServiceContent(categoryId, categoryName) {
-            // 更新面包屑
-            $('#bcCurrent').text(categoryName);
+function loadServiceContent(categoryId, categoryName) {
+    // 更新面包屑
+    $('#bcCurrent').text(categoryName);
 
-            // 更新侧边栏高亮
-            $('.sidebar-sub a').removeClass('active');
-            $('.sidebar-sub a').each(function () {
-                if ($(this).data('cat-id') == categoryId) {
-                    $(this).addClass('active');
-                }
-            });
-
-            // 显示加载中
-            $('#serviceContent').html('<div style="text-align:center;padding:100px;"><div class="loading-spinner"></div><p>載入中...</p></div>');
-
-            // AJAX 请求获取服务内容
-            $.ajax({
-                url: '@Url.Action("GetServiceContent", "Service")',
-                type: 'POST',
-                data: { categoryId: categoryId },
-                dataType: 'json',
-                success: function (response) {
-                    if (response.success) {
-                        renderServiceContent(response.data);
-                        // 手机版自动滚动到内容区
-                        if ($(window).width() <= 768) {
-                            $('html, body').animate({
-                                scrollTop: $('#serviceContent').offset().top - 80
-                            }, 300);
-                        }
-                    } else {
-                        $('#serviceContent').html('<div style="text-align:center;padding:100px;color:red;">載入失敗：' + response.message + '</div>');
-                    }
-                },
-                error: function () {
-                    $('#serviceContent').html('<div style="text-align:center;padding:100px;color:red;">載入失敗，請稍後再試！</div>');
-                }
-            });
+    // 更新侧边栏高亮
+    $('.sidebar-sub a').removeClass('active');
+    $('.sidebar-sub a').each(function () {
+        if ($(this).data('cat-id') == categoryId) {
+            $(this).addClass('active');
         }
+    });
+
+    // 显示加载中
+    $('#serviceContent').html('<div style="text-align:center;padding:100px;"><div class="loading-spinner"></div><p>載入中...</p></div>');
+
+    // AJAX 请求获取服务内容
+    $.ajax({
+        url: '@Url.Action("GetServiceContent", "Service")',
+        type: 'POST',
+        data: { categoryId: categoryId },
+        dataType: 'json',
+        success: function (response) {
+            if (response.success) {
+                renderServiceContent(response.data);
+
+                // 滚动到内容区域顶部
+                var $contentArea = $('#serviceContent');
+                if ($contentArea.length) {
+                    // 获取导航栏高度（可能为 0 如果不在当前页面）
+                    var navHeight = $('#navbar').outerHeight() || 88;
+                    // 获取面包屑高度
+                    var breadcrumbHeight = $('.breadcrumb').outerHeight() || 0;
+                    // 计算目标滚动位置：内容区顶部 - 导航栏高度 - 面包屑高度 - 额外间距
+                    var offsetTop = $contentArea.offset().top - navHeight - breadcrumbHeight - 20;
+
+                    $('html, body').animate({
+                        scrollTop: Math.max(0, offsetTop)
+                    }, 300);
+                }
+            } else {
+                $('#serviceContent').html('<div style="text-align:center;padding:100px;color:red;">載入失敗：' + response.message + '</div>');
+            }
+        },
+        error: function () {
+            $('#serviceContent').html('<div style="text-align:center;padding:100px;color:red;">載入失敗，請稍後再試！</div>');
+        }
+    });
+}
 
         function renderServiceContent(data) {
             var html = '';
